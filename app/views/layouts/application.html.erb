@@ -18,12 +18,18 @@
       <%= link_to "需給管理システム", root_path, id: "logo" %>
       <nav>
         <ul class="nav navbar-nav navbar-right">
-          <li><%= link_to "会員登録",   '#' %></li>
+          <li><%= link_to "新規登録",   signup_path %></li>
           <li><%= link_to "ログイン",   '#' %></li>
         </ul>
       </nav>
     </div>
   </header>
+  <div class="container">
+    <% flash.each do |message_type, message| %>
+    <div class="alert alert-<%= message_type %>"><%= message %></div>
+    <% end %>
+  </div>
+
   <%= yield %>
 </body>
 
