@@ -64,6 +64,13 @@ p {
     border-color: #008784
 }
 
+.navbar-nav a{
+  color: #fff;
+  &:hover{
+    color: #000000;
+  }
+}
+
 #logo {
   float: left;
   margin-right: 10px;
@@ -89,7 +96,6 @@ p {
     margin-top: 30px;
     margin-bottom: 100px;
     font-size: 1.7em;
-
 }
 .btn-primary:hover, .btn-primary:focus,
 .btn-primary:active, .btn-primary:active:focus, .btn-primary:active:hover, .btn-primary:active.focus,
@@ -112,10 +118,6 @@ input, textarea, select, .uneditable-input {
 
 input {
   height: auto !important;
-}
-
-.form-container{
-  /*width: 25%;*/
 }
 
 .form-label{
