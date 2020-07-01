@@ -1,36 +1,13 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <title><%= full_title(yield(:title)) %></title>
-  <%= csrf_meta_tags %>
-  <%= stylesheet_link_tag    'application', media: 'all','data-turbolinks-track': 'reload' %>
-  <%= javascript_include_tag 'application','data-turbolinks-track': 'reload' %>
-  <!--[if lt IE 9]>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
-      </script>
-    <![endif]-->
-</head>
+<%= render 'layouts/head' %>
 
 <body>
-  <header class="navbar navbar-fixed-top navbar-custom ">
-    <div class="container">
-      <%= link_to "需給管理システム", root_path, id: "logo" %>
-      <nav>
-        <ul class="nav navbar-nav navbar-right">
-          <li><%= link_to "新規登録",   signup_path %></li>
-          <li><%= link_to "ログイン",   '#' %></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <div class="container">
-    <% flash.each do |message_type, message| %>
-    <div class="alert alert-<%= message_type %>"><%= message %></div>
-    <% end %>
-  </div>
-
+  <%= render 'layouts/header' %>
+  <%#= render 'layouts/flash_messages' %>
   <%= yield %>
+  <%= render 'layouts/flash_setting' %>
 </body>
 
 </html>

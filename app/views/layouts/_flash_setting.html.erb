@@ -1,0 +1,8 @@
+<% flash.each do |type, msg| %>
+<% type = 'info'    if type == 'notice' %>
+<% type = 'warning' if type == 'danger' %>
+<% type = 'error'   if type == 'alert'  %>
+<script>
+  toastr['<%= type %>']('<%= msg %>');
+</script>
+<% end %>
