@@ -58,6 +58,7 @@ p {
 }
 
 /* header */
+/* ログイン前 */
 .navbar-custom{
     background-color: #00ADA9;
     color:#fff;
@@ -85,6 +86,43 @@ p {
   color: #fff;
   text-decoration: none;
 }
+
+/* ログイン中 */
+.navbar-custom-loggedIn{
+  color: #000000;
+  background-color: #fff;
+}
+
+.navbar-loggedIn a{
+  color: #fff;
+  background-color: #000000;
+  &:hover{
+  background-color: #3f3f3f;
+  color: #000000;
+  }
+}
+
+#logout{
+  border-left: solid 1px #3f3f3f;
+}
+
+#logo-loggedIn {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: #000000;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+}
+
+#logo-loggedIn:hover {
+  color: #000000;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 
 /*btn*/
 
@@ -118,6 +156,15 @@ input, textarea, select, .uneditable-input {
 
 input {
   height: auto !important;
+}
+
+.form-message{
+  color: #fff;
+  a{
+    color: yellow;
+    font-weight: bold;
+    text-decoration:underline;
+  }
 }
 
 .form-label{

@@ -7,4 +7,5 @@ ja:
         name: ユーザー名
         email: メールアドレス
         password: パスワード
+        password_confirmation: パスワード（確認用）
         category: カテゴリー
