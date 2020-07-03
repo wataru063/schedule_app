@@ -5,6 +5,7 @@
 
 <body>
   <%= render 'layouts/header' %>
+  <%= render 'layouts/subheader' if logged_in? %>
   <%#= render 'layouts/flash_messages' %>
   <%= yield %>
   <%= render 'layouts/flash_setting' %>
