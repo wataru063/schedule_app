@@ -10,9 +10,12 @@
 }
 
 /* universal */
-
+html, body, .container {
+  height: 100%;
+}
 body {
   padding-top: 0px;
+  background-color: #00ADA9;
 }
 
 section {
@@ -29,6 +32,22 @@ textarea {
 
 .center h1 {
   margin-bottom: 10px;
+}
+
+.container{
+  background-color: #fff;
+  width: 90%;
+}
+
+.header-login-container{
+  background-color: #fff;
+  width: 90%;
+}
+
+.header-before-login-container{
+  background-color: none;
+  width :80%;
+  margin: 0 auto;
 }
 
 /* typography */
@@ -59,6 +78,10 @@ p {
 
 /* header */
 /* ログイン前 */
+.navbar{
+  position: relative;
+}
+
 .navbar-custom{
     background-color: #00ADA9;
     color:#fff;
@@ -67,6 +90,7 @@ p {
 
 .navbar-nav a{
   color: #fff;
+  padding-bottom: 0;
   &:hover{
     color: #000000;
   }
@@ -91,36 +115,109 @@ p {
 .navbar-custom-loggedIn{
   color: #000000;
   background-color: #fff;
+  width: 90%;
+  margin: 0 auto;
+  padding-bottom: 10px;
+  padding-left: 5%;
+  padding-right: 10%;
+}
+
+.navbar-loggedIn li{
+  float: left;
 }
 
 .navbar-loggedIn a{
   color: #fff;
+  font-size: 1.2em;
   background-color: #000000;
   &:hover{
-  background-color: #3f3f3f;
-  color: #000000;
+    background-color: #3f3f3f;
+    color: #000000;
   }
 }
-
+#user{
+  padding: 9px 13px;
+  border-radius: 0 0 0 18px / 0 0 0 18px ;
+  }
 #logout{
+  padding: 9px 13px;
+  border-radius: 0 0 18px 0 / 0 0 18px 0 ;
   border-left: solid 1px #3f3f3f;
 }
 
 #logo-loggedIn {
   float: left;
-  margin-right: 10px;
-  font-size: 1.7em;
+  font-size: 2.5em;
   color: #000000;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: -1px;
-  padding-top: 9px;
+  padding-top: 15px;
 }
 
 #logo-loggedIn:hover {
   color: #000000;
   font-weight: bold;
   text-decoration: none;
+}
+
+/* subheader */
+.subheader-bar{
+  position: absolute;
+  width: 100%;
+  background-color: #00ADA9;
+  padding: 10px 15px;
+}
+
+.subheader a{
+  color: black;
+}
+/* メニュー設置用スペース */
+.skinContentsArea{
+  padding-top:50px;
+  position:relative;
+}
+/* メニューエリア */
+#topmenu{
+  width:980px;     /* メニュー全体の幅 */
+  position:absolute;
+  margin:0;
+  padding:0;
+  top:0px;         /* 上下位置調整 */
+  left:0px;        /* 左右位置調整 */
+}
+/* メニューリストのグループ */
+#topmenu ul.menu{
+  margin:0;
+  padding:0;
+  list-style: none;
+}
+/* メニューリスト */
+#topmenu ul.menu li{
+  display:block;
+  float:left;
+  margin:0;
+  padding:0;
+  text-align:center;
+  width:196px;     /*ボタンの幅*/
+  line-height:40px; /*ボタンの高さ*/
+  background-color:#ff77dd;/*背景色(ピンク)*/
+}
+/* メニューリストのリンク */
+#topmenu ul.menu li a{  /*通常時*/
+  display:block;
+  font-size:14px; /*ボタンの文字サイズ*/
+  color:#000000;  /*文字色(黒)*/
+  font-weight:bold; /*太字*/
+  text-decoration:none;/*下線(なし)*/
+  background-color:#ff77dd;/*背景色(ピンク)*/
+}
+/* メニューリストのリンク（マウスオーバー時） */
+#topmenu ul.menu li a:hover{ /*カーソルが乗った時*/
+  color:#ffffff;    /*文字色(白)*/
+  font-weight:bold; /*太字*/
+  text-decoration:underline;/*下線(あり)*/
+  background-color:#698fff; /*背景色(薄い青)*/
 }
 
 
