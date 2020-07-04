@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class OilTest < ActiveSupport::TestCase
- def setup
+  def setup
     @oil = Oil.new(name: "テスト油")
   end
 
