@@ -8,7 +8,6 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'bootstrap-sass', '3.4.1'
 gem 'rails', '5.1.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.3.7'
@@ -31,6 +30,9 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+# add
+gem 'bootstrap-sass', '3.3.7'
+gem 'devise'
 gem 'jquery-rails', '4.3.1'
 gem 'rails-i18n'
 gem 'toastr-rails'
@@ -40,11 +42,11 @@ gem 'toastr-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'byebug', platforms: %i(mri mingw x64_mingw)
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
+  gem 'rspec-rails', '~> 3.6.0'
   gem 'selenium-webdriver'
-  gem 'sqlite3', '~> 1.3.7'
 end
 
 group :development do
@@ -52,7 +54,9 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'rubocop-airbnb'
   gem 'spring'
+  gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 group :test do
@@ -61,6 +65,7 @@ group :test do
   gem 'minitest',                 '5.10.3'
   gem 'minitest-reporters',       '1.1.14'
   gem 'rails-controller-testing', '1.0.2'
+  gem 'webdrivers'
 end
 
 group :production do
@@ -68,4 +73,4 @@ group :production do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'tzinfo-data', platforms: %i(mingw mswin x64_mingw jruby)

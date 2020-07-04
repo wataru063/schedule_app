@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class FacilityTest < ActiveSupport::TestCase
- def setup
+  def setup
     @facility = Facility.new(name: "テスト桟橋")
   end
 
