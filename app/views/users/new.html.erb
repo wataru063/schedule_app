@@ -22,8 +22,8 @@
         <%= f.password_field :password_confirmation, class: 'form-control' %>
 
         <div class=" form-group">
-          <%= f.label :category_id, 'カテゴリー', class:'form-label'%>
-          <%= f.collection_select :category_id, Category.all, :id, :name, {}, class: 'form-control' %>
+          <%= f.label :category_ids, 'カテゴリー', class:'form-label'%>
+          <%= f.collection_select :category_ids, Category.all, :id, :name, {}, class: 'form-control' %>
         </div>
 
         <%= f.submit "登録", class: "btn btn-primary" %>

@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
+  has_many :user_categories, foreign_key: "user_id", dependent: :destroy
+  has_many :categories, through: :user_categories
   before_save { self.email = email.downcase }
   validates :name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -8,7 +10,6 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
-  validates :category_id, presence: true
 
   def User.digest(string)
     if ActiveModel::SecurePassword.min_cost
@@ -35,5 +36,17 @@ class User < ApplicationRecord
 
   def remove_from_db
     update_attribute(:remember_digest, nil)
+  end
+
+  def add_category(category)
+    categories << category
+  end
+
+  def remove_category(current_category)
+    user_categories.find_by(category_id: current_category.id).destroy
+  end
+
+  def category?(category)
+    categories.include?(category)
   end
 end
