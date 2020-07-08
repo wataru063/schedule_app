@@ -1,7 +1,7 @@
 <% provide(:title, '新規登録') %>
 
 <div class=" jumbotron top">
-  <div class="container form-container before-login-container">
+  <div class="before-login-container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <h3 class='form-title center'>新規登録</h3>
@@ -22,8 +22,8 @@
         <%= f.password_field :password_confirmation, class: 'form-control' %>
 
         <div class=" form-group">
-          <%= f.label :category_ids, 'カテゴリー', class:'form-label'%>
-          <%= f.collection_select :category_ids, Category.all, :id, :name, {}, class: 'form-control' %>
+          <%= f.label :category_id, 'カテゴリー', class:'form-label'%>
+          <%= f.collection_select :category_id, Category.all, :id, :name, {}, class: 'form-control' %>
         </div>
 
         <%= f.submit "登録", class: "btn btn-primary" %>

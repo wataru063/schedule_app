@@ -5,7 +5,7 @@ class UserCategoryTest < ActiveSupport::TestCase
     @user = User.new(name: "Example User", email: "user@example.com",
                      password: "foobar", password_confirmation: "foobar")
     @user_category = UserCategory.new(user_id: users(:michael).id,
-                                           category_id: categories(:maintenance).id)
+                                      category_id: categories(:maintenance).id)
   end
 
   test "should be valid" do

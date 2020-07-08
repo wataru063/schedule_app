@@ -11,22 +11,22 @@ oils.each do |oil|
 end
 
 # users table setting
-User.create!(name:  "example",
-             email: "example@example.com",
-             password:              "example",
-             password_confirmation: "example",
-             category_id:1)
-9.times do |n|
-  name  = "example#{n+2}"
-  email = "example#{n+2}@example#{n+2}.com"
-  password = "example#{n+2}"
-  category = rand(4)
-  User.create!(name:  name,
-               email: email,
-               password:              password,
-               password_confirmation: password,
-               category_id:           category)
-end
+#User.create!(name:  "example",
+#             email: "example@example.com",
+#             password:              "example",
+#             password_confirmation: "example",
+#             category_id:1)
+#9.times do |n|
+#  name  = "example#{n+2}"
+#  email = "example#{n+2}@example#{n+2}.com"
+#  password = "example#{n+2}"
+#  category = rand(4)
+#  User.create!(name:  name,
+#               email: email,
+#               password:              password,
+#               password_confirmation: password,
+#               category_id:           category)
+#end
 
 # facilities table setting
 facilities = %w(第一桟橋 第二桟橋 第三桟橋 第四桟橋 第五桟橋 第六桟橋 第七桟橋 共同桟橋 陸上出荷設備 タンク車出荷設備)

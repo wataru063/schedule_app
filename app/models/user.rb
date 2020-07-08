@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
-  has_many :user_categories, foreign_key: "user_id", dependent: :destroy
-  has_many :categories, through: :user_categories
+  belongs_to :category, class_name: "Category"
   before_save { self.email = email.downcase }
   validates :name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
