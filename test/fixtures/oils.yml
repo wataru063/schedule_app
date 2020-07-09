@@ -1,7 +1,5 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+highoct:
+  name: ハイオク
 
-one:
-  name: MyString
-
-two:
-  name: MyString
+regular:
+  name: レギュラー

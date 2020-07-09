@@ -9,3 +9,5 @@ ja:
         password: パスワード
         password_confirmation: パスワード（確認用）
         category: カテゴリー
+      facility:
+        name: 設備名

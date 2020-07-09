@@ -1,0 +1,39 @@
+.title {
+  margin-top: 80px;
+  margin-left: 5%;
+  
+  h1{
+    font-weight: bold;
+  }
+}
+
+.facility-row{
+  margin-top: 80px;
+}
+
+.form-label-login{
+  font-size: 1.5em;
+  color: #00ADA9;
+}
+
+#input_plural {
+  margin: 10px 0;
+  vertical-align: center;
+}
+
+#input_plural select.form-control {
+  display: inline-block;
+  width: 75%;
+  height: 40px;
+  font-size: 14px;
+  margin-right: 20px;
+  color: #555;
+}
+
+#input_plural .pluralBtn {
+  display: inline-block;
+  background: #fff;
+  margin: 5px 10px 0 0 ;
+  vertical-align: center;
+  color: #00ADA9;
+}
