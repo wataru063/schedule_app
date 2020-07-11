@@ -12,18 +12,11 @@
 
       <%= f.label :name, '設備名', class:'form-label-login'%>
       <%= f.text_field :name, class: 'form-control' %>
-      <%= f.fields_for :relate_to_oils do |ff| %>
-      <div class=" form-group">
-        <%= ff.label :oil_id, '対応油種', class:'form-label-login'%>
-        <div id="input_pluralBox">
-          <div id="input_plural">
-            <%= ff.collection_select :oil_id, Oil.all, :id, :name, {}, class: 'form-control side' %>
-            <i class="add pluralBtn fas fa-2x fa-plus-circle side"></i>
-            <i class="del pluralBtn fas fa-2x fa-minus-circle side"></i>
-          </div>
-        </div>
+      <%= render 'form', f: f  %>
+      <div class="links">
+        <%= link_to_add_association '油種を追加', f, :relate_to_oils,
+            class: 'btn btn-default'%>
       </div>
-      <% end %>
 
       <%= f.submit "登録", class: "btn btn-primary" %>
       <% end %>
@@ -32,15 +25,3 @@
 </div>
 
 </div>
-
-<script type="text/javascript">
-  $(document).on("click", ".add", function() {
-    $(this).parent().clone(true).insertAfter($(this).parent());
-  });
-  $(document).on("click", ".del", function() {
-    var target = $(this).parent();
-    if (target.parent().children().length > 1) {
-      target.remove();
-    }
-  });
-</script>

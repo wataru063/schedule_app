@@ -1,0 +1,10 @@
+<div class="nested-fields">
+  <tr>
+    <td>
+      <%= f.collection_select :oil_id, Oil.all, :id, :name, {}, class: 'form-control' %>
+    </td>
+    <td>
+      <%= link_to_remove_association '削除', f, class: 'btn btn-default' %>
+    </td>
+  </tr>
+</div>

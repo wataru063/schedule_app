@@ -6,8 +6,6 @@ class FacilitiesController < ApplicationController
 
   def create
     @facility = Facility.new(facility_params)
-#    render plain: params.inspect
-#    render plain: params[:facility][:oil_ids].inspect
     if @facility.save
       flash[:success] = "#{@facility.name} を登録しました。"
       redirect_to facility_path
@@ -22,6 +20,6 @@ class FacilitiesController < ApplicationController
     def facility_params
       params.
         require(:facility).
-        permit(:name, relate_to_oils_attributes: [:facility_id, :oil_id])
+        permit(:name, relate_to_oils_attributes: [:facility_id, :oil_id, :id])
     end
 end

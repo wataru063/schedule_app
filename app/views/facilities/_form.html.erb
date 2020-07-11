@@ -1,0 +1,16 @@
+<%= f.fields_for :relate_to_oils do |ff| %>
+<div class=" form-group">
+  <%= ff.label :oil_id, '対応油種', class:'form-label-login'%>
+  <%= render "relate_to_oil_fields", f: ff %>
+</div>
+<% end %>
+
+<!--
+  <div id="input_pluralBox">
+    <div id="input_plural">
+      <%#= ff.collection_select :oil_id, Oil.all, :id, :name, {}, class: 'form-control side' %>
+      <i class="add pluralBtn fas fa-2x fa-plus-circle side"></i>
+      <i class="del pluralBtn fas fa-2x fa-minus-circle side"></i>
+    </div>
+  </div>
+-->

@@ -32,12 +32,12 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 # add
 gem 'bootstrap-sass', '3.3.7'
+gem 'cocoon'
 gem 'devise'
 gem 'font-awesome-sass', '~> 5.9.0'
 gem 'jquery-rails', '4.3.1'
 gem 'rails-i18n'
 gem 'toastr-rails'
-
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
