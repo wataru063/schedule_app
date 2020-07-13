@@ -1,7 +1,5 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+first:
+  name: 第一桟橋
 
-one:
-  name: MyString
-
-two:
-  name: MyString
+second:
+  name: 第二桟橋

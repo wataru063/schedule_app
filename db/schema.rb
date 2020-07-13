@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200706080938) do
+ActiveRecord::Schema.define(version: 20200711061247) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 20200706080938) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "facility_oils", force: :cascade do |t|
+    t.integer "facility_id"
+    t.integer "oil_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facility_id", "oil_id"], name: "index_facility_oils_on_facility_id_and_oil_id", unique: true
+    t.index ["facility_id"], name: "index_facility_oils_on_facility_id"
+    t.index ["oil_id"], name: "index_facility_oils_on_oil_id"
   end
 
   create_table "oils", force: :cascade do |t|

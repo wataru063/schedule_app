@@ -24,4 +24,15 @@ class FacilityTest < ActiveSupport::TestCase
     @facility.save
     assert_not duplicate_facility.valid?
   end
+
+  test "should relate and break_off a user" do
+    firstpier = facilities(:first)
+    highoct = oils(:highoct)
+    assert_not firstpier.oils?(highoct)
+    firstpier.relate(highoct)
+    assert firstpier.oils?(highoct)
+    assert highoct.facilities.include?(firstpier)
+    firstpier.break_off(highoct)
+    assert_not firstpier.oils?(highoct)
+  end
 end
