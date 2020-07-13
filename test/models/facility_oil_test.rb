@@ -9,14 +9,4 @@ class FacilityOilTest < ActiveSupport::TestCase
   test "should be valid" do
     assert @facility_oil.valid?
   end
-
-  test "should require a follower_id" do
-    @facility_oil.facility_id = nil
-    assert_not @facility_oil.valid?
-  end
-
-  test "should require a followed_id" do
-    @facility_oil.oil_id = nil
-    assert_not @facility_oil.valid?
-  end
 end

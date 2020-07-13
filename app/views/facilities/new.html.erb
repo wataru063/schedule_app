@@ -13,10 +13,6 @@
       <%= f.label :name, '設備名', class:'form-label-login'%>
       <%= f.text_field :name, class: 'form-control' %>
       <%= render 'form', f: f  %>
-      <div class="links">
-        <%= link_to_add_association '油種を追加', f, :relate_to_oils,
-            class: 'btn btn-default'%>
-      </div>
 
       <%= f.submit "登録", class: "btn btn-primary" %>
       <% end %>

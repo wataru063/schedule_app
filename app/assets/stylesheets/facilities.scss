@@ -37,3 +37,31 @@
   vertical-align: center;
   color: #00ADA9;
 }
+
+.facility-form-label{
+  position: relative;
+}
+
+.oil1, .oil-add{
+  position: absolute;
+  float: left;
+  width: 80%;
+}
+
+.adjust-btn{
+  color: #fff;
+  border-color: #fff;
+  background-color: #00ADA9;
+  width: 13%;
+  &:hover, &:focus,&:active,
+  &:active:focus, &:active:hover, &:active.focus,
+  &.active, &.active:focus, &.active:hover, &.active.focus{
+    background: #008784;
+    color: #fff;
+    border-color: #fff;
+  }
+}
+
+.nested-fields{
+  padding-top: 10px;
+}

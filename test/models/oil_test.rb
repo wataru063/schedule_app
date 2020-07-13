@@ -14,11 +14,6 @@ class OilTest < ActiveSupport::TestCase
     assert_not @oil.valid?
   end
 
-  test "name should not be too long" do
-    @oil.name = "a" * 51
-    assert_not @oil.valid?
-  end
-
   test "name should be unique" do
     duplicate_oil = @oil.dup
     @oil.save
