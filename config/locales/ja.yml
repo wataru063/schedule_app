@@ -11,3 +11,22 @@ ja:
         category: カテゴリー
       facility:
         name: 設備名
+      construction:
+        name: 工事名
+        status: 現状況
+        notice: 特記事項
+        facility_id: 制約が発生する設備名
+        oil_id: 制約が発生する油種名
+        category_id: カテゴリー名
+        user_id: 担当者名
+        start_at: 工事開始日時
+        end_at: 工事終了日時
+        start_at_date: 工事開始日時
+        end_at_date: 工事終了日時
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              format: '%{message}'
+              blank: 'パスワードは6文字以上で入力してください'

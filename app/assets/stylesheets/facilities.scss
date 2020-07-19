@@ -1,41 +1,5 @@
-.title {
-  margin-top: 80px;
-  margin-left: 5%;
-  
-  h1{
-    font-weight: bold;
-  }
-}
-
 .facility-row{
   margin-top: 80px;
-}
-
-.form-label-login{
-  font-size: 1.5em;
-  color: #00ADA9;
-}
-
-#input_plural {
-  margin: 10px 0;
-  vertical-align: center;
-}
-
-#input_plural select.form-control {
-  display: inline-block;
-  width: 75%;
-  height: 40px;
-  font-size: 14px;
-  margin-right: 20px;
-  color: #555;
-}
-
-#input_plural .pluralBtn {
-  display: inline-block;
-  background: #fff;
-  margin: 5px 10px 0 0 ;
-  vertical-align: center;
-  color: #00ADA9;
 }
 
 .facility-form-label{
@@ -48,11 +12,19 @@
   width: 80%;
 }
 
+.nested-fields{
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
 .adjust-btn{
   color: #fff;
   border-color: #fff;
   background-color: #00ADA9;
+  font-size: 1.2em;
   width: 13%;
+  height: 43px;
+  padding-top: 9px;
   &:hover, &:focus,&:active,
   &:active:focus, &:active:hover, &:active.focus,
   &.active, &.active:focus, &.active:hover, &.active.focus{
@@ -60,8 +32,4 @@
     color: #fff;
     border-color: #fff;
   }
-}
-
-.nested-fields{
-  padding-top: 10px;
 }

@@ -1,0 +1,48 @@
+.construction-row{
+  margin-top: 40px;
+}
+
+.row-construction-form{
+  display: block;
+  padding-left: 14%;
+  margin-bottom: 20px;
+}
+
+.time select{
+  display: inline-block;
+  width: 44%;
+  height: 43px;
+  padding: 0;
+  border: 2.4px #00ADA9 solid;
+  border-radius: 4px;
+}
+
+input[type="date"] {
+  padding: 0 10px;
+  font-size: 14px;
+  color: #999;
+}
+
+input[type="time"] {
+  padding: 0 10px;
+  font-size: 14px;
+  color: #999;
+}
+
+.dash{
+  margin: 0 auto;
+  text-align: center;
+}
+
+textarea{
+  height: 100px;
+}
+
+#construction_status{
+  height: 43px;
+  border: 2.4px #00ADA9 solid;
+  border-radius: 4px;
+  padding-left: 15px;
+  margin: 0;
+  color: rgb(87, 87, 87);
+}

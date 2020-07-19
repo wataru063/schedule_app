@@ -8,7 +8,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                          email: "user@invalid",
                                          password: "foo",
                                          password_confirmation: "bar",
-                                         category_id: 1 } }
+                                         category_id: " " } }
     end
     assert_template 'users/new'
     assert_select 'div#error_explanation'
