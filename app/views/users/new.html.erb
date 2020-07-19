@@ -6,7 +6,7 @@
       <div class="col-md-6 col-md-offset-3">
         <h3 class='form-title center'>新規登録</h3>
 
-        <%= form_for(@user, url: users_path) do |f| %>
+        <%= form_for(@user, url: signup_path) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
         <%= f.label :name, 'ユーザー名', class:'form-label'%>
@@ -23,7 +23,8 @@
 
         <div class=" form-group">
           <%= f.label :category_id, 'カテゴリー', class:'form-label'%>
-          <%= f.collection_select :category_id, Category.all, :id, :name, {}, class: 'form-control' %>
+          <%= f.collection_select :category_id, Category.all, :id, :name,
+                                  {include_blank: "-- 選択してください --"}, class: 'form-control' %>
         </div>
 
         <%= f.submit "登録", class: "btn btn-primary" %>

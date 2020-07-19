@@ -9,4 +9,5 @@ maintenance:
 
 
 inspection:
+  id: 2
   name: Equipment Inspection

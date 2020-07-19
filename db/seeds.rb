@@ -11,15 +11,15 @@ oils.each do |oil|
 end
 
 # users table setting
-User.create!(name:  "test",
-             email: "test@test.com",
-             password:              "test",
-             password_confirmation: "test",
+User.create!(name:  "test00",
+             email: "test00@test00.com",
+             password:              "test00",
+             password_confirmation: "test00",
              category_id:1)
 9.times do |n|
-  name  = "test#{n+2}"
-  email = "test#{n+2}@test#{n+2}.com"
-  password = "test#{n+2}"
+  name  = "test0#{n+1}"
+  email = "test0#{n+1}@test0#{n+1}.com"
+  password = "test0#{n+1}"
   category = rand(1..5)
   User.create!(name:  name,
                email: email,
