@@ -1,4 +1,5 @@
 class Category < ApplicationRecord
-  has_many :user, class_name: "User"
+  has_many :users, class_name: "User"
+  has_many :constructions, class_name: "Construction"
   validates :name, presence: true
 end

@@ -3,7 +3,7 @@
 <div class="container">
   <h1 class="title">工事登録</h1>
   <div class="row construction-row">
-    <%= form_for(@construction, url: construction_path) do |f| %>
+    <%= form_for(@construction, url: new_construction_path) do |f| %>
     <div class="col-sm-6 col-sm-offset-3">
       <%= render 'shared/error_messages', object: f.object %>
     </div>
@@ -15,7 +15,7 @@
         <%= f.text_field :name, class: 'form-control' %>
 
         <div class=" form-group select">
-          <%= f.label :status, '設備制約', class:'form-label-login'%>
+          <%= f.label :status, '現状況', class:'form-label-login'%>
           <%= f.select :status, options_for_select([['実行検討中'], ['工事準備中']]), id: 'construction_status' %>
         </div>
 
@@ -74,7 +74,7 @@
       </div>
     </div>
 
-    <%= f.submit "登録", class: "btn btn-primary col-sm-6 col-sm-offset-3" %>
+    <%= f.submit "登録", class: "btn btn-loggedIn col-sm-6 col-sm-offset-3" %>
     <% end %>
   </div>
 </div>

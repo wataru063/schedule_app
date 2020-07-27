@@ -20,6 +20,8 @@ class ConstructionTest < ActiveSupport::TestCase
   end
 
   test "should be valid" do
+    p @construction.errors.full_messages.present? ? @construction.errors.full_messages : @construction
+    p @construction.valid?
     assert @construction.valid?
   end
 

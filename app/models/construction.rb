@@ -1,5 +1,9 @@
 class Construction < ApplicationRecord
   attr_accessor :start_at_date, :end_at_date
+  belongs_to :facility, class_name: "Facility", optional: true
+  belongs_to :oil, class_name: "Oil", optional: true
+  belongs_to :category, class_name: "Category", optional: true
+  belongs_to :user, class_name: "User", optional: true
   validates :name,     presence: true
   validates :status,   presence: true
   validates :oil_id,   presence: true
@@ -24,5 +28,29 @@ class Construction < ApplicationRecord
     if start_at.present? && end_at.present? && end_at_date.present? && end_at < start_at
       errors.add(:end_at, "は工事開始日時より前に設定できません")
     end
+  end
+
+  # custom validation definition
+  def self.search(params)
+    status = params[:status]
+    facility_id = params[:facility_id]
+    oil_id = params[:oil_id]
+    start_at_date = params[:start_at_date]
+    end_at_date = params[:end_at_date]
+    if start_at_date.present?
+      start_at = Date.new(params["start_at(1i)"].to_i, params["start_at(2i)"].to_i,
+                          params["start_at(3i)"].to_i)
+    end
+    if end_at_date.present?
+      end_at = Date.new(params["end_at(1i)"].to_i, params["end_at(2i)"].to_i,
+                        params["end_at(3i)"].to_i)
+    end
+    @construction = Construction.all
+    @construction = @construction.where(status: status) if status.present?
+    @construction = @construction.where(facility_id: facility_id) if facility_id.present?
+    @construction = @construction.where(oil_id: oil_id) if oil_id.present?
+    @construction = @construction.where("start_at >= ?", start_at) if start_at.present?
+    @construction = @construction.where("end_at <= ?", end_at) if end_at.present?
+    @construction
   end
 end
