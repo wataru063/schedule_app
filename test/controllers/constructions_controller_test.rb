@@ -5,7 +5,7 @@ class ConstructionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get construction_path(@user)
+    get new_construction_path(@user)
     assert_response :success
     assert_select "title", "工事登録 | 需給管理システム"
   end

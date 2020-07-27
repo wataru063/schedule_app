@@ -16,7 +16,7 @@ html, body, .container {
   height: 100%;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1025px) {
 html, body, .container {
   height: 1000px;
 }
@@ -203,13 +203,21 @@ p {
 }
 
 /* btn */
+.btn{
+  border: none;
+  &:active,&.active &:hover, &:focus,
+  &:active:focus, &:active:hover, &:active.focus,
+  &.active:focus, &.active:hover, &.active.focus{
+    border: none;
+  }
+}
+
 .btn-primary{
   background-color: #00ADA9;
   color:#fff;
   border-color: #fff;
   font-weight: bold;
   margin-top: 30px;
-  margin-bottom: 80px;
   font-size: 1.7em;
   height: auto !important;
 }
@@ -269,6 +277,32 @@ input {
   }
 }
 
+.btn-loggedIn{
+  background-color: #00ADA9;
+  color:#fff;
+  border: none;
+  font-weight: bold;
+  margin-top: 30px;
+  font-size: 1.7em;
+  height: auto !important;
+  box-shadow : 0 3px #666666;
+  &:active,
+  &.active{
+    background: #008784;
+    border: none;
+    color: #fff;
+    position:relative;
+    top:3px;
+  }
+  &:hover, &:focus,
+  &:active:focus, &:active:hover, &:active.focus,
+  &.active:focus, &.active:hover, &.active.focus{
+    background: #00ADA9;
+    color: #fff;
+    border: none;
+  }
+}
+
 /* error messages */
 #error_explanation {
   font-size: 1.1em;
@@ -294,7 +328,69 @@ input {
 
 /* title */
 .title {
+  display: inline-block;
   margin-top: 80px;
   margin-left: 5%;
-    font-weight: bold;
+  font-weight: bold;
+}
+
+/* pagination */
+.pagination{
+  float: right;
+  margin: 5px;
+}
+
+.pagination .active a {
+  border-radius: 40px;
+}
+
+.pagination li a:hover {
+  color: #fff;
+  background-color: #00ADA9;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus{
+  color: #fff;
+  background-color: #00ADA9;
+  border-color: #00ADA9;
+}
+
+.pagination > li > a{
+  color: #000000;
+}
+
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus{
+  color: #dddddd;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th {
+  line-height: 20px;
+  text-align: center;
+  border-top-style:none;
+}
+
+.table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  line-height: 20px;
+  padding: 20px 2px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.table{
+  width: 95%;
+  margin: 0 auto;
+}
+
+button {
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: none;
 }

@@ -1,25 +1,32 @@
 class ConstructionsController < ApplicationController
+  def index
+    reset_params("start")     if params[:start_at_date].blank?
+    reset_params("end")       if params[:end_at_date].blank?
+    set_time(params, "start") if params[:start_at_date].present?
+    set_time(params, "end")   if params[:end_at_date].present?
+    sort_column = params[:column].presence || 'start_at'
+    @construction = Construction.search(search_params)
+                                .order(sort_column + ' ' + sort_direction)
+                                .paginate(page: params[:page], per_page: 7)
+    @search_params = search_params
+    if params[:export_csv]
+      @construction_csv = Construction.search(search_params)
+                                      .order(sort_column + ' ' + sort_direction)
+      send_data to_csv(@construction_csv), filename: "#{Time.current.strftime('%Y%m%d')}工事一覧.csv"
+    end
+  end
+
   def new
     @construction = Construction.new
   end
 
   def create
-    if params[:construction][:start_at_date].present?
-      start_date = params[:construction][:start_at_date].split("-")
-      params[:construction]["start_at(1i)"] = start_date[0]
-      params[:construction]["start_at(2i)"] = start_date[1]
-      params[:construction]["start_at(3i)"] = start_date[2]
-    end
-    if params[:construction][:end_at_date].present?
-      end_date = params[:construction][:end_at_date].split("-")
-      params[:construction]["end_at(1i)"] = end_date[0]
-      params[:construction]["end_at(2i)"] = end_date[1]
-      params[:construction]["end_at(3i)"] = end_date[2]
-    end
+    set_time(params[:construction], "start")
+    set_time(params[:construction], "end")
     @construction = Construction.new(construction_params)
     if @construction.save
       flash[:success] = "#{@construction.name} を登録しました。"
-      redirect_to construction_path
+      redirect_to new_construction_path
     else
       render :new
     end
@@ -32,5 +39,17 @@ class ConstructionsController < ApplicationController
       require(:construction).
       permit(:name, :status, :notice, :facility_id, :oil_id, :category_id, :user_id,
              :start_at, :end_at, :start_at_date, :end_at_date)
+  end
+
+  def search_params
+    params.permit(:id, :status, :facility_id, :oil_id, :start_at, :end_at,
+                  :start_at_date, :end_at_date)
+  end
+
+  def reset_params(period)
+    3.times do |n|
+      n += 1
+      params["#{period}_at(#{n}i)"] = ""
+    end
   end
 end

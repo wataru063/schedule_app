@@ -14,7 +14,7 @@ class FacilitiesController < ApplicationController
     #   end
     if @facility.save
       flash[:success] = "#{@facility.name} を登録しました。"
-      redirect_to facility_path
+      redirect_to @facility
     else
       render :new
     end

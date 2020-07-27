@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
+  has_many :constructions, class_name: "Construction"
   belongs_to :category, class_name: "Category"
   before_save { self.email = email.downcase }
   validates :name,  presence: true, length: { maximum: 50 }

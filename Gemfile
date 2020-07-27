@@ -32,12 +32,15 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 # add
 gem 'bootstrap-sass', '3.3.7'
+gem 'bootstrap-will_paginate', '1.0.0'
 gem 'cocoon'
 # gem 'devise'
+gem 'faker', '1.7.3'
 # gem 'font-awesome-sass', '~> 5.9.0'
 gem 'jquery-rails', '4.3.1'
 gem 'rails-i18n'
 gem 'toastr-rails'
+gem 'will_paginate', '3.1.6'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

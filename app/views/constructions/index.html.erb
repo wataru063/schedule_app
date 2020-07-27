@@ -1,0 +1,74 @@
+<% provide(:title, '工事一覧') %>
+
+<div class="container">
+  <h1 class="title title-const-index">工事一覧</h1>
+  <div class=" constructions-container">
+    <table class="table table-hover">
+      <%= form_with url: constructions_path, method: :get, local: true do |f| %>
+      <%= f.button class: 'btn-index', id:'download-csv', name: 'export_csv' do %>
+      CSV出力
+      <% end %>
+      <thead>
+        <th>工事名</th>
+        <th>
+          <%= f.select :status, options_for_select([["実行検討中"], ["工事準備中"], ["工事中"], ["工事完了"]]),{include_blank: true, selected: "実行検討中"}, class:"index-search" %><br>
+          現状況
+          <%= sort_asc('status', @search_params) %>
+          <%= sort_desc('status', @search_params) %>
+        </th>
+        <th>
+          <%= f.collection_select :facility_id, Facility.all,:id, :name,{include_blank: true, selected: @search_params[:facility_id].to_i}, class:"index-search" %><br>
+          制約設備
+          <%= sort_asc('facility_id', @search_params) %>
+          <%= sort_desc('facility_id', @search_params) %>
+        </th>
+        <th>
+          <%= f.collection_select :oil_id, Oil.all, :id, :name, {include_blank: true, selected: @search_params[:oil_id].to_i}, class:"index-search" %><br>
+          制約油種
+          <%= sort_asc('oil_id', @search_params) %>
+          <%= sort_desc('oil_id', @search_params) %>
+        </th>
+        <th>
+          <input type="date" value="<%= @search_params[:start_at_date] %>" name="start_at_date" class="index-search-time">
+          <%= f.date_select :start_at, discard_year: true, discard_month: true, discard_day: true %> <br>
+          工事開始日時
+          <%= sort_asc('start_at', @search_params) %>
+          <%= sort_desc('start_at', @search_params) %>
+        </th>
+        <th>
+          <input type="date" value="<%= @search_params[:end_at_date] %>" name="end_at_date" class="index-search-time">
+          <%= f.date_select :end_at, discard_year: true, discard_month: true, discard_day: true %>
+          <br>
+          工事終了日時
+          <%= sort_asc('end_at', @search_params) %>
+          <%= sort_desc('end_at', @search_params) %>
+        </th>
+        <th>
+          <%= f.submit '検索', class: 'btn-search search' %><br>
+          特記事項
+        </th>
+      </thead>
+      <% end %>
+
+      <% @construction.each do |construction| %>
+      <tr>
+        <td style="width:28%"><%= link_to construction.name, construction %></td>
+        <td style="width:12%"><%= construction.status %></td>
+        <td style="width:15%">
+          <% if construction.facility_id.present? %>
+          <%= construction.facility.name%>
+          <% else %>
+          ―
+          <% end %>
+        </td>
+        <td style="width:15%"><%= construction.oil.name %></td>
+        <td style="width:7%"><%= construction.start_at.strftime("%Y/%m/%d/%H:%M") %></td>
+        <td style="width:7%"><%= construction.end_at.strftime("%Y/%m/%d/%H:%M") %></td>
+        <td style="width:15% "><%= construction.notice %></td>
+      </tr>
+  </div>
+  <% end %>
+  </table>
+  <%= will_paginate @construction, previous_label: '&#8592; &nbsp;前', next_label: '次 &#8594;'%>
+</div>
+</div>
