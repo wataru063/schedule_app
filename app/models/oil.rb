@@ -3,5 +3,6 @@ class Oil < ApplicationRecord
                                   foreign_key: "oil_id", dependent: :destroy
   has_many :facilities, through: :relate_to_facilities
   has_many :constructions, class_name: "Construction"
+  has_many :orders, class_name: "Order"
   validates :name, presence: true, uniqueness: true
 end

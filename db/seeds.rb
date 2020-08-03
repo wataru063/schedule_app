@@ -5,7 +5,7 @@ categories.each do |category|
 end
 
 # oils
-oils = %w(ハイオク レギュラー ガソリン半製品 ライトナフサ 灯油 軽油 低硫黄A重油 A重油 C重油 ベンゼン キシレン プロピレン ブチレン・ブタン 低温プロパン 低温ブタン JET)
+oils = %w(原油 ガソリン ガソリン半製品 ライトナフサ 灯油 軽油 低硫黄A重油 A重油 C重油 プロピレン ベンゼン キシレン ブチレン・ブタン 低温プロパン 低温ブタン JET)
 oils.each do |oil|
   Oil.create!(name: oil)
 end
@@ -16,9 +16,9 @@ User.create!(name:  "マスター",
              password:              "master",
              password_confirmation: "master",
              category_id:1)
-29.times do |n|
+19.times do |n|
   name  = Faker::Name.name
-  email = "test0#{n+1}@test0#{n+1}.com"
+  email = Faker::Internet.email
   password = "test0#{n+1}"
   category = rand(1..5)
   User.create!(name:  name,
@@ -48,24 +48,28 @@ end
 
 # construction
 notices = ["工程内で制約日程は調整可能", "工事中は桟橋クローズ", "足場組立て期間のみ桟橋クローズ", "", ""]
-100.times do |n|
+50.times do |n|
   m  = rand(1..8)
   mm = rand(2..8)
-  start_at = Time.now.since(mm.month + mm.days)
-  end_at   = start_at.since(mm.days)
-  user     = User.find(rand(1..29))
+  d  = rand(1..8)
+  h  = rand(8..16)
+  dh = rand(0..3)
+  start_at = Time.now.midnight.since(mm.month + d.days + h.hour)
+  end_at   = start_at.since(d.days + dh.hour)
+  user     = User.find(rand(1..19))
   status = m < 3 ? "工事準備中" : "実行検討中"
   notice = notices[rand(0..2)] if m > 4
   facility = Facility.find(rand(1..Facility.count-1))
-  oil = facility.oils[rand(1..facility.oils.count-1)]
-  facility_id = facility.id
+  oil = facility.oils[rand(0..facility.oils.count-1)]
   oil_id = oil.id
   user_id = user.id
   category_id = user.category_id
   if m % 2 == 0
     name = "#{facility.name}#{oil.name}配管補修工事"
+    facility_id = facility.id
   else
     name = "タンクヤード内#{oil.name}配管補修工事"
+    facility_id = ""
   end
   construction = Construction.create!(name: name,
                                       status: status,
@@ -77,19 +81,107 @@ notices = ["工程内で制約日程は調整可能", "工事中は桟橋クロ�
                                       end_at: end_at,
                                       start_at_date: start_at,
                                       end_at_date: end_at,
-                                      notice: notice
-                                     )
-  if n % 4 == 0
-    start_at = Time.now.ago(1.days)
-    end_at   = start_at.since(mm.days)
+                                      notice: notice)
+  if n % 11 == 0
+    start_at = Time.now.midnight.ago(rand(1..4).days + h.hour)
+    end_at   = start_at.since(d.days + dh.hour)
     construction.update_attribute(:start_at, start_at)
     construction.update_attribute(:end_at, end_at)
-    construction.update_attribute(:status, "工事中")
-  elsif n % 3 == 0
-    start_at = Time.now.ago(10.days)
-    end_at   = start_at.since(mm.days)
-    construction.update_attribute(:start_at, start_at)
-    construction.update_attribute(:end_at, end_at)
-    construction.update_attribute(:status, "工事完了")
+    if end_at < Time.now
+      construction.update_attribute(:status, "工事完了")
+    else
+      construction.update_attribute(:status, "工事中")
+    end
+  end
+end
+
+#order
+90.times do |n|
+  m  = rand(1..60)
+  d  = rand(1..8)
+  h  = rand(9..15)
+  arrive_at = Time.now.midnight.since(n.days + h.hour)
+  user     = User.find(rand(1..19))
+  facility = Facility.find(rand(1..Facility.count-1))
+  oil = facility.oils[rand(0..facility.oils.count-1)]
+  facility_id = facility.id
+  oil_id = oil.id
+  shipment = rand(1..100) % 2 == 0 && oil_id != 1 ? "入荷" : "出荷"
+  quantity = m * 100
+  user_id = user.id
+
+  if oil_id == 11 || oil_id == 12 || oil_id == 14 || oil_id == 15
+    unit = "t"
+  else
+    unit = "kL"
+  end
+
+  if oil_id == 1
+    company_name = Faker::Lorem.word + " " + Faker::Lorem.word
+    name = Faker::Lorem.word + " " + Faker::Lorem.word
+  elsif m % 3 == 0
+    state_name = Faker::Address.state
+    company_name = state_name + "事業所"
+    name = state_name + "丸"
+  else
+    name = Faker::Name.last_name + Faker::Company.category
+    name = Faker::Address.state + "丸"
+  end
+  order_1 = Order.new(name: name,
+                       shipment: shipment,
+                       company_name: company_name,
+                       quantity: quantity,
+                       unit: unit,
+                       facility_id: facility_id,
+                       oil_id: oil_id,
+                       user_id: user_id,
+                       arrive_at: arrive_at,
+                       arrive_at_date: arrive_at)
+  if order_1.save
+  else
+  end
+
+  m  = rand(1..60)
+  d  = rand(1..8)
+  h  = rand(9..15)
+  arrive_at = Time.now.midnight.since(n.days + h.hour)
+  user     = User.find(rand(1..19))
+  facility = Facility.find(rand(1..Facility.count-1))
+  oil = facility.oils[rand(0..facility.oils.count-1)]
+  facility_id = facility.id
+  oil_id = oil.id
+  shipment = rand(1..100) % 2 == 0 && oil_id != 1 ? "入荷" : "出荷"
+  quantity = m * 100
+  user_id = user.id
+
+  if oil_id == 11 || oil_id == 12 || oil_id == 14 || oil_id == 15
+    unit = "t"
+  else
+    unit = "kL"
+  end
+
+  if oil_id == 1
+    company_name = Faker::Lorem.word + " " + Faker::Lorem.word
+    name = Faker::Lorem.word + " " + Faker::Lorem.word
+  elsif m % 3 == 0
+    state_name = Faker::Address.state
+    company_name = state_name + "事業所"
+    name = state_name + "丸"
+  else
+    company_name = Faker::Name.last_name + Faker::Company.category
+    name = Faker::Address.state + "丸"
+  end
+  order_2 = Order.new(name: name,
+                       shipment: shipment,
+                       company_name: company_name,
+                       quantity: quantity,
+                       unit: unit,
+                       facility_id: facility_id,
+                       oil_id: oil_id,
+                       user_id: user_id,
+                       arrive_at: arrive_at,
+                       arrive_at_date: arrive_at)
+  if order_2.save
+  else
   end
 end

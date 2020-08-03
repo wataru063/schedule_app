@@ -3,6 +3,7 @@ require 'test_helper'
 class ConstructionRegisterTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:michael)
+    log_in_as @user
     start_day = Time.current.since(3.month).day.to_s
     start_month = Time.current.since(3.month).month.to_s
     start_year = Time.current.since(3.month).year.to_s

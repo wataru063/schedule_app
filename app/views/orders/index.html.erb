@@ -1,0 +1,151 @@
+<% provide(:title, 'オーダー一覧') %>
+<script>
+  function btn_click() {
+    window.location.delay(1000).reload();
+  };
+  });
+</script>
+
+<div class="container">
+  <h1 class="title title-const-index">オーダー一覧</h1>
+  <div class="orders-container">
+    <%= form_with url: orders_path, method: :get, local: true do |f| %>
+    <table class="table table-hover">
+      <thead>
+        <th>
+          <select name="name" class="index-search">
+            <!-- TODO リファクタリング -->
+            <option value=""></option>
+            <% Order.select(:name).distinct.each do |o| %>
+            <% if o.name == @search_params[:name] %>
+            <option value="<%= o.name %>" selected>
+              <% else %>
+            <option value="<%= o.name %>">
+              <% end %>
+              <%= o.name %>
+            </option>
+            <% end %>
+          </select>
+          <br>
+          船名
+          <%= sort_asc('name', @search_params) %>
+          <%= sort_desc('name', @search_params) %>
+        </th>
+        <th>
+          <select name="company_name" class="index-search">
+            <!-- TODO リファクタリング -->
+            <option value=""></option>
+            <% Order.select(:company_name).distinct.each do |o| %>
+            <% if o.company_name == @search_params[:company_name] %>
+            <option value="<%= o.company_name %>" selected>
+              <% else %>
+            <option value="<%= o.company_name %>">
+              <% end %>
+              <%= o.company_name %>
+            </option>
+            <% end %>
+          </select>
+          <br>
+          会社名
+          <%= sort_asc('company_name', @search_params) %>
+          <%= sort_desc('company_name', @search_params) %>
+        </th>
+        <th>
+          <select name="shipment" class="index-search">
+            <!-- TODO リファクタリング -->
+            <option value=""></option>
+            <% ["入荷", "出荷"].each do |o| %>
+            <% if o == @search_params[:shipment] %>
+            <option value="<%= o %>" selected>
+              <% else %>
+            <option value="<%= o %>">
+              <% end %>
+              <%= o %>
+            </option>
+            <% end %>
+          </select>
+          <br>
+          入出荷
+          <%= sort_asc('shipment', @search_params) %>
+          <%= sort_desc('shipment', @search_params) %>
+        </th>
+        <th>
+          <select name="facility_id" class="index-search">
+            <!-- TODO リファクタリング -->
+            <option value=""></option>
+            <% Order.select(:facility_id).distinct.each do |c| %>
+            <% if c.facility.id == @search_params[:facility_id].to_i %>
+            <option value="<%= c.facility.id %>" selected>
+              <% else %>
+            <option value="<%= c.facility.id %>">
+              <% end %>
+              <%= c.facility.name %>
+            </option>
+            <% end %>
+          </select>
+          <br>
+          対象設備
+          <%= sort_asc('facility_id', @search_params) %>
+          <%= sort_desc('facility_id', @search_params) %>
+        </th>
+        <th>
+          <select name="oil_id" class="index-search">
+            <!-- TODO リファクタリング -->
+            <option value=""></option>
+            <% Order.select(:oil_id).distinct.each do |c| %>
+            <% if c.oil.id == @search_params[:oil_id].to_i %>
+            <option value="<%= c.oil.id %>" selected>
+              <% else %>
+            <option value="<%= c.oil.id %>">
+              <% end %>
+              <%= c.oil.name %>
+            </option>
+            <% end %>
+          </select>
+          <br>
+          油種
+          <%= sort_asc('oil_id', @search_params) %>
+          <%= sort_desc('oil_id', @search_params) %>
+        </th>
+        <th>
+          <input type="date" name="arrive_at_date" class="index-search-time">
+          <%= f.date_select :arrive_at, discard_year: true, discard_month: true, discard_day: true %>
+          <br>
+          荷役作業日時
+          <%= sort_asc('arrive_at', @search_params) %>
+          <%= sort_desc('arrive_at', @search_params) %>
+        </th>
+        <th>
+          <!-- TODO リロードさせる -->
+          <button onclick="btn_click()" name="export_csv" type="submit" class="btn-search csv" id="download-csv">
+            CSV出力
+          </button>
+          <br> <br>
+          <%= f.submit '検索', class: 'btn-search search' %>
+          <br>
+          数量
+          <%= sort_asc('quantity', @search_params) %>
+          <%= sort_desc('quantity', @search_params) %>
+        </th>
+      </thead>
+
+      <% @order.each do |order| %>
+      <tr>
+        <td style="width:15%"><%= link_to order.name, order %></td>
+        <td style="width:15%"><%= order.company_name %></td>
+        <td style="width:10%"><%= order.shipment %></td>
+        <td style="width:12%"><%= order.facility.name%></td>
+        <td style="width:14%"><%= order.oil.name %></td>
+        <td style="width:10%">
+          <%= order.arrive_at.strftime("%Y/%m/%d") %><br>
+          <%= order.arrive_at.strftime("%H:%M") %>
+        </td>
+        <td style="width:8%"><%= order.quantity %> <%= order.unit %></td>
+      </tr>
+      <% end %>
+  </div>
+  </table>
+  <% end %>
+
+  <%= will_paginate @order, previous_label: '&#8592; &nbsp;前', next_label: '次 &#8594;'%>
+</div>

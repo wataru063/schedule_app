@@ -1,0 +1,10 @@
+Nihonmaru:
+  name: 日本丸
+  shipment: 出荷
+  company_name: 日本株式会社
+  facility_id: 1
+  oil_id: 1
+  unit: kL
+  user_id: 1
+  quantity: 100
+  arrive_at: <%= Time.current.since(4.day) %>
