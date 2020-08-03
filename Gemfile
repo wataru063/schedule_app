@@ -63,6 +63,7 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem "rails-erd"
 end
 group :test do
   gem 'guard',                    '2.16.2'

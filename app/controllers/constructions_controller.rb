@@ -1,18 +1,19 @@
 class ConstructionsController < ApplicationController
   def index
+    @status = %w(実行検討中 工事準備中 工事中 工事完了)
     reset_params("start")     if params[:start_at_date].blank?
     reset_params("end")       if params[:end_at_date].blank?
     set_time(params, "start") if params[:start_at_date].present?
     set_time(params, "end")   if params[:end_at_date].present?
     sort_column = params[:column].presence || 'start_at'
-    @construction = Construction.search(search_params)
-                                .order(sort_column + ' ' + sort_direction)
-                                .paginate(page: params[:page], per_page: 7)
+    @construction = Construction.search(search_params).
+      order(sort_column + ' ' + sort_direction).
+      paginate(page: params[:page], per_page: 7)
     @search_params = search_params
     if params[:export_csv]
-      @construction_csv = Construction.search(search_params)
-                                      .order(sort_column + ' ' + sort_direction)
-      send_data to_csv(@construction_csv), filename: "#{Time.current.strftime('%Y%m%d')}工事一覧.csv"
+      @construction_csv = Construction.search(search_params).
+        order(sort_column + ' ' + sort_direction)
+      send_data to_csv_construction(@construction_csv), filename: "#{Time.current.strftime('%Y%m%d')}工事一覧.csv"
     end
   end
 
@@ -44,12 +45,5 @@ class ConstructionsController < ApplicationController
   def search_params
     params.permit(:id, :status, :facility_id, :oil_id, :start_at, :end_at,
                   :start_at_date, :end_at_date)
-  end
-
-  def reset_params(period)
-    3.times do |n|
-      n += 1
-      params["#{period}_at(#{n}i)"] = ""
-    end
   end
 end

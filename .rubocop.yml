@@ -39,3 +39,7 @@ Rails/HelperInstanceVariable:
 
 Layout/FirstArrayElementLineBreak:
   Enabled: false
+
+Airbnb/RiskyActiverecordInvocation:
+  Enabled: false
+

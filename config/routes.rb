@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-
   root   'home#top'
+
+  get    '/:category_id/order/oil', to: 'orders#oil', as: 'order_oil'
+  get    '/:category_id/order', to: 'orders#new', as: 'new_order'
+  post   '/:category_id/order', to: 'orders#create'
+  resources :orders, except: [:new, :create]
 
   get    '/:category_id/construction', to: 'constructions#new', as: 'new_construction'
   post   '/:category_id/construction', to: 'constructions#create'

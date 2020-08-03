@@ -179,12 +179,12 @@ p {
 #subheader ul.menu li{
   display:inline-block;
   text-align:center;
-  width:196px;
+  width:180px;
   line-height:40px;
 }
 @media all and (max-width: 1250px) {
 #subheader ul.menu li{
-  width:160px;
+  width:135px;
 }
 }
 /* メニューリストのリンク */
@@ -251,6 +251,10 @@ input {
   border: 2.4px #00ADA9 solid;
 }
 
+.form-group{
+  margin: 0;
+}
+
 .form-label{
   color: #fff;
 }
@@ -283,6 +287,7 @@ input {
   border: none;
   font-weight: bold;
   margin-top: 30px;
+  margin-bottom: 80px;
   font-size: 1.7em;
   height: auto !important;
   box-shadow : 0 3px #666666;
@@ -375,8 +380,9 @@ input {
 
 .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
   line-height: 20px;
-  padding: 20px 2px;
+  padding: 10px 2px;
   text-align: center;
+  vertical-align: middle;
   overflow: hidden;
 }
 
