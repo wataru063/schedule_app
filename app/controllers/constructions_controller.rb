@@ -56,5 +56,7 @@ class ConstructionsController < ApplicationController
 
   def set_select_params
     @status = Status.all
+    @facility_id = Construction.select(:facility_id).distinct
+    @oil_id = Construction.select(:oil_id).distinct
   end
 end

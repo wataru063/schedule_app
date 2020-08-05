@@ -8,9 +8,8 @@
       <thead>
         <th>
           <select name="name" class="index-search">
-            <!-- TODO リファクタリング -->
             <option value=""></option>
-            <% Order.select(:name).distinct.each do |o| %>
+            <% @name.each do |o| %>
             <% if o.name == @search_params[:name] %>
             <option value="<%= o.name %>" selected>
               <% else %>
@@ -27,9 +26,8 @@
         </th>
         <th>
           <select name="company_name" class="index-search">
-            <!-- TODO リファクタリング -->
             <option value=""></option>
-            <% Order.select(:company_name).distinct.each do |o| %>
+            <% @company_name.each do |o| %>
             <% if o.company_name == @search_params[:company_name] %>
             <option value="<%= o.company_name %>" selected>
               <% else %>
@@ -46,7 +44,6 @@
         </th>
         <th>
           <select name="shipment" class="index-search">
-            <!-- TODO リファクタリング -->
             <option value=""></option>
             <% @shipment.each do |s| %>
             <% if s.id == @search_params[:shipment].to_i %>
@@ -65,9 +62,8 @@
         </th>
         <th>
           <select name="facility_id" class="index-search">
-            <!-- TODO リファクタリング -->
             <option value=""></option>
-            <% Order.select(:facility_id).distinct.each do |c| %>
+            <% @facility_id.each do |c| %>
             <% if c.facility.id == @search_params[:facility_id].to_i %>
             <option value="<%= c.facility.id %>" selected>
               <% else %>
@@ -84,9 +80,8 @@
         </th>
         <th>
           <select name="oil_id" class="index-search">
-            <!-- TODO リファクタリング -->
             <option value=""></option>
-            <% Order.select(:oil_id).distinct.each do |c| %>
+            <% @oil_id.each do |c| %>
             <% if c.oil.id == @search_params[:oil_id].to_i %>
             <option value="<%= c.oil.id %>" selected>
               <% else %>
@@ -110,7 +105,6 @@
           <%= sort_desc('arrive_at', @search_params) %>
         </th>
         <th>
-          <!-- TODO リロードさせる -->
           <button name="export_csv" type="submit" class="btn-search csv">
             CSV出力
           </button>
