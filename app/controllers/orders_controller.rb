@@ -58,5 +58,9 @@ class OrdersController < ApplicationController
 
   def set_select_params
     @shipment = Shipment.all
+    @name = Order.select(:name).distinct
+    @company_name = Order.select(:company_name).distinct
+    @facility_id = Order.select(:facility_id).distinct
+    @oil_id = Order.select(:oil_id).distinct
   end
 end

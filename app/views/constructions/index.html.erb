@@ -9,7 +9,6 @@
         <th>工事名</th>
         <th>
           <select name="status" class="index-search">
-            <!-- TODO リファクタリング -->
             <option value=""></option>
             <% @status.each do |s| %>
             <% if s.id == @search_params[:status].to_i %>
@@ -28,9 +27,8 @@
         </th>
         <th>
           <select name="facility_id" class="index-search">
-            <!-- TODO リファクタリング -->
             <option value=""></option>
-            <% Construction.select(:facility_id).distinct.each do |c| %>
+            <% @facility_id.each do |c| %>
             <% if c.facility_id.present? && c.facility.id == @search_params[:facility_id].to_i %>
             <option value="<%= c.facility.id %>" selected>
               <%= c.facility.name %>
@@ -47,9 +45,8 @@
         </th>
         <th>
           <select name="oil_id" class="index-search">
-            <!-- TODO リファクタリング -->
             <option value=""></option>
-            <% Construction.select(:oil_id).distinct.each do |c| %>
+            <% @oil_id.each do |c| %>
             <% if c.oil.id == @search_params[:oil_id].to_i %>
             <option value="<%= c.oil.id %>" selected>
               <% else %>
@@ -80,7 +77,6 @@
           <%= sort_desc('end_at', @search_params) %>
         </th>
         <th>
-          <!-- TODO リロードさせる -->
           <button name="export_csv" type="submit" class="btn-search csv">
             CSV出力
           </button>
@@ -116,6 +112,5 @@
   </div>
   </table>
   <% end %>
-
   <%= will_paginate @construction, previous_label: '← 前', next_label: '次 →'%>
 </div>
