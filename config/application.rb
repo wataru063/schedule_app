@@ -23,6 +23,6 @@ module ScheduleApp
 
     config.time_zone = 'Tokyo'
     config.action_view.embed_authenticity_token_in_remote_forms = true
-
+    config.action_view.automatically_disable_submit_tag = false
   end
 end

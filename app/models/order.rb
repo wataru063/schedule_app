@@ -45,7 +45,7 @@ class Order < ApplicationRecord
         if c.start_at < arrive_at && arrive_at < c.end_at
           errors.add(:facility_id, "：#{Facility.find(facility_id).name}の
                                    #{arrive_at.strftime("%Y/%m/%d/%H:%M")}
-                                   は工事(#{c.name}, 他#{constructions.count - 1}件)による出荷制約があります")
+                                   は工事(#{c.name})による出荷制約があります")
         end
       end
     end

@@ -1,15 +1,9 @@
 <% provide(:title, 'オーダー一覧') %>
-<script>
-  function btn_click() {
-    window.location.delay(1000).reload();
-  };
-  });
-</script>
 
 <div class="container">
   <h1 class="title title-const-index">オーダー一覧</h1>
   <div class="orders-container">
-    <%= form_with url: orders_path, method: :get, local: true do |f| %>
+    <%= form_with url: orders_search_path, method: :get, local: true do |f| %>
     <table class="table table-hover">
       <thead>
         <th>
@@ -54,13 +48,13 @@
           <select name="shipment" class="index-search">
             <!-- TODO リファクタリング -->
             <option value=""></option>
-            <% ["入荷", "出荷"].each do |o| %>
-            <% if o == @search_params[:shipment] %>
-            <option value="<%= o %>" selected>
+            <% @shipment.each do |s| %>
+            <% if s.id == @search_params[:shipment].to_i %>
+            <option value="<%= s.id %>" selected>
               <% else %>
-            <option value="<%= o %>">
+            <option value="<%= s.id %>">
               <% end %>
-              <%= o %>
+              <%= s.name %>
             </option>
             <% end %>
           </select>
@@ -108,7 +102,7 @@
           <%= sort_desc('oil_id', @search_params) %>
         </th>
         <th>
-          <input type="date" name="arrive_at_date" class="index-search-time">
+          <input type="date" value="<%= @search_params[:arrive_at_date] %>" name=" arrive_at_date" class="index-search-time">
           <%= f.date_select :arrive_at, discard_year: true, discard_month: true, discard_day: true %>
           <br>
           荷役作業日時
@@ -117,7 +111,7 @@
         </th>
         <th>
           <!-- TODO リロードさせる -->
-          <button onclick="btn_click()" name="export_csv" type="submit" class="btn-search csv" id="download-csv">
+          <button name="export_csv" type="submit" class="btn-search csv">
             CSV出力
           </button>
           <br> <br>
@@ -133,7 +127,7 @@
       <tr>
         <td style="width:15%"><%= link_to order.name, order %></td>
         <td style="width:15%"><%= order.company_name %></td>
-        <td style="width:10%"><%= order.shipment %></td>
+        <td style="width:10%"><%= @shipment.find(order.shipment).name %></td>
         <td style="width:12%"><%= order.facility.name%></td>
         <td style="width:14%"><%= order.oil.name %></td>
         <td style="width:10%">
@@ -147,5 +141,5 @@
   </table>
   <% end %>
 
-  <%= will_paginate @order, previous_label: '&#8592; &nbsp;前', next_label: '次 &#8594;'%>
+  <%= will_paginate @order, previous_label: '← 前', next_label: '次 →'%>
 </div>

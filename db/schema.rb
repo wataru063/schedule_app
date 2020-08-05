@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20200727060542) do
 
   create_table "constructions", force: :cascade do |t|
     t.string "name"
-    t.string "status"
     t.text "notice"
+    t.integer "status"
     t.integer "facility_id"
     t.integer "oil_id"
     t.integer "category_id"
@@ -60,9 +60,9 @@ ActiveRecord::Schema.define(version: 20200727060542) do
 
   create_table "orders", force: :cascade do |t|
     t.string "name"
-    t.string "shipment"
     t.string "company_name"
     t.string "unit"
+    t.integer "shipment"
     t.integer "quantity"
     t.integer "facility_id"
     t.integer "oil_id"

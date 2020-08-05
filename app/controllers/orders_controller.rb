@@ -1,17 +1,24 @@
 class OrdersController < ApplicationController
   def index
-    @status = %w(実行検討中 工事準備中 工事中 工事完了)
-    reset_params("arrive")     if params[:arrive_at_date].blank?
-    set_time(params, "arrive") if params[:arrive_at_date].present?
-    sort_column = params[:column].presence || 'arrive_at'
-    @order = Order.search(search_params).
-      order(sort_column + ' ' + sort_direction).
-      paginate(page: params[:page], per_page: 7)
+    set_select_params
+    @order = Order.paginate(page: params[:page], per_page: 7)
     @search_params = search_params
+  end
+
+  def search
+    set_select_params
+    reset_time("arrive")
+    set_time(params, "arrive")
+    sort_column = params[:column].presence || 'arrive_at'
     if params[:export_csv]
-      @order_csv = Order.search(search_params).
-        order(sort_column + ' ' + sort_direction)
-      send_data to_csv_order(@order_csv), filename: "#{Time.current.strftime('%Y%m%d')}オーダー一覧.csv"
+      @order = Order.search(search_params).order(sort_column + ' ' + sort_direction)
+      send_data to_csv_order(@order), filename: "#{Time.current.strftime('%Y%m%d')}オーダー一覧.csv"
+    else
+      @order = Order.search(search_params).
+        order(sort_column + ' ' + sort_direction).
+        paginate(page: params[:page], per_page: 7)
+      @search_params = search_params
+      render template: 'orders/index'
     end
   end
 
@@ -22,7 +29,6 @@ class OrdersController < ApplicationController
   def oil
     oil_id = Facility.find(params[:facility_id]).oils.ids
     @oils = Oil.where(id: oil_id).pluck(:id, :name).to_h.to_json
-    p @oils
   end
 
   def create
@@ -48,5 +54,9 @@ class OrdersController < ApplicationController
   def search_params
     params.permit(:id, :name, :company_name, :shipment, :unit, :facility_id, :oil_id,
                   :quantity, :arrive_at, :arrive_at_date)
+  end
+
+  def set_select_params
+    @shipment = Shipment.all
   end
 end
