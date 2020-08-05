@@ -24,6 +24,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_hash (3.1.0)
+      activesupport (>= 5.0.0)
     activejob (5.1.6)
       activesupport (= 5.1.6)
       globalid (>= 0.3.6)
@@ -43,7 +45,7 @@ GEM
     ansi (1.5.0)
     arel (8.0.0)
     ast (2.4.1)
-    autoprefixer-rails (9.8.5)
+    autoprefixer-rails (9.8.6.1)
       execjs
     bcrypt (3.1.15)
     bindex (0.8.1)
@@ -113,7 +115,7 @@ GEM
     loofah (2.6.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    lumberjack (1.2.6)
+    lumberjack (1.2.7)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     method_source (1.0.0)
@@ -289,6 +291,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_hash
   bcrypt (~> 3.1.7)
   bootstrap-sass (= 3.3.7)
   bootstrap-will_paginate (= 1.0.0)

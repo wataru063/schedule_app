@@ -57,7 +57,7 @@ notices = ["工程内で制約日程は調整可能", "工事中は桟橋クロ�
   start_at = Time.now.midnight.since(mm.month + d.days + h.hour)
   end_at   = start_at.since(d.days + dh.hour)
   user     = User.find(rand(1..19))
-  status = m < 3 ? "工事準備中" : "実行検討中"
+  status = m < 3 ? 1 : 2
   notice = notices[rand(0..2)] if m > 4
   facility = Facility.find(rand(1..Facility.count-1))
   oil = facility.oils[rand(0..facility.oils.count-1)]
@@ -88,9 +88,9 @@ notices = ["工程内で制約日程は調整可能", "工事中は桟橋クロ�
     construction.update_attribute(:start_at, start_at)
     construction.update_attribute(:end_at, end_at)
     if end_at < Time.now
-      construction.update_attribute(:status, "工事完了")
+      construction.update_attribute(:status, 4)
     else
-      construction.update_attribute(:status, "工事中")
+      construction.update_attribute(:status, 3)
     end
   end
 end
@@ -106,7 +106,7 @@ end
   oil = facility.oils[rand(0..facility.oils.count-1)]
   facility_id = facility.id
   oil_id = oil.id
-  shipment = rand(1..100) % 2 == 0 && oil_id != 1 ? "入荷" : "出荷"
+  shipment = rand(1..100) % 2 == 0 && oil_id != 1 ? 1 : 2
   quantity = m * 100
   user_id = user.id
 
@@ -150,7 +150,7 @@ end
   oil = facility.oils[rand(0..facility.oils.count-1)]
   facility_id = facility.id
   oil_id = oil.id
-  shipment = rand(1..100) % 2 == 0 && oil_id != 1 ? "入荷" : "出荷"
+  shipment = rand(1..100) % 2 == 0 && oil_id != 1 ? 1 : 2
   quantity = m * 100
   user_id = user.id
 

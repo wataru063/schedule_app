@@ -1,14 +1,9 @@
 <% provide(:title, '工事一覧') %>
-<script>
-  function btn_click() {
-    window.location.delay(1000).reload();
-  };
-  });
-</script>
+
 <div class="container">
   <h1 class="title title-const-index">工事一覧</h1>
   <div class="constructions-container">
-    <%= form_with url: constructions_path, method: :get, local: true do |f| %>
+    <%= form_with url: constructions_search_path, method: :get, local: true do |f| %>
     <table class="table table-hover">
       <thead>
         <th>工事名</th>
@@ -17,12 +12,12 @@
             <!-- TODO リファクタリング -->
             <option value=""></option>
             <% @status.each do |s| %>
-            <% if s == @search_params[:status] %>
-            <option value="<%= s %>" selected>
+            <% if s.id == @search_params[:status].to_i %>
+            <option value="<%= s.id %>" selected>
               <% else %>
-            <option value="<%= s %>">
+            <option value="<%= s.id %>">
               <% end %>
-              <%= s %>
+              <%= s.name %>
             </option>
             <% end %>
           </select>
@@ -86,7 +81,7 @@
         </th>
         <th>
           <!-- TODO リロードさせる -->
-          <button onclick="btn_click()" name="export_csv" type="submit" class="btn-search csv" id="download-csv">
+          <button name="export_csv" type="submit" class="btn-search csv">
             CSV出力
           </button>
           <br> <br>
@@ -98,7 +93,7 @@
       <% @construction.each do |construction| %>
       <tr>
         <td style="width:28%"><%= link_to construction.name, construction %></td>
-        <td style="width:12%"><%= construction.status %></td>
+        <td style="width:12%"><%= @status.find(construction.status).name %></td>
         <td style="width:15%">
           <% if construction.facility_id.present? %>
           <%= construction.facility.name%>
@@ -122,5 +117,5 @@
   </table>
   <% end %>
 
-  <%= will_paginate @construction, previous_label: '&#8592; &nbsp;前', next_label: '次 &#8594;'%>
+  <%= will_paginate @construction, previous_label: '← 前', next_label: '次 →'%>
 </div>

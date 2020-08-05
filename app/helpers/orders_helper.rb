@@ -1,5 +1,6 @@
 module OrdersHelper
-
+require 'csv'
+  # export to csv
   def to_csv_order(orders)
     CSV.generate do |csv|
       columns_ja = %w(No. 船名 会社名 入出荷 対象設備 油種 数量 単位 担当者名 荷役作業日時)
