@@ -1,7 +1,10 @@
 class OrdersController < ApplicationController
   def index
     set_select_params
-    @order = Order.paginate(page: params[:page], per_page: 7)
+    sort_column = params[:column].presence || 'arrive_at'
+    @order = Order.search(search_params).
+      order(sort_column + ' ' + sort_direction).
+      paginate(page: params[:page], per_page: 7)
     @search_params = search_params
   end
 
@@ -20,6 +23,10 @@ class OrdersController < ApplicationController
       @search_params = search_params
       render template: 'orders/index'
     end
+  end
+
+  def show
+    @order = Order.find(params[:id])
   end
 
   def new

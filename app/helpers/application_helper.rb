@@ -44,14 +44,4 @@ module ApplicationHelper
   def sort_direction
     %W(asc desc).include?(params[:direction]) ? params[:direction] : "asc"
   end
-
-#            <!-- TODO リファクタリング -->
-#  def send_to_csv(name, parameter, search_params, sort_column, sort_direction)
-#    if params[:export_csv]
-#      csv_data = parameter.class.search(search_params).order(sort_column + ' ' + sort_direction)
-#      name = name
-#      send_data to_csv_name(csv_data), filename: "#{Time.current.strftime('%Y%m%d')}オーダー一覧.csv"
-#    end
-#  end
-
 end

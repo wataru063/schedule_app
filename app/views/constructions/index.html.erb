@@ -1,7 +1,7 @@
 <% provide(:title, '工事一覧') %>
 
 <div class="container">
-  <h1 class="title title-const-index">工事一覧</h1>
+  <h2 class="title title-const-index">工事一覧</h2>
   <div class="constructions-container">
     <%= form_with url: constructions_search_path, method: :get, local: true do |f| %>
     <table class="table table-hover">
@@ -86,27 +86,27 @@
         </th>
       </thead>
 
-      <% @construction.each do |construction| %>
+      <% @construction.each do |c| %>
       <tr>
-        <td style="width:28%"><%= link_to construction.name, construction %></td>
-        <td style="width:12%"><%= @status.find(construction.status).name %></td>
+        <td style="width:28%"><%= link_to c.name, construction_path(current_user, c) %></td>
+        <td style="width:12%"><%= @status.find(c.status).name %></td>
         <td style="width:15%">
-          <% if construction.facility_id.present? %>
-          <%= construction.facility.name%>
+          <% if c.facility_id.present? %>
+          <%= c.facility.name%>
           <% else %>
           ―
           <% end %>
         </td>
-        <td style="width:15%"><%= construction.oil.name %></td>
+        <td style="width:15%"><%= c.oil.name %></td>
         <td style="width:7%">
-          <%= construction.start_at.strftime("%Y/%m/%d") %><br>
-          <%= construction.start_at.strftime("%H:%M") %>
+          <%= c.start_at.strftime("%Y/%m/%d") %><br>
+          <%= c.start_at.strftime("%H:%M") %>
         </td>
         <td style="width:7%">
-          <%= construction.end_at.strftime("%Y/%m/%d") %><br>
-          <%= construction.end_at.strftime("%H:%M") %>
+          <%= c.end_at.strftime("%Y/%m/%d") %><br>
+          <%= c.end_at.strftime("%H:%M") %>
         </td>
-        <td style="width:15% "><%= construction.notice %></td>
+        <td style="width:15% "><%= c.notice %></td>
       </tr>
       <% end %>
   </div>

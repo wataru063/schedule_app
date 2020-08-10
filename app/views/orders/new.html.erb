@@ -1,7 +1,7 @@
 <% provide(:title, 'オーダー登録') %>
 
 <div class="container">
-  <h1 class="title">オーダー登録</h1>
+  <h2 class="title">オーダー登録</h2>
   <%= form_for(@order, url: new_order_path) do |f| %>
   <div class="row order-row">
     <div class="col-sm-6 col-sm-offset-3">
@@ -75,10 +75,10 @@
 
 <script>
   $(function() {
-    var id = '<%= current_user.category_id %>';
+    var category_id = '<%= current_user.category_id %>';
     $('#facility-select').change(function() {
       $.get({
-        url: "/id/order/oil",
+        url: "/category_id/order/oil",
         data: {
           facility_id: $('#facility-select').has('option:selected').val()
         },

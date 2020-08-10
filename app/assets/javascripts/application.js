@@ -17,4 +17,6 @@
 //= require toastr
 //= require turbolinks
 //= require cocoon
-//=require_tree .
+//= require moment
+//= require fullcalendar
+//= require_tree .

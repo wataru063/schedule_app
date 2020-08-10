@@ -1,6 +1,6 @@
 pipe_repair:
   name: 配管補修,
-  status: 工事準備中,
+  status: 1,
   facility_id: 1,
   oil_id: 1,
   category_id: 1,
@@ -11,7 +11,7 @@ pipe_repair:
 
 pipe_replace:
   name: 配管取替,
-  status: 工事準備中,
+  status: 2,
   facility_id: 1,
   oil_id: 2,
   category_id: 1,

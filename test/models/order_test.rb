@@ -6,7 +6,7 @@ class OrderTest < ActiveSupport::TestCase
     arrive_month = Time.current.since(4.day).month.to_s
     arrive_year = Time.current.since(4.day).year.to_s
     arrive_at_date = arrive_year + "-" + arrive_month + "-" + arrive_day
-    @order = Order.new(name: "Test ship", shipment: "Arrival", company_name: "Test company",
+    @order = Order.new(name: "Test ship", shipment: 1, company_name: "Test company",
                        facility_id: 1, oil_id: 1, unit: "kL",
                        user_id: 1, quantity: 100,
                        arrive_at: Time.current.since(4.day),
@@ -20,7 +20,7 @@ class OrderTest < ActiveSupport::TestCase
     end_month = Time.current.since(5.month).month.to_s
     end_year = Time.current.since(5.month).year.to_s
     end_at_date = end_year + "-" + end_month + "-" + end_day
-    @construction = Construction.create(name: "Test Work", status: "Planning",
+    @construction = Construction.create(name: "Test Work", status: 1,
                                         notice: "For mechanical life", facility_id: 1, oil_id: 1,
                                         category_id: 1, user_id: 1,
                                         start_at: Time.current.since(3.month),

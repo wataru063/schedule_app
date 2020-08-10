@@ -10,7 +10,7 @@ class ConstructionTest < ActiveSupport::TestCase
     end_month = Time.current.since(4.month).month.to_s
     end_year = Time.current.since(4.month).year.to_s
     end_at_date = end_year + "-" + end_month + "-" + end_day
-    @construction = Construction.new(name: "Test Work", status: "Planning",
+    @construction = Construction.new(name: "Test Work", status: 1,
                                      notice: "For mechanical life", facility_id: 1, oil_id: 1,
                                      category_id: 1, user_id: 1,
                                      start_at: Time.current.since(3.month),
