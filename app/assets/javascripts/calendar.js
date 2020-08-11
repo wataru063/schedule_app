@@ -1,5 +1,5 @@
 $(function () {
-  // 画面遷移を検知
+  var url = '<%= request.base_url %>';
   $(document).on('turbolinks:load', function () {
     // lengthを呼び出すことで、#calendarが存在していた場合はtrueの処理がされ、無い場合はnillを返す
     if ($('#calendar').length) {
@@ -10,21 +10,18 @@ $(function () {
       function clearCalendar() {
         $('#calendar').html('');
       };
-
       $(document).on('turbolinks:load', function () {
         eventCalendar();
       });
       $(document).on('turbolinks:before-cache', clearCalendar);
-
       $('#calendar').fullCalendar({
-        //events: '/events.json',
         events: {
           url: '/events.json',
-          extraParams: function () { // a function that returns an object
+          data: function () {
             return {
-              facility_id: $('#facility-calendar').val(),
+              facility_id: $("#facility-calendar option:selected").val()
             };
-          }
+          },
         },
         titleFormat: 'YYYY年 M月',
         //曜日を日本語表示

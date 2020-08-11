@@ -2,9 +2,13 @@
 
 <div class="container">
   <h2 class="title">工事詳細</h2>
-  <div class="row construction-row">
+  <div class="constructions-container">
     <%= @construction.name  %><br>
     <%= @construction.oil.name %><br>
+    <% if @construction.facility.present? %>
     <%= @construction.facility.name %><br>
+    <% else %>
+    -
+    <% end %>
   </div>
 </div>

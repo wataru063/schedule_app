@@ -1,10 +1,11 @@
 <% provide(:title, '日程詳細') %>
 
 <div class="container">
-  <h2 class="title title-const-index">日程詳細</h2>
-  <%= form_tag(calendar_index_path(current_user), method: "get", id: 'form1') do %>
-  <%= select_tag 'facility_id', options_for_select(Facility.all.map{ |fa| [fa.name, fa.id] }),class:"form-calendar", id: 'facility-calendar' %>
+  <h2 class="title title-calendar-index">日程詳細</h2>
+  <%= form_tag(calendar_index_path(current_user), method: "get", id: 'form') do %>
+  <%= select_tag 'facility_id', options_for_select(@facility.map{ |fa| [fa.name, fa.id] }, { selected: @facility_id.to_i }),class:"form-calendar", id: 'facility-calendar' %>
   <% end %>
+
   <div class="calendars-container">
     <div id="calendar">
     </div>
@@ -27,15 +28,8 @@
         'left': position_left
       });
     });
-    $('#facility-calendar').change(function() {
-      $.getJSON({
-        url: "/events.json",
-        data: {
-          facility_id: $('#facility-calendar').val(),
-          start: $('.fc-day-top' + '.fc-sun span').val(),
-          end:
-        },
-      });
+    $("#facility-calendar").change(function() {
+      $('form').submit();
     });
   });
 </script>

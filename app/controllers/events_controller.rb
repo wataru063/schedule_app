@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   def events
     @facility_id = params[:facility_id].present? ? params[:facility_id] : @facility_id
     @events = create_event(@facility_id)
-    p @facility_id, "===================="
+    p params[:facility_id], @facility_id, "===================="
     respond_to do |format|
       format.json do
         render json:
@@ -14,7 +14,7 @@ class EventsController < ApplicationController
   def create_event(id)
     events = []
     facility_id = id.present? ? id : 1
-    p @facility_id, "-------------------"
+    #p @facility_id, "-------------------"
     oil_ids     = Facility.find(facility_id).oils.ids
     @constructions = Construction.where(facility_id: facility_id) +
                      Construction.where(facility_id: nil, oil_id: oil_ids)
