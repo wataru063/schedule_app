@@ -1,7 +1,10 @@
 class ConstructionsController < ApplicationController
   def index
     set_select_params
-    @construction = Construction.paginate(page: params[:page], per_page: 7)
+    sort_column = params[:column].presence || 'start_at'
+    @construction = Construction.search(search_params).
+      order(sort_column + ' ' + sort_direction).
+      paginate(page: params[:page], per_page: 7)
     @search_params = search_params
   end
 
@@ -13,8 +16,8 @@ class ConstructionsController < ApplicationController
     set_time(params, "end")
     sort_column = params[:column].presence || 'start_at'
     if params[:export_csv]
-      csv_data = Construction.search(search_params).order(sort_column + ' ' + sort_direction)
-      send_data to_csv_construction(csv_data), filename: "#{Time.current.strftime('%Y%m%d')}工事一覧.csv"
+      csv = Construction.search(search_params).order(sort_column + ' ' + sort_direction)
+      send_data to_csv_construction(csv), filename: "#{Time.current.strftime('%Y%m%d')}工事一覧.csv"
     else
       @construction = Construction.search(search_params).
         order(sort_column + ' ' + sort_direction).
@@ -22,6 +25,10 @@ class ConstructionsController < ApplicationController
       @search_params = search_params
       render template: 'constructions/index'
     end
+  end
+
+  def show
+    @construction = Construction.find(params[:id])
   end
 
   def new

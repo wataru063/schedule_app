@@ -8,19 +8,19 @@ require 'csv'
                    category_name user_name start_at end_at)
       csv << columns_ja
       no = 1
-      constructions.each do |construction|
-        con_attr = construction.attributes
+      constructions.each do |c|
+        con_attr = c.attributes
         con_attr["no"] = no
-        con_attr["oil_name"] = construction.oil.name
-        if construction.facility_id.present?
-          con_attr["facility_name"] = construction.facility.name
+        con_attr["oil_name"] = c.oil.name
+        if c.facility_id.present?
+          con_attr["facility_name"] = c.facility.name
         else
           con_attr["facility_name"] = "―"
         end
-        con_attr["category_name"] = construction.category.name
-        con_attr["user_name"] = construction.user.name
-        con_attr["start_at"] = construction.start_at.strftime("%Y年%m月%d日%H時%M分")
-        con_attr["end_at"] = construction.end_at.strftime("%Y年%m月%d日%H時%M分")
+        con_attr["category_name"] = c.category.name
+        con_attr["user_name"] = c.user.name
+        con_attr["start_at"] = c.start_at.strftime("%Y年%m月%d日%H時%M分")
+        con_attr["end_at"] = c.end_at.strftime("%Y年%m月%d日%H時%M分")
         csv << con_attr.values_at(*columns)
         no += 1
       end

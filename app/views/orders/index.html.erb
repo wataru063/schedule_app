@@ -1,7 +1,7 @@
 <% provide(:title, 'オーダー一覧') %>
 
 <div class="container">
-  <h1 class="title title-const-index">オーダー一覧</h1>
+  <h2 class="title title-const-index">オーダー一覧</h2>
   <div class="orders-container">
     <%= form_with url: orders_search_path, method: :get, local: true do |f| %>
     <table class="table table-hover">
@@ -119,7 +119,7 @@
 
       <% @order.each do |order| %>
       <tr>
-        <td style="width:15%"><%= link_to order.name, order %></td>
+        <td style="width:15%"><%= link_to order.name, order_path(current_user, order) %></td>
         <td style="width:15%"><%= order.company_name %></td>
         <td style="width:10%"><%= @shipment.find(order.shipment).name %></td>
         <td style="width:12%"><%= order.facility.name%></td>
