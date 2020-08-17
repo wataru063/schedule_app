@@ -1,9 +1,3 @@
-# categories
-categories = ["設備保全Tm","設備検査Tm","計装Tm","電気Tm","設計Tm"]
-categories.each do |category|
-  Category.create!(name: category)
-end
-
 # oils
 oils = %w(原油 ガソリン ガソリン半製品 ライトナフサ 灯油 軽油 低硫黄A重油 A重油 C重油 プロピレン ベンゼン キシレン ブチレン・ブタン 低温プロパン 低温ブタン JET)
 oils.each do |oil|
@@ -15,7 +9,7 @@ User.create!(name:  "マスター",
              email: "master@master.com",
              password:              "master",
              password_confirmation: "master",
-             category_id:1)
+             category_id: 1)
 19.times do |n|
   name  = Faker::Name.name
   email = Faker::Internet.email
@@ -38,11 +32,11 @@ end
 facilities = Facility.all
 n = 1
 facilities.each do |facility|
-  facility.relate(Oil.find_by(id: n))
-  facility.relate(Oil.find_by(id: n+1))
-  facility.relate(Oil.find_by(id: n+2))
-  facility.relate(Oil.find_by(id: n+3))
-  facility.relate(Oil.find_by(id: n+4))
+  facility.relate_to_oils.create!(oil_id: Oil.find_by(id: n).id)
+  facility.relate_to_oils.create!(oil_id: Oil.find_by(id: n+1).id)
+  facility.relate_to_oils.create!(oil_id: Oil.find_by(id: n+2).id)
+  facility.relate_to_oils.create!(oil_id: Oil.find_by(id: n+3).id)
+  facility.relate_to_oils.create!(oil_id: Oil.find_by(id: n+4).id)
   n += 1
 end
 

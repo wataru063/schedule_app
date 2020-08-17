@@ -1,15 +1,15 @@
 class CreateConstructions < ActiveRecord::Migration[5.1]
   def change
     create_table :constructions do |t|
-      t.string     :name
-      t.text       :notice
-      t.integer    :status
-      t.references :facility, foreign_key: true
-      t.references :oil,      foreign_key: true
-      t.references :category, foreign_key: true
-      t.references :user,     foreign_key: true
-      t.datetime   :start_at
-      t.datetime   :end_at
+      t.string   :name
+      t.text     :notice
+      t.integer  :status
+      t.integer  :facility_id
+      t.integer  :oil_id
+      t.integer  :category_id
+      t.integer  :user_id
+      t.datetime :start_at
+      t.datetime :end_at
 
       t.timestamps
     end

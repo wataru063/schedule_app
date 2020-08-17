@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash[:success] = '登録しました。'
-      redirect_to @user
+      redirect_to calendar_index_url(current_user)
     else
       render :new
     end

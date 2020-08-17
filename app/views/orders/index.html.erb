@@ -97,7 +97,7 @@
           <%= sort_desc('oil_id', @search_params) %>
         </th>
         <th>
-          <input type="date" value="<%= @search_params[:arrive_at_date] %>" name=" arrive_at_date" class="index-search-time">
+          <input type="date" value="<%= @search_params[:arrive_at_date] %>" name="arrive_at_date" class="index-search-time">
           <%= f.date_select :arrive_at, discard_year: true, discard_month: true, discard_day: true %>
           <br>
           荷役作業日時
@@ -121,14 +121,14 @@
       <tr>
         <td style="width:15%"><%= link_to order.name, order_path(current_user, order) %></td>
         <td style="width:15%"><%= order.company_name %></td>
-        <td style="width:10%"><%= @shipment.find(order.shipment).name %></td>
-        <td style="width:12%"><%= order.facility.name%></td>
-        <td style="width:14%"><%= order.oil.name %></td>
-        <td style="width:10%">
+        <td style="width:14%"><%= @shipment.find(order.shipment).name %></td>
+        <td style="width:16%"><%= order.facility.name%></td>
+        <td style="width:13%"><%= order.oil.name %></td>
+        <td style="width:8%">
           <%= order.arrive_at.strftime("%Y/%m/%d") %><br>
           <%= order.arrive_at.strftime("%H:%M") %>
         </td>
-        <td style="width:8%"><%= order.quantity %> <%= order.unit %></td>
+        <td style="width:3%"><%= order.quantity %> <%= order.unit %></td>
       </tr>
       <% end %>
   </div>
@@ -137,3 +137,15 @@
 
   <%= will_paginate @order, previous_label: '← 前', next_label: '次 →'%>
 </div>
+
+<script>
+  $(function() {
+    var a_props = {
+      "color": "#000000",
+      "font-weight": "bold",
+      "text-decoration": "none",
+      "background-color": "#f0f0f0"
+    };
+    $('#order_index a').css(a_props);
+  });
+</script>

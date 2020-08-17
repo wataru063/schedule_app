@@ -20,9 +20,9 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     post login_path, params: { session: { email: @user.email,
                                           password: 'password' } }
     assert is_logged_in?
-    assert_redirected_to @user
+    assert_redirected_to calendar_index_url(@user)
     follow_redirect!
-    assert_template 'users/show'
+    assert_template 'calendar/index'
     assert_select "a[href=?]", login_path,  count: 0
     assert_select "a[href=?]", signup_path, count: 0
     assert_select "a[href=?]", logout_path
@@ -47,7 +47,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
                                           category_id: 1 } }
     end
     follow_redirect!
-    assert_template 'users/show'
+    assert_template 'calendar/index'
     assert is_logged_in?
   end
 

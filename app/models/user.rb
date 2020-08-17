@@ -1,8 +1,9 @@
 class User < ApplicationRecord
+  extend ActiveHash::Associations::ActiveRecordExtensions
   attr_accessor :remember_token
-  has_many :constructions, class_name: "Construction"
-  has_many :orders, class_name: "Order"
-  belongs_to :category, class_name: "Category"
+  has_many   :constructions, class_name: "Construction"
+  has_many   :orders, class_name: "Order"
+  belongs_to :category, class_name: "Category", foreign_key: 'category_id'
   before_save { self.email = email.downcase }
   validates :name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -11,6 +12,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6, allow_blank: true }
+  validates :category, presence: true
 
   def User.digest(string)
     if ActiveModel::SecurePassword.min_cost
