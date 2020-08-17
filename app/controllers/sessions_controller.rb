@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       flash[:success] = 'ログインに成功しました。'
       log_in @user
       remember @user
-      redirect_to @user
+      redirect_to calendar_index_url(current_user)
     else
       flash.now[:danger] = 'ログインに失敗しました。'
       render 'new'

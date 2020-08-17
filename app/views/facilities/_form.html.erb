@@ -2,14 +2,13 @@
   <%= f.label :oil_id, '対応油種', class:'form-label-login facility-form-label'%>
 
   <%= f.fields_for :relate_to_oils do |ff| %>
-  <%= ff.collection_select :oil_id, Oil.all, :id, :name, {}, class: 'form-control oil1' %>
+  <%= ff.collection_select :oil_id, Oil.all, :id, :name, {selected: params[:relate_to_oils_attributes[0]]}, class: 'form-control oil1' %>
   <% end %>
 
   <div class="text-right">
     <%= link_to_add_association '追加', f, :relate_to_oils,
         class: 'adjust-btn btn',
-        data: { association_insertion_method: 'append' }
-       %>
+        data: { association_insertion_method: 'append' } %>
   </div>
 
   <%= f.fields_for :relate_to_oils do |ff| %>

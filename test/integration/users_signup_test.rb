@@ -25,7 +25,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                           category_id: 1 } }
     end
     follow_redirect!
-    assert_template 'users/show'
+    assert_template 'calendar/index'
     assert_not flash.empty?
   end
 end

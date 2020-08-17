@@ -1,30 +1,28 @@
 $(function () {
-  var url = '<%= request.base_url %>';
   $(document).on('turbolinks:load', function () {
-    // lengthを呼び出すことで、#calendarが存在していた場合はtrueの処理がされ、無い場合はnillを返す
-    if ($('#calendar').length) {
+    if ($('#calendar20').length) {
       function eventCalendar() {
-        return $('#calendar').fullCalendar({
+        return $('#calendar20').fullCalendar({
         });
       };
       function clearCalendar() {
-        $('#calendar').html('');
+        $('#calendar20').html('');
       };
       $(document).on('turbolinks:load', function () {
         eventCalendar();
       });
       $(document).on('turbolinks:before-cache', clearCalendar);
-      $('#calendar').fullCalendar({
+      $('#calendar20').fullCalendar({
         events: {
-          url: '/events.json',
-          data: function () {
-            return {
-              facility_id: $("#facility-calendar option:selected").val()
-            };
+            url: '/events_show.json',
+            data: function () {
+              return {
+                facility_id: $("#facility-calendar option:selected").val()
+              };
+            },
           },
-        },
         titleFormat: 'YYYY年 M月',
-        //曜日を日本語表示
+        aspectRatio: 1.48,
         dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
         //ボタンのレイアウト
         header: {

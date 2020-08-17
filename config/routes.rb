@@ -2,8 +2,10 @@ Rails.application.routes.draw do
 
   root   'home#top'
 
-  get    '/events', to: 'events#events', as: 'calendar_events'
+  get    '/events_index', to: 'events#index', as: 'events_index'
+  get    '/events_show', to: 'events#show', as: 'events_show'
   get    '/:category_id/calendar/index', to: 'calendar#index', as: 'calendar_index'
+  get    '/:category_id/calendar/show', to: 'calendar#show', as: 'calendar_show'
 
   get    '/orders/search', to: 'orders#search', as: 'orders_search'
   get    '/:category_id/orders/:id', to: 'orders#show', as: 'order'

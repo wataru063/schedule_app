@@ -1,9 +1,10 @@
 class Construction < ApplicationRecord
+  extend ActiveHash::Associations::ActiveRecordExtensions
   attr_accessor :start_at_date, :end_at_date
-  belongs_to :facility, class_name: "Facility", optional: true
-  belongs_to :oil, class_name: "Oil", optional: true
-  belongs_to :category, class_name: "Category", optional: true
-  belongs_to :user, class_name: "User", optional: true
+  belongs_to :facility, class_name: "Facility", foreign_key: 'facility_id', optional: true
+  belongs_to :oil, class_name: "Oil", foreign_key: 'oil_id', optional: true
+  belongs_to :user, class_name: "User", foreign_key: 'user_id', optional: true
+  belongs_to :category, class_name: "Category", foreign_key: 'category_id', optional: true
   validates :name,     presence: true
   validates :status,   presence: true
   validates :oil_id,   presence: true

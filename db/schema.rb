@@ -12,13 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20200727060542) do
 
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "constructions", force: :cascade do |t|
+  create_table "constructions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.text "notice"
     t.integer "status"
@@ -30,19 +24,15 @@ ActiveRecord::Schema.define(version: 20200727060542) do
     t.datetime "end_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_constructions_on_category_id"
-    t.index ["facility_id"], name: "index_constructions_on_facility_id"
-    t.index ["oil_id"], name: "index_constructions_on_oil_id"
-    t.index ["user_id"], name: "index_constructions_on_user_id"
   end
 
-  create_table "facilities", force: :cascade do |t|
+  create_table "facilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "facility_oils", force: :cascade do |t|
+  create_table "facility_oils", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "facility_id"
     t.integer "oil_id"
     t.datetime "created_at", null: false
@@ -52,13 +42,13 @@ ActiveRecord::Schema.define(version: 20200727060542) do
     t.index ["oil_id"], name: "index_facility_oils_on_oil_id"
   end
 
-  create_table "oils", force: :cascade do |t|
+  create_table "oils", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "orders", force: :cascade do |t|
+  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "company_name"
     t.string "unit"
@@ -70,12 +60,9 @@ ActiveRecord::Schema.define(version: 20200727060542) do
     t.datetime "arrive_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["facility_id"], name: "index_orders_on_facility_id"
-    t.index ["oil_id"], name: "index_orders_on_oil_id"
-    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
