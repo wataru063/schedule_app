@@ -6,7 +6,8 @@ class CalenderControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get calendar_show_path(@user)
+    f = facilities(:first)
+    get calendar_show_path(@user, f)
     assert_response :success
     assert_select "title", "日程詳細 | 需給管理システム"
   end

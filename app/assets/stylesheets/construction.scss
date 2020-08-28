@@ -30,12 +30,6 @@ input[type="date"] {
   color: #999;
 }
 
-input[type="time"] {
-  padding: 0 10px;
-  font-size: 14px;
-  color: #999;
-}
-
 .dash{
   margin: 0 auto;
   text-align: center;
@@ -55,19 +49,33 @@ textarea{
 
 /* index */
 .constructions-container{
-  width: 100%;
   margin: 0 auto;
 }
 
 .index-search{
   display: inline-block;
-  width: 100%;
   height: 25px;
   padding: 0 5px;
   margin-bottom: 20px;
   border: 2.4px #00ADA9 solid;
   border-radius: 4px;
   color: #959595;
+}
+
+@media all and (max-width: 1125px) {
+.index-search-time{
+  display: inline-block;
+  width: 118px !important;
+  height: 25px !important;
+  padding: 0 !important;
+  margin-bottom: 20px !important;
+  border: 2.4px #00ADA9 solid !important;
+  border-radius: 4px !important;
+  input {
+  padding: 0 !important;
+  font-size: 10px !important;
+  }
+}
 }
 
 .index-search-time{
@@ -79,7 +87,6 @@ textarea{
   border: 2.4px #00ADA9 solid;
   border-radius: 4px;
 }
-
 
 .btn-search{
   display: inline-block;

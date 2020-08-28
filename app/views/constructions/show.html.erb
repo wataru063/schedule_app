@@ -3,8 +3,10 @@
 <div class="container">
   <h2 class="title">工事詳細</h2>
   <div class="constructions-container">
+    <%= @construction %><br>
     <%= @construction.name  %><br>
     <%= @construction.oil.name %><br>
+    <%= @construction.start_at.in_time_zone('UTC') %><br>
     <% if @construction.facility.present? %>
     <%= @construction.facility.name %><br>
     <% else %>

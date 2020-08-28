@@ -15,8 +15,8 @@
         <%= f.text_field :name, placeholder: "入力してください", class: 'form-control' %>
 
         <div class=" form-group">
-          <%= f.label :shipment, '入出荷', class:'form-label-login'%>
-          <%= f.select :shipment, options_for_select([['出荷'], ['入荷']]),
+          <%= f.label :shipment_id, '入出荷', class:'form-label-login'%>
+          <%= f.select :shipment_id, options_for_select([['出荷'], ['入荷']]),
                                   {include_blank: "-- 選択してください --"}, class: 'form-control' %>
         </div>
 
@@ -78,13 +78,12 @@
     var category_id = '<%= current_user.category_id %>';
     $('#facility-select').change(function() {
       $.get({
-        url: "/category_id/order/oil",
+        url: `/${category_id}/orders/oil`,
         data: {
           facility_id: $('#facility-select').has('option:selected').val()
         },
-      });
+      })
     });
-
     var a_props = {
       "color": "#000000",
       "font-weight": "bold",

@@ -88,16 +88,16 @@
 
       <% @construction.each do |c| %>
       <tr>
-        <td style="width:28%"><%= link_to c.name, construction_path(current_user, c) %></td>
-        <td style="width:12%"><%= @status.find(c.status).name %></td>
-        <td style="width:15%">
+        <td style="width:18%"><%= link_to c.name, construction_path(current_user, c) %></td>
+        <td style="width:15%"><%= @status.find(c.status).name %></td>
+        <td style="width:17%">
           <% if c.facility_id.present? %>
           <%= c.facility.name%>
           <% else %>
           ―
           <% end %>
         </td>
-        <td style="width:15%"><%= c.oil.name %></td>
+        <td style="width:17%"><%= c.oil.name %></td>
         <td style="width:7%">
           <%= c.start_at.strftime("%Y/%m/%d") %><br>
           <%= c.start_at.strftime("%H:%M") %>
@@ -106,7 +106,7 @@
           <%= c.end_at.strftime("%Y/%m/%d") %><br>
           <%= c.end_at.strftime("%H:%M") %>
         </td>
-        <td style="width:15% "><%= c.notice %></td>
+        <td style="width:14%"><%= c.notice %></td>
       </tr>
       <% end %>
   </div>

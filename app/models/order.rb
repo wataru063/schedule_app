@@ -1,11 +1,13 @@
 class Order < ApplicationRecord
+  extend ActiveHash::Associations::ActiveRecordExtensions
   attr_accessor :arrive_at_date
   belongs_to :facility, class_name: "Facility", optional: true
   belongs_to :oil, class_name: "Oil", optional: true
   belongs_to :user, class_name: "User", optional: true
+  belongs_to :shipment, class_name: "Shipment"
   validates  :name,     presence: true
-  validates  :shipment, presence: true
   validates  :quantity, presence: true
+  validates  :shipment_id,  presence: true
   validates  :company_name, presence: true
   validates  :facility_id,  presence: true
   validates  :oil_id,    presence: true
@@ -53,7 +55,7 @@ class Order < ApplicationRecord
 
   def self.search(params)
     ship_name = params[:name]
-    shipment = params[:shipment]
+    shipment = params[:shipment_id]
     facility_id = params[:facility_id]
     oil_id = params[:oil_id]
     arrive_at_date = params[:arrive_at_date]
@@ -64,7 +66,7 @@ class Order < ApplicationRecord
     end
     @order = Order.all
     @order = @order.where(name: ship_name) if ship_name.present?
-    @order = @order.where(shipment: shipment) if shipment.present?
+    @order = @order.where(shipment_id: shipment) if shipment.present?
     @order = @order.where(facility_id: facility_id) if facility_id.present?
     @order = @order.where(company_name: company_name) if company_name.present?
     @order = @order.where(oil_id: oil_id) if oil_id.present?

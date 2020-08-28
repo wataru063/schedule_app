@@ -1,6 +1,12 @@
 .orders-container{
-  width: 95.58%;
+  width: 85%;
   margin: 0 auto;
+}
+
+@media all and (max-width: 1250px) {
+.orders-container{
+  width: 100%;
+}
 }
 
 .order-row{
@@ -15,4 +21,89 @@
 
 .index-order{
 margin: 0 auto;
+}
+
+.order-info-wrapper{
+  width: 90%;
+  padding-left: 5%;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+.order-info{
+  line-height: 47px;
+  vertical-align: middle;
+  width: 100%;
+  margin-left: 0;
+  margin-top: 25px;
+  display: inline-block;
+  list-style: none;
+  li{
+    float: left;
+    margin-right: 5%;
+    font-size: 1.5em;
+  }
+}
+
+.btn-edit{
+  font-size: 1.5em;
+  display: inline-block;
+  background-color: #00ADA9;
+  width: 100px;
+  margin-left: 5%;
+  cursor: pointer;
+  border-radius: 4px;
+  color:#fff;
+  border: none;
+  box-shadow : 0 4px #666666;
+  &:focus,&:active, &:active:focus, &:active.focus,
+  &.active, &.active:focus, &.active.focus{
+    box-shadow: none;
+    border: none;
+    position:relative;
+    top:4px;
+  }
+  &:hover, &:active:hover, &.active:hover{
+    text-decoration: none;
+    border: none;
+  }
+}
+
+@media (max-width: 1390px) {
+.order-info-wrapper{
+  position: relative;
+}
+
+.order-info{
+  width: 55%;
+  margin-left: 20%;
+  li{
+    margin-right: 5%;
+    font-size: 1.5em;
+  }
+}
+
+.btn-edit{
+  position: absolute;
+  cursor: pointer;
+  top: 50%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  &:focus,&:active, &:active:focus, &:active.focus,
+  &.active, &.active:focus, &.active.focus{
+    box-shadow: none;
+    border: none;
+    position:relative;
+    top:4px;
+  }
+  &:hover, &:active:hover, &.active:hover{
+    text-decoration: none;
+    border: none;
+  }
+  input{
+    line-height: 0 !important;
+}
+}
 }

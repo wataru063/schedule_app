@@ -31,6 +31,14 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
+    if params[:facility_id].present?
+      oil_id = Facility.find(params[:facility_id]).oils.ids
+      @oils = Oil.where(id: oil_id).pluck(:id, :name).to_h.to_json
+    end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def oil
@@ -54,12 +62,12 @@ class OrdersController < ApplicationController
   def order_params
     params.
       require(:order).
-      permit(:id, :name, :shipment, :company_name, :unit, :facility_id, :oil_id, :user_id,
+      permit(:id, :name, :shipment_id, :company_name, :unit, :facility_id, :oil_id, :user_id,
              :quantity, :arrive_at, :arrive_at_date)
   end
 
   def search_params
-    params.permit(:id, :name, :company_name, :shipment, :unit, :facility_id, :oil_id,
+    params.permit(:id, :name, :company_name, :shipment_id, :unit, :facility_id, :oil_id,
                   :quantity, :arrive_at, :arrive_at_date)
   end
 

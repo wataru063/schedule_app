@@ -1,7 +1,7 @@
 <div id="subheader">
   <ul class="menu">
     <li id="home"><%= link_to "ホーム", calendar_index_path(current_user) %></li>
-    <li id="calendar"><%= link_to "日程詳細", calendar_show_path(current_user) %></li>
+    <li id="calendar"><%= link_to "日程詳細", calendar_show_path(current_user,Facility.first) %></li>
     <li id="order_index"><%= link_to "オーダー一覧", orders_path %></li>
     <li id="order_new"><%= link_to "オーダー登録", new_order_path(current_user) %></li>
     <li id="const_index"><%= link_to "工事一覧", constructions_path %></li>
