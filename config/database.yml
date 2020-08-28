@@ -11,13 +11,14 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
+  username: schedule
+  password: schedule
   host: localhost
 
 development:
   <<: *default
 #  database: db/development.sqlite3
-  database: SQL_app_development
+  database: schedule_app_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,11 +26,11 @@ development:
 test:
   <<: *default
 #  database: db/test.sqlite3
-  database: SQL_app_test
+  database: schedule_app_test
 
 production:
   <<: *default
 #  database: db/production.sqlite3
-  database: SQL_app_production
-  username: SQL_app
-  password: <%= ENV['SQL_APP_DATABASE_PASSWORD'] %>
+  database: schedule_app_production
+  username: schedule_app
+  password: <%= ENV['SCHEDULE_APP_DATABASE_PASSWORD'] %>

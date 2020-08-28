@@ -1,0 +1,44 @@
+<% if @orders_constructions.blank? %>
+<div class="nodata-wrapper">
+  <div class="nodata">登録情報なし</div>
+</div>
+<% else %>
+<table class="table table-hover" style="width: 90%;">
+  <thead>
+    <th>工事名</th>
+    <th>現状況</th>
+    <th>制約設備</th>
+    <th>制約油種</th>
+    <th>開始日時</th>
+    <th>終了日時</th>
+    <th>特記事項</th>
+  </thead>
+  <tbody>
+    <% @orders_constructions.each do |c| %>
+    <tr>
+      <td style="width:14%">
+        <%= link_to c.name, construction_path(current_user, c) %>
+      </td>
+      <td style="width:14%"><%= @status.find(c.status).name %></td>
+      <td style="width:15%">
+        <% if c.facility_id.present? %>
+        <%= c.facility.name%>
+        <% else %>
+        ―
+        <% end %>
+      </td>
+      <td style="width:14%"><%= c.oil.name %></td>
+      <td style="width:15%">
+        <%= c.start_at.strftime("%Y/%m/%d") %><br>
+        <%= c.start_at.strftime("%H:%M") %>
+      </td>
+      <td style="width:15%">
+        <%= c.end_at.strftime("%Y/%m/%d") %><br>
+        <%= c.end_at.strftime("%H:%M") %>
+      <td style="width:13%"><%= c.notice %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @orders_constructions, previous_label: '← 前', next_label: '次 →'%>
+<% end %>

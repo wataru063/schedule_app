@@ -13,7 +13,7 @@ require 'csv'
         order_attr["no"] = no
         order_attr["name"] = order.name
         order_attr["company_name"] = order.company_name
-        order_attr["shipment"] = order.shipment
+        order_attr["shipment"] = order.shipment.name
         order_attr["oil_name"] = order.oil.name
         order_attr["facility_name"] = order.facility.name
         order_attr["user_name"] = order.user.name

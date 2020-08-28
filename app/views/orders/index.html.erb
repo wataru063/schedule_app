@@ -46,7 +46,7 @@
           <select name="shipment" class="index-search">
             <option value=""></option>
             <% @shipment.each do |s| %>
-            <% if s.id == @search_params[:shipment].to_i %>
+            <% if s.id == @search_params[:shipment_id].to_i %>
             <option value="<%= s.id %>" selected>
               <% else %>
             <option value="<%= s.id %>">
@@ -119,16 +119,16 @@
 
       <% @order.each do |order| %>
       <tr>
-        <td style="width:15%"><%= link_to order.name, order_path(current_user, order) %></td>
-        <td style="width:15%"><%= order.company_name %></td>
-        <td style="width:14%"><%= @shipment.find(order.shipment).name %></td>
-        <td style="width:16%"><%= order.facility.name%></td>
-        <td style="width:13%"><%= order.oil.name %></td>
-        <td style="width:8%">
+        <td style="width:13%"><%= link_to order.name, order_path(current_user, order) %></td>
+        <td style="width:14%"><%= order.company_name %></td>
+        <td style="width:14%"><%= @shipment.find(order.shipment_id).name %></td>
+        <td style="width:17%"><%= order.facility.name%></td>
+        <td style="width:15%"><%= order.oil.name %></td>
+        <td style="width:19%">
           <%= order.arrive_at.strftime("%Y/%m/%d") %><br>
           <%= order.arrive_at.strftime("%H:%M") %>
         </td>
-        <td style="width:3%"><%= order.quantity %> <%= order.unit %></td>
+        <td style="width:10%"><%= order.quantity %> <%= order.unit %></td>
       </tr>
       <% end %>
   </div>

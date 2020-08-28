@@ -4,24 +4,6 @@ oils.each do |oil|
   Oil.create!(name: oil)
 end
 
-# users
-User.create!(name:  "マスター",
-             email: "master@master.com",
-             password:              "master",
-             password_confirmation: "master",
-             category_id: 1)
-19.times do |n|
-  name  = Faker::Name.name
-  email = Faker::Internet.email
-  password = "test0#{n+1}"
-  category = rand(1..5)
-  User.create!(name:  name,
-               email: email,
-               password:              password,
-               password_confirmation: password,
-               category_id:           category)
-end
-
 # facilities
 facilities = %w(第一桟橋 第二桟橋 第三桟橋 第四桟橋 第五桟橋 第六桟橋 第七桟橋 共同桟橋 陸上出荷設備 タンク車出荷設備)
 facilities.each do |facility|
@@ -40,6 +22,24 @@ facilities.each do |facility|
   n += 1
 end
 
+# users
+User.create!(name:  "マスター",
+             email: "master@master.com",
+             password:              "master",
+             password_confirmation: "master",
+             category_id: 6)
+19.times do |n|
+  name  = Faker::Name.name
+  email = Faker::Internet.email
+  password = "test0#{n+1}"
+  category = rand(1..6)
+  User.create!(name:  name,
+               email: email,
+               password:              password,
+               password_confirmation: password,
+               category_id:           category)
+end
+
 # construction
 notices = ["工程内で制約日程は調整可能", "工事中は桟橋クローズ", "足場組立て期間のみ桟橋クローズ", "", ""]
 30.times do |n|
@@ -50,13 +50,14 @@ notices = ["工程内で制約日程は調整可能", "工事中は桟橋クロ�
   dh = rand(0..3)
   start_at = Time.now.midnight.since(mm.month + d.days + h.hour)
   end_at   = start_at.since(d.days + dh.hour)
-  user     = User.find(rand(1..19))
-  status = m < 3 ? 1 : 2
-  notice = notices[rand(0..2)] if m > 4
+  users    = User.where(category_id: rand(1..5))
+  user     = users[rand(0..users.count-1)]
+  status   = m < 3 ? 1 : 2
+  notice   = notices[rand(0..2)] if m > 4
   facility = Facility.find(rand(1..Facility.count-1))
-  oil = facility.oils[rand(0..facility.oils.count-1)]
-  oil_id = oil.id
-  user_id = user.id
+  oil      = facility.oils[rand(0..facility.oils.count-1)]
+  oil_id   = oil.id
+  user_id  = user.id
   category_id = user.category_id
   if n % 2 == 0
     name = "#{facility.name} #{oil.name} 配管補修工事"
@@ -101,7 +102,8 @@ end
   d  = rand(1..20)
   h  = rand(9..15)
   arrive_at = Time.now.midnight.since(n.days + h.hour)
-  user     = User.find(rand(1..19))
+  users    = User.where(category_id: 6)
+  user     = users[rand(0..users.count-1)]
   facility = Facility.find(rand(1..Facility.count-1))
   oil = facility.oils[rand(0..facility.oils.count-1)]
   facility_id = facility.id
@@ -128,15 +130,15 @@ end
     name = Faker::Address.state + "丸"
   end
   order_1 = Order.new(name: name,
-                       shipment: shipment,
-                       company_name: company_name,
-                       quantity: quantity,
-                       unit: unit,
-                       facility_id: facility_id,
-                       oil_id: oil_id,
-                       user_id: user_id,
-                       arrive_at: arrive_at,
-                       arrive_at_date: arrive_at)
+                      shipment_id: shipment,
+                      company_name: company_name,
+                      quantity: quantity,
+                      unit: unit,
+                      facility_id: facility_id,
+                      oil_id: oil_id,
+                      user_id: user_id,
+                      arrive_at: arrive_at,
+                      arrive_at_date: arrive_at)
   if order_1.save
   else
   end
@@ -145,7 +147,8 @@ end
   d  = rand(1..20)
   h  = rand(9..15)
   arrive_at = Time.now.midnight.since(n.days + h.hour)
-  user     = User.find(rand(1..19))
+  users    = User.where(category_id: 6)
+  user     = users[rand(0..users.count-1)]
   facility = Facility.find(rand(1..Facility.count-1))
   oil = facility.oils[rand(0..facility.oils.count-1)]
   facility_id = facility.id
@@ -172,7 +175,7 @@ end
     name = Faker::Address.state + "丸"
   end
   order_2 = Order.new(name: name,
-                       shipment: shipment,
+                       shipment_id: shipment,
                        company_name: company_name,
                        quantity: quantity,
                        unit: unit,

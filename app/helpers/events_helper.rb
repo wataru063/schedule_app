@@ -10,7 +10,7 @@ module EventsHelper
     @constructions.each do |c|
       n += 1
       event = {}
-      duration = "#{c.start_at.strftime("%m/%d %H:%M")}〜#{c.end_at.strftime("%m/%d %H:%M")}"
+      duration = "#{c.start_at.strftime("%-m/%-d %-H:%M")}〜#{c.end_at.strftime("%-m/%-d %-H:%M")}"
       event.store(:id, n)
       event.store(:title, "【制約】#{duration} #{c.name}")
       event.store(:start, c.start_at)
@@ -25,8 +25,8 @@ module EventsHelper
     @orders.each do |o|
       n += 1
       event = {}
-      shipment = o.shipment == 1 ? "入" : "出"
-      title = "［#{shipment}］#{o.arrive_at.strftime("%H:%M")} #{o.name}
+      shipment = o.shipment_id == 1 ? "入" : "出"
+      title = "［#{shipment}］#{o.arrive_at.strftime("%-H:%M")} #{o.name}
                 #{o.oil.name} #{o.quantity} #{o.unit} #{o.company_name}"
       event.store(:id, n)
       event.store(:title, title)

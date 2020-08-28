@@ -6,7 +6,7 @@ class OrderTest < ActiveSupport::TestCase
     arrive_month = Time.current.since(4.day).month.to_s
     arrive_year = Time.current.since(4.day).year.to_s
     arrive_at_date = arrive_year + "-" + arrive_month + "-" + arrive_day
-    @order = Order.new(name: "Test ship", shipment: 1, company_name: "Test company",
+    @order = Order.new(name: "Test ship", shipment_id: 1, company_name: "Test company",
                        facility_id: 1, oil_id: 1, unit: "kL",
                        user_id: 1, quantity: 100,
                        arrive_at: Time.current.since(4.day),
@@ -44,7 +44,7 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   test "shipment should be present" do
-    @order.shipment = " "
+    @order.shipment_id = " "
     assert_not @order.valid?
   end
 

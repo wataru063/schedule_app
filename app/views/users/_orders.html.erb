@@ -1,0 +1,35 @@
+<% if @orders.blank? %>
+<div class="nodata-wrapper">
+  <div class="nodata">登録情報なし</div>
+</div>
+<% else %>
+<table class="table table-hover" style="width: 90%;">
+  <thead>
+    <th>船名</th>
+    <th>会社名</th>
+    <th>入出荷</th>
+    <th>対象設備</th>
+    <th>油種</th>
+    <th>荷役作業日時</th>
+    <th>数量</th>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+    <tr>
+      <td style="width:11%">
+        <%= link_to order.name, order_path(current_user, order) %>
+      </td>
+      <td style="width:13%"><%= order.company_name %></td>
+      <td style="width:13%"><%= @shipment.find(order.shipment_id).name %></td>
+      <td style="width:17%"><%= order.facility.name%></td>
+      <td style="width:15%"><%= order.oil.name %></td>
+      <td style="width:19%">
+        <%= order.arrive_at.strftime("%Y/%m/%d") %><br>
+        <%= order.arrive_at.strftime("%H:%M") %> </td>
+      <td style="width:14%"><%= order.quantity %> <%= order.unit %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @orders, previous_label: '← 前', next_label: '次 →'%>
+<% end %>

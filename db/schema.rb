@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20200727060542) do
     t.string "name"
     t.string "company_name"
     t.string "unit"
-    t.integer "shipment"
+    t.integer "shipment_id"
     t.integer "quantity"
     t.integer "facility_id"
     t.integer "oil_id"

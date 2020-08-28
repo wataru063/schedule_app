@@ -37,7 +37,7 @@ ja:
         end_at_date: 工事終了日時
       order:
         name: 船名
-        shipment: 入出荷
+        shipment_id: 入出荷
         company_name: 取引先会社名
         quantity: 数量・単位
         facility_id: 対象設備

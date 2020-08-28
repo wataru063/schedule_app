@@ -1,6 +1,6 @@
 Nihonmaru:
   name: 日本丸
-  shipment: 2
+  shipment_id: 2
   company_name: 日本株式会社
   facility_id: 1
   oil_id: 1

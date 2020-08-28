@@ -11,8 +11,24 @@
       <div id='calendar'>
         <% @facilities.each do |f|  %>
         <div class="row calendar-table">
-          <%= link_to(f.name, calendar_show_path(current_user), {class: "col-sm-2 tab-title"}) %>
-          <div class="col-sm-10 tabs" data-calendar="<%= f.id %>"></div>
+          <div class="col-sm-3">
+            <div class="tab-title">
+              <%= link_to(f.name, calendar_show_path(current_user,f)) %>
+            </div>
+            <div class="twoweek-const">
+              <div class="twoweek-const-title">近日開始予定の工事</div>
+              <ul>
+                <% if @construction[f.id].blank? %>
+                なし
+                <% else %>
+                <% @construction[f.id].each do |c| %>
+                <li><%= link_to("#{c.start_at.strftime("%-m/%-d")} #{c.name}", construction_path(current_user,c)) %></li>
+                <% end %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-9 tabs" data-calendar="<%= f.id %>"></div>
         </div>
         <% end  %>
       </div>

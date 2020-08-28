@@ -1,0 +1,22 @@
+console.log($(".current").data('value'))
+if($(".current").data('value') == 'orders')
+{
+  console.log($(".current").data('value'));
+  $('#info-table-partial').html("<%= escape_javascript(render 'orders') %>")
+}
+else if ($(".current").data('value') == 'orders_construction')
+{
+  console.log($(".current").data('value'));
+  $('#info-table-partial').html("<%= escape_javascript(render 'orders') %>")
+}
+else if ($(".current").data('value') == 'constructions')
+{
+  console.log($(".current").data('value'));
+  $('#info-table-partial').html("<%= escape_javascript(render 'orders') %>")
+}
+else if ($(".current").data('value') == 'edit')
+{
+  console.log($(".current").data('value'));
+  $('#info-table-partial').html("<%= escape_javascript(render 'edit') %>")
+}
+
