@@ -125,8 +125,8 @@
         <td style="width:17%"><%= order.facility.name%></td>
         <td style="width:15%"><%= order.oil.name %></td>
         <td style="width:19%">
-          <%= order.arrive_at.strftime("%Y/%m/%d") %><br>
-          <%= order.arrive_at.strftime("%H:%M") %>
+          <%= order.arrive_at.strftime("%Y/%-m/%-d") %><br>
+          <%= order.arrive_at.strftime("%-H:%M") %>
         </td>
         <td style="width:10%"><%= order.quantity %> <%= order.unit %></td>
       </tr>

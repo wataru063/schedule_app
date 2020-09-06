@@ -33,7 +33,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 # add
 gem 'active_hash'
-gem 'bootstrap-sass', '3.3.7'
+gem 'bootstrap-sass'
 gem 'bootstrap-will_paginate', '1.0.0'
 gem 'cocoon'
 # gem 'devise'

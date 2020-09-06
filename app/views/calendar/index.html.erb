@@ -18,11 +18,11 @@
             <div class="twoweek-const">
               <div class="twoweek-const-title">近日開始予定の工事</div>
               <ul>
-                <% if @construction[f.id].blank? %>
+                <% if @const_event[f.id].blank? %>
                 なし
                 <% else %>
-                <% @construction[f.id].each do |c| %>
-                <li><%= link_to("#{c.start_at.strftime("%-m/%-d")} #{c.name}", construction_path(current_user,c)) %></li>
+                <% @const_event[f.id].each do |c| %>
+                <li><%= link_to("#{c.start_at.strftime("%-m/%-d")} #{c.name}", construction_path(current_user), remote: true) %></li>
                 <% end %>
                 <% end %>
               </ul>
@@ -35,7 +35,7 @@
     </div>
   </div>
 </div>
-
+<div class="construction_show"><%= render 'construction_show' %></div>
 
 <script>
   $(function() {

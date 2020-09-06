@@ -99,12 +99,12 @@
         </td>
         <td style="width:17%"><%= c.oil.name %></td>
         <td style="width:7%">
-          <%= c.start_at.strftime("%Y/%m/%d") %><br>
-          <%= c.start_at.strftime("%H:%M") %>
+          <%= c.start_at.strftime("%Y/%-m/%-d") %><br>
+          <%= c.start_at.strftime("%-H:%M") %>
         </td>
         <td style="width:7%">
-          <%= c.end_at.strftime("%Y/%m/%d") %><br>
-          <%= c.end_at.strftime("%H:%M") %>
+          <%= c.end_at.strftime("%Y/%-m/%-d") %><br>
+          <%= c.end_at.strftime("%-H:%M") %>
         </td>
         <td style="width:14%"><%= c.notice %></td>
       </tr>

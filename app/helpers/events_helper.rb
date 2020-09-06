@@ -11,11 +11,11 @@ module EventsHelper
       n += 1
       event = {}
       duration = "#{c.start_at.strftime("%-m/%-d %-H:%M")}〜#{c.end_at.strftime("%-m/%-d %-H:%M")}"
-      event.store(:id, n)
+      event.store(:id, c.id)
       event.store(:title, "【制約】#{duration} #{c.name}")
       event.store(:start, c.start_at)
       event.store(:end, c.end_at)
-      event.store(:url, "/#{current_user.id}/constructions/#{c.id}")
+      #event.store(:url, "/#{current_user.id}/calendar/index")
       event.store(:display, "list-item")
       event.store(:color, "#ffff00")
       event.store(:textColor, "#000000")

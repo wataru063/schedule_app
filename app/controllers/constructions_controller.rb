@@ -29,6 +29,11 @@ class ConstructionsController < ApplicationController
 
   def show
     @construction = Construction.find(params[:id])
+    @comment = Comment.new
+      respond_to do |format|
+        format.html
+        format.js
+      end
   end
 
   def new

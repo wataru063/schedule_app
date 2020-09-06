@@ -1,0 +1,64 @@
+<!-- ボタン・リンククリック後に表示される画面の内容 -->
+<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog" id="construction-modal-dialog">
+    <div class="modal-content" id="construction-modal-content">
+      <div class="modal-header" id="construction-modal-header">
+        <h2 class="modal-title construction-modal-title" id="myModalLabel">
+          工事詳細
+          <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;">
+            <i class="fa fa-2x fa-times"></i>
+          </button>
+        </h2>
+      </div>
+      <div class="modal-body edit-construction-form">
+        <div id="construction-show-content">
+          <div>工事名：</div>
+          <p class="const-show-element"><%= @construction.name %></p>
+          <div>制約油種：</div>
+          <p class="const-show-element"><%= @construction.oil.name %></p>
+          <div>開始日時：</div>
+          <p class="const-show-element"><%= @construction.start_at.strftime("%Y/%-m/%-d %-H:%M") %></p>
+          <div>終了日時：</div>
+          <p class="const-show-element"><%= @construction.end_at.strftime("%Y/%-m/%-d %-H:%M") %></p>
+          <% if @construction.facility.present? %>
+          <div>制約設備：</div>
+          <p class="const-show-element"><%= @construction.facility.name %></p>
+          <% else %>
+          <div>制約油種：</div>
+          <p class="const-show-element">-</p>
+          <% end %>
+        </div>
+        <div id="construction-show-comment">
+          <div id="construction-panel-heading">
+            投稿されたコメント： <%= @construction.comments.count %> 件<br>
+          </div>
+          <div id="construction-comment-wrapper">
+            <%= render 'calendar/comment' %>
+          </div>
+          <%= form_for(@comment, url: comments_url, remote: true) do |f| %>
+          <%= render 'shared/error_messages', object: f.object %>
+          <%= f.label :content, 'コメント', class:'form-label-login' %>
+          <%= f.text_area :content, value:'', class: 'form-control', id: "comment-text" %>
+          <%= f.hidden_field :construction_id, value: @construction.id %>
+          <%= f.submit '投稿', class: "btn btn-loggedIn", id: "comment-save" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    $(function() {
+      $('#comment-save').attr('disabled', true);
+      $('#comment-text').keyup(function() {
+        if (!$(this).val().trim()) {
+          $('#comment-save').attr('disabled', true);
+        } else {
+          $('#comment-save').attr('disabled', false);
+        }
+      });
+    });
+  });
+</script>

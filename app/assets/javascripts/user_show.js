@@ -2,7 +2,6 @@ $(function () {
 
   history.replaceState(null, document.getElementsByTagName('title')[0].innerHTML, null);
   window.addEventListener('popstate', function () {
-    console.log("popstate")
     window.location.reload();
   });
 

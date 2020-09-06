@@ -86,8 +86,15 @@ $(function () {
           eventRender: function (event, element) {
             element.css("font-size", "1.05em");
             element.css("padding", "3px");
-            //element.css("border", "none");
-          }
+            element.css("cursor", "pointer");
+          },
+          eventClick: function (calEvent, jsEvent, view) {
+            var dt = calEvent.id;
+            $.ajax({
+              url: `/constructions/${dt}`,
+              dataType: "script"
+            });
+          },
         });
       };
     });

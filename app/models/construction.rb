@@ -1,6 +1,7 @@
 class Construction < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   attr_accessor :start_at_date, :end_at_date
+  has_many   :comments, class_name: "Comment", dependent: :destroy
   belongs_to :facility, class_name: "Facility", foreign_key: 'facility_id', optional: true
   belongs_to :oil, class_name: "Oil", foreign_key: 'oil_id', optional: true
   belongs_to :user, class_name: "User", foreign_key: 'user_id', optional: true
@@ -17,7 +18,6 @@ class Construction < ApplicationRecord
   # custom validation
   validate  :start_at_not_before_two_months_later
   validate  :end_date_not_before_start_at_date
-
   # custom validation definition
   def start_at_not_before_two_months_later
     if start_at_date.present? && start_at.present? && start_at < Time.current.since(2.month)
@@ -30,7 +30,6 @@ class Construction < ApplicationRecord
       errors.add(:end_at, "は工事開始日時より前に設定できません")
     end
   end
-
   # custom validation definition
   def self.search(params)
     status = params[:status]

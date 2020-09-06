@@ -2,15 +2,55 @@
 
 <div class="container">
   <h2 class="title">工事詳細</h2>
-  <div class="constructions-container">
-    <%= @construction %><br>
-    <%= @construction.name  %><br>
-    <%= @construction.oil.name %><br>
-    <%= @construction.start_at.in_time_zone('UTC') %><br>
+  <div class="constructions-show-container">
+    工事名：<%= @construction.name  %><br>
+    制約油種：<%= @construction.oil.name %><br>
+    開始日時：<%= @construction.start_at.strftime("%Y/%-m/%-d %-H:%M") %><br>
+    終了日時：<%= @construction.end_at.strftime("%Y/%-m/%-d %-H:%M") %><br>
     <% if @construction.facility.present? %>
-    <%= @construction.facility.name %><br>
+    制約設備：<%= @construction.facility.name %><br>
     <% else %>
-    -
+    制約油種：-
     <% end %>
+
+    <div id="construction-comment-wrapper">
+      <% if @construction.comments.present? %>
+      投稿されたコメント：<%= @construction.comments.count %>件<br>
+      <div id="construction-comment-container">
+        <% @construction.comments.reverse_each do |comment| %>
+        <div id="construction-comment">
+          内容：<br>
+          <%= safe_join(comment.content.split("\n"),tag(:br))%><br><br>
+          投稿したユーザー：<%= comment.user.name %>
+          <%= comment.created_at.strftime("%Y/%-m/%-d %-H:%M") %>
+        </div>
+        <% end %>
+      </div>
+      <% else %>
+      投稿されたコメント：<br> -
+      <% end %>
+    </div>
+
+    <%= form_for(@comment, url: create_comment_url(@construction), remote: true) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <%= f.label :content, 'コメント', class:'form-label-login' %>
+    <%= f.text_area :content, value:'', class: 'form-control', id: "comment-text" %>
+    <%= f.hidden_field :construction_id, value: @construction.id %>
+    <%= f.submit '投稿', class: "btn btn-loggedIn", id: "comment-save" %>
+    <% end %>
+
   </div>
 </div>
+
+<script>
+  $(function() {
+    $('#comment-save').attr('disabled', true);
+    $('#comment-text').keyup(function() {
+      if ($(this).val().length == 0) {
+        $('#comment-save').attr('disabled', true);
+      } else {
+        $('#comment-save').attr('disabled', false);
+      }
+    });
+  });
+</script>
