@@ -14,8 +14,12 @@ Rails.application.routes.draw do
   post   '/:category_id/order', to: 'orders#create'
   resources :orders, except: [:new, :create, :show]
 
+#  get    '/:construction_id/comment', to: 'comments#new', as: 'new_comment'
+#  post   '/:construction_id/comment', to: 'comments#create', as: 'create_comment'
+  resources :comments, only: [:new, :create, :edit, :update, :destroy]
+
   get    '/constructions/search', to: 'constructions#search', as: 'constructions_search'
-  get    '/:category_id/constructions/:id', to: 'constructions#show', as: 'construction'
+  get    '/constructions/:id', to: 'constructions#show', as: 'construction'
   get    '/:category_id/construction', to: 'constructions#new', as: 'new_construction'
   post   '/:category_id/construction', to: 'constructions#create'
   resources :constructions, except: [:new, :create, :show]

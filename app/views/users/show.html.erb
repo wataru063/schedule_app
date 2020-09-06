@@ -2,23 +2,21 @@
 
 <div class="container">
   <h2 class="title">ユーザー登録情報</h2>
+
   <div class="user-info-wrapper">
     <ul class="user-info">
-      <li>氏名：<%= @user.name %></li>
-      <li>メールアドレス：<%= @user.email %></li>
+      <li>氏名：<%= @user.name %></li><br>
+      <li>メールアドレス：<%= @user.email %></li><br>
       <li>所属部署：<%= @user.category.name %></li>
     </ul>
     <% if @user == current_user %>
-    <ul class="btn-list">
-      <li>
-        <a class="btn-user-edit" data-toggle="modal" data-target="#testModal">
-          編集
-        </a>
-      </li>
-      <li>
-        <%= link_to "削除", @user, method: :delete, data: { confirm: "削除しますか?" }, class:"btn-user-edit" %>
-      </li>
-      <% end %>
+    <div class="btn-list">
+      <a class="btn-user-edit" data-toggle="modal" data-target="#testModal">
+        編集
+      </a>
+      <%= link_to "削除", @user, method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-user-edit" %>
+    </div>
+    <% end %>
   </div>
 
   <% if @user.category_id == 6 %>

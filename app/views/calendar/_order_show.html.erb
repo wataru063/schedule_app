@@ -1,6 +1,6 @@
 <!-- ボタン・リンククリック後に表示される画面の内容 -->
 <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-  <div class="modal-dialog" id="user-modal-dialog">
+  <div class="modal-dialog" id="user-mdoal-dialog">
     <div class="modal-content">
       <div class="modal-header" id="user-modal-header">
         <h2 class="modal-title user-modal-title" id="myModalLabel">
@@ -41,7 +41,9 @@
   $(function() {
     $('#update-btn').attr('disabled', false);
     $('#user_name').keyup(function() {
-      if (!$(this).val().trim()) {
+      if ($(this).val().length == 0) {
+        console.log(window.sessionStorage.length)
+        console.log("test")
         $('#update-btn').attr('disabled', true);
         $(this).css("border-color", "red")
         $("#user-name-label").css("color", "red")
@@ -54,7 +56,7 @@
       }
     });
     $('#user_email').keyup(function() {
-      if (!$(this).val().trim()) {
+      if ($(this).val().length == 0) {
         console.log("test")
         $('#update-btn').attr('disabled', true);
         $(this).css("border-color", "red")

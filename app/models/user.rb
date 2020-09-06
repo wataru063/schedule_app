@@ -3,6 +3,7 @@ class User < ApplicationRecord
   attr_accessor :remember_token
   has_many   :constructions, class_name: "Construction"
   has_many   :orders, class_name: "Order"
+  has_many   :comments, class_name: "Comment", dependent: :destroy
   belongs_to :category, class_name: "Category", foreign_key: 'category_id'
   before_save { self.email = email.downcase }
   validates :name,  presence: true, length: { maximum: 50 }

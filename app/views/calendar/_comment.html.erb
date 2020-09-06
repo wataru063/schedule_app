@@ -1,0 +1,62 @@
+<% if @construction.comments.present? %>
+<div id="construction-comment-container">
+  <% @construction.comments.order(created_at: :desc).each do |comment| %>
+  <div class="construction-comment">
+    <div class="content-wrapper">
+      <% if comment.content.present? && comment.content.length > 34 || comment.content.include?("\n") %>
+      <p class="content"><%= safe_join(comment.content.split("\n"),tag(:br)) %></p>
+      <div class="show_more">
+        <i class="fas fa-angle-down"></i> &nbsp; 続きを読む
+      </div>
+      <% else %>
+      <p class="content"><%= safe_join(comment.content.split("\n"),tag(:br)) %></p>
+      <br><br>
+      <% end %>
+    </div>
+    <%= comment.created_at.strftime("%Y/%-m/%-d %-H:%M")+ "　" %>
+    <% if current_user.id == comment.user.id %>
+    投稿者：あなた
+    <div class="edit-delete-link">
+      <%= link_to comment_path(comment, construction_id: @construction.id), method: :delete, remote: true do %>
+      <i class="fa fa-trash" aria-hidden="true"></i>
+      <% end %>
+    </div>
+    <% else %>
+    投稿者：<%= comment.user.name + '（' + comment.user.category.name + '）' %>
+    <% end %>
+  </div>
+  <% end %>
+</div>
+<% else %>
+投稿されたコメント：0件<br> -
+<% end %>
+
+<script>
+  $(function() {
+    $(".show_more").click(function() {
+      var show_content = $(this).parent(".content-wrapper").find(".content");
+      var small_height = 25;
+      var original_height = show_content.css({
+        height: "auto"
+      }).height();
+
+      if (show_content.hasClass("open")) {
+        show_content.height(original_height).animate({
+          height: small_height
+        }, 300);
+        show_content.removeClass("open");
+        $(this).html('<i class="fas fa-angle-down"></i> &nbsp; 続きを読む').removeClass("active");
+      } else {
+        show_content
+          .height(small_height)
+          .animate({
+            height: original_height
+          }, 300, function() {
+            show_content.height("auto");
+          });
+        show_content.addClass("open");
+        $(this).html('<i class="fas fa-angle-up"></i> &nbsp; 閉じる').addClass("active");
+      }
+    });
+  });
+</script>
