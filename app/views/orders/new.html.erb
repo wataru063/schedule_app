@@ -78,7 +78,7 @@
     var category_id = '<%= current_user.category_id %>';
     $('#facility-select').change(function() {
       $.get({
-        url: `/${category_id}/orders/oil`,
+        url: `/orders/oil`,
         data: {
           facility_id: $('#facility-select').has('option:selected').val()
         },

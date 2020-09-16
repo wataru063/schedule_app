@@ -38,7 +38,6 @@ gem 'bootstrap-will_paginate', '1.0.0'
 gem 'cocoon'
 # gem 'devise'
 gem 'faker', '1.7.3'
-# gem 'font-awesome-sass', '~> 5.9.0'
 gem 'fullcalendar-rails'
 gem 'jquery-rails', '4.3.1'
 gem 'momentjs-rails'
@@ -53,12 +52,16 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i(mri mingw x64_mingw)
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
-  gem 'rspec-rails', '~> 3.6.0'
+  gem 'capybara', '~> 2.15.2'
+  gem 'capybara-webkit'
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
 end
 
 group :development do
+  gem 'brakeman', require: false
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
@@ -69,12 +72,12 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem "rails-erd"
 end
+
 group :test do
   gem 'guard',                    '2.16.2'
   gem 'guard-minitest',           '2.4.4'
   gem 'minitest',                 '5.10.3'
   gem 'minitest-reporters',       '1.1.14'
-  gem 'rails-controller-testing', '1.0.2'
   gem 'webdrivers'
 end
 

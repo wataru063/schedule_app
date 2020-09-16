@@ -14,10 +14,11 @@
       <% end %>
     </div>
     <%= comment.created_at.strftime("%Y/%-m/%-d %-H:%M")+ "　" %>
-    <% if current_user.id == comment.user.id %>
+    <% if current_user?(comment.user) %>
     投稿者：あなた
     <div class="edit-delete-link">
-      <%= link_to comment_path(comment, construction_id: @construction.id), method: :delete, remote: true do %>
+      <%= link_to comment_path(comment),
+          data: { confirm: "本当に削除しますか?", method: :delete, remote: true } do %>
       <i class="fa fa-trash" aria-hidden="true"></i>
       <% end %>
     </div>

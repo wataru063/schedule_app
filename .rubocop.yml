@@ -11,6 +11,7 @@ AllCops:
     - 'db/**/*'
     - 'vendor/**/**/*'
     - 'spec/*'
+  TargetRubyVersion: 2.5
 
 Style/TrailingCommaInHashLiteral:
   Enabled: false
@@ -41,5 +42,11 @@ Layout/FirstArrayElementLineBreak:
   Enabled: false
 
 Airbnb/RiskyActiverecordInvocation:
+  Enabled: false
+
+Airbnb/FactoryAttrReferencesClass:
+  Enabled: false
+
+Style/MixinUsage:
   Enabled: false
 

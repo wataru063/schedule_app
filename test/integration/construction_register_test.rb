@@ -14,7 +14,7 @@ class ConstructionRegisterTest < ActionDispatch::IntegrationTest
     @end_at_date = end_year + "-" + end_month + "-" + end_day
   end
   test "invalid registration information" do
-    get new_construction_path(@user)
+    get new_construction_path
     assert_no_difference 'Construction.count', 1 do
       post new_construction_path, params: { construction: { name: "",
                                                             status: "",
@@ -53,7 +53,7 @@ class ConstructionRegisterTest < ActionDispatch::IntegrationTest
   end
 
   test "valid registration information" do
-    get new_construction_path(@user)
+    get new_construction_path
     assert_difference 'Construction.count', 1 do
       post new_construction_path, params: { construction: { name: "Test",
                                                             status: "Test",

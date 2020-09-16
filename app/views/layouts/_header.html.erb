@@ -1,6 +1,6 @@
 <% if logged_in? %>
 <header class="navbar navbar-fixed-top navbar-custom-loggedIn">
-  <%= link_to "需給管理システム", calendar_index_path(current_user), id: "logo-loggedIn" %>
+  <%= link_to "需給管理システム", calendar_index_path, id: "logo-loggedIn" %>
   <nav>
     <ul class="nav navbar-right navbar-loggedIn">
       <li><%= link_to "ログイン中：#{@current_user.name}", @current_user, id: "user" %></li>

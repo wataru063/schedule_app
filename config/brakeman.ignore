@@ -1,0 +1,142 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "0970677a985d35b0de1893aff30c28c88a1e35123065a4cebb01c48d05794750",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/orders_controller.rb",
+      "line": 20,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Order.search(search_params).order((((params[:column].presence or \"arrive_at\") + \" \") + sort_direction))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "OrdersController",
+        "method": "search"
+      },
+      "user_input": "params[:column].presence",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "0970677a985d35b0de1893aff30c28c88a1e35123065a4cebb01c48d05794750",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/orders_controller.rb",
+      "line": 24,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Order.search(search_params).order((((params[:column].presence or \"arrive_at\") + \" \") + sort_direction))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "OrdersController",
+        "method": "search"
+      },
+      "user_input": "params[:column].presence",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "b0bf7467d1d39bbc0919cbdc4ea23887a4fbdb0960b4f08dafed4ef02a9c61c0",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/constructions_controller.rb",
+      "line": 22,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Construction.search(search_params).order((((params[:column].presence or \"start_at\") + \" \") + sort_direction))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ConstructionsController",
+        "method": "search"
+      },
+      "user_input": "params[:column].presence",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "b0bf7467d1d39bbc0919cbdc4ea23887a4fbdb0960b4f08dafed4ef02a9c61c0",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/constructions_controller.rb",
+      "line": 26,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Construction.search(search_params).order((((params[:column].presence or \"start_at\") + \" \") + sort_direction))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ConstructionsController",
+        "method": "search"
+      },
+      "user_input": "params[:column].presence",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Request Forgery",
+      "warning_code": 116,
+      "fingerprint": "c8697fda60549ca065789e2ea74c94effecef88b2b5483bae17ddd62ece47194",
+      "check_name": "CSRFTokenForgeryCVE",
+      "message": "Rails 5.1.6 has a vulnerability that may allow CSRF token forgery. Upgrade to Rails 5.2.4.3 or patch",
+      "file": "Gemfile.lock",
+      "line": 167,
+      "link": "https://groups.google.com/g/rubyonrails-security/c/NOjKiGeXUgw",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "d0d855b96bdcbfc3f9c38d199f3f6d11411270ca4273b46a8fdf79e4e98de8d1",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/orders_controller.rb",
+      "line": 9,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Order.search(search_params).order((((params[:column].presence or \"arrive_at\") + \" \") + sort_direction))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "OrdersController",
+        "method": "index"
+      },
+      "user_input": "params[:column].presence",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "ec0bdcc77d75323678c8eeaf537e325f9eacba921ac7a003853210162383297d",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/constructions_controller.rb",
+      "line": 9,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Construction.search(search_params).order((((params[:column].presence or \"start_at\") + \" \") + sort_direction))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ConstructionsController",
+        "method": "index"
+      },
+      "user_input": "params[:column].presence",
+      "confidence": "High",
+      "note": ""
+    }
+  ],
+  "updated": "2020-09-15 19:48:44 +0900",
+  "brakeman_version": "4.9.1"
+}

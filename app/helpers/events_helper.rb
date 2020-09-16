@@ -15,7 +15,6 @@ module EventsHelper
       event.store(:title, "【制約】#{duration} #{c.name}")
       event.store(:start, c.start_at)
       event.store(:end, c.end_at)
-      #event.store(:url, "/#{current_user.id}/calendar/index")
       event.store(:display, "list-item")
       event.store(:color, "#ffff00")
       event.store(:textColor, "#000000")

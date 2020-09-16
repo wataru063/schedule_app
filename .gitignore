@@ -21,3 +21,8 @@
 /yarn-error.log
 
 .byebug_history
+
+## Ignore optional file
+#erd.dot
+#erd.png
+/vendor/*

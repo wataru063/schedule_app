@@ -1,4 +1,7 @@
 class OrdersController < ApplicationController
+  before_action :logged_in_user
+  before_action :belong_to_supply_and_demand_management
+
   def index
     set_select_params
     sort_column = params[:column].presence || 'arrive_at'
@@ -41,11 +44,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def oil
-    oil_id = Facility.find(params[:facility_id]).oils.ids
-    @oils = Oil.where(id: oil_id).pluck(:id, :name).to_h.to_json
-  end
-
   def create
     set_time(params[:order], "arrive")
     @order = Order.new(order_params)
@@ -55,6 +53,11 @@ class OrdersController < ApplicationController
     else
       render :new
     end
+  end
+
+  def oil
+    oil_id = Facility.find(params[:facility_id]).oils.ids
+    @oils = Oil.where(id: oil_id).pluck(:id, :name).to_h.to_json
   end
 
   private
@@ -77,5 +80,16 @@ class OrdersController < ApplicationController
     @company_name = Order.select(:company_name).distinct
     @facility_id = Order.select(:facility_id).distinct
     @oil_id = Order.select(:oil_id).distinct
+  end
+
+  def belong_to_supply_and_demand_management
+    unless current_user.category_id == 6
+      flash[:danger] = "アクセス権限がありません"
+      if url = request.referer
+        redirect_to url
+      else
+        redirect_to calendar_index_url
+      end
+    end
   end
 end
