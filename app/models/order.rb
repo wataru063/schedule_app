@@ -14,14 +14,15 @@ class Order < ApplicationRecord
   validates  :user_id,   presence: true
   validates  :arrive_at, presence: true
   validates  :arrive_at_date, presence: true
+  validates  :unit, presence: true, allow_blank: true
   validate   :unit_not_nil
   validate   :arrive_at_not_be_set_in_the_past
-  validate   :combination_of_arrive_at_and_facility_not_be_duplicate
-  validate   :combination_of_arrive_at_and_facility_not_overlap_with_construction
+  validate   :arrive_at_not_be_duplicate
+  validate   :arrive_at_not_overlap_with_construction
 
   def unit_not_nil
     if quantity.present? && unit.blank?
-      errors.add(:quantity, "を入力してください")
+      errors.add(:unit, "を入力してください")
     end
   end
 
@@ -31,23 +32,26 @@ class Order < ApplicationRecord
     end
   end
 
-  def combination_of_arrive_at_and_facility_not_be_duplicate
+  def arrive_at_not_be_duplicate
     if arrive_at_date.present? && arrive_at.present? && facility_id.present?
       if Order.find_by(arrive_at: arrive_at, facility_id: facility_id).present?
-        errors.add(:facility_id, "：#{Facility.find(facility_id).name}の
-        #{arrive_at.strftime("%Y/%m/%d/%H:%M")} には他のオーダーが入っています")
+        errors.add(
+          :arrive_at,
+          "：#{Facility.find(facility_id).name}のこの時間には他のオーダーが入っています"
+        )
       end
     end
   end
 
-  def combination_of_arrive_at_and_facility_not_overlap_with_construction
+  def arrive_at_not_overlap_with_construction
     constructions = Construction.where(oil_id: oil_id) if oil_id.present?
     if arrive_at_date.present? && arrive_at.present? && constructions.present?
       constructions.each do |c|
         if c.start_at < arrive_at && arrive_at < c.end_at
-          errors.add(:facility_id, "：#{Facility.find(facility_id).name}の
-                                   #{arrive_at.strftime("%Y/%m/%d/%H:%M")}
-                                   は工事(#{c.name})による出荷制約があります")
+          errors.add(
+            :arrive_at,
+            "：#{Facility.find(facility_id).name}のこの時間は工事(#{c.name})による出荷制約があります"
+          )
         end
       end
     end

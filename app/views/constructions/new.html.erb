@@ -3,7 +3,7 @@
 <div class="container">
   <h2 class="title">工事登録</h2>
   <div class="row construction-row">
-    <%= form_for(@construction, url: new_construction_path) do |f| %>
+    <%= form_for(@construction, url: constructions_path) do |f| %>
     <div class="col-sm-6 col-sm-offset-3">
       <%= render 'shared/error_messages', object: f.object %>
     </div>
@@ -16,24 +16,23 @@
 
         <div class=" form-group select">
           <%= f.label :status, '現状況', class:'form-label-login'%>
-          <%= f.select :status, options_for_select([['実行検討中'], ['工事準備中']]), id: 'construction_status' %>
+          <%= f.collection_select :status, @status, :id, :name, id: 'construction_status' %>
         </div>
 
         <div class=" form-group">
           <%= f.label :facility_id, '設備制約', class:'form-label-login'%>
-          <%= f.collection_select :facility_id, Facility.all,:id, :name,
+          <%= f.collection_select :facility_id, @facility, :id, :name,
                                   {include_blank: "選択しない"}, class: 'form-control' %>
         </div>
 
         <div class=" form-group">
           <%= f.label :oil_id, '油種制約', class:'form-label-login'%>
-          <%= f.collection_select :oil_id, Oil.all, :id, :name,
+          <%= f.collection_select :oil_id, @oil, :id, :name,
                                   {include_blank: "-- 選択してください --"}, class: 'form-control' %>
         </div>
-
       </div>
-      <div class="col-sm-5">
 
+      <div class="col-sm-5">
         <%= f.label :start_at, '工事開始日時', class:'form-label-login'%>
         <div class="row">
           <div class="col-sm-7">
@@ -57,13 +56,13 @@
 
         <div class=" form-group">
           <%= f.label :category_id, 'カテゴリー', class:'form-label-login'%>
-          <%= f.collection_select :category_id, Category.all, :id, :name,
-                                  {include_blank: "-- 選択してください --"}, class: 'form-control' %>
+          <%= f.collection_select :category_id, @category, :id, :name, {}, class: 'form-control' %>
         </div>
+
         <div class=" form-group">
           <%= f.label :user_id, '担当者', class:'form-label-login'%>
-          <%= f.collection_select :user_id, User.all, :id, :name,
-                                  {include_blank: "-- 選択してください --", selected: current_user.id}, class: 'form-control' %>
+          <%= f.collection_select :user_id, @user, :id, :name,
+                                  { selected: current_user.id }, class: 'form-control' %>
         </div>
 
       </div>

@@ -26,10 +26,11 @@ class Construction < ApplicationRecord
   end
 
   def end_date_not_before_start_at_date
-    if start_at.present? && end_at.present? && end_at_date.present? && end_at < start_at
+    if start_at.present? && end_at.present? && end_at_date.present? && end_at <= start_at
       errors.add(:end_at, "は工事開始日時より前に設定できません")
     end
   end
+
   # custom validation definition
   def self.search(params)
     status = params[:status]

@@ -13,7 +13,7 @@
         <div class="row calendar-table">
           <div class="col-sm-3">
             <div class="tab-title">
-              <%= link_to(f.name, calendar_show_path(current_user,f)) %>
+              <%= link_to(f.name, calendar_show_path(f)) %>
             </div>
             <div class="twoweek-const">
               <div class="twoweek-const-title">近日開始予定の工事</div>
@@ -35,6 +35,7 @@
     </div>
   </div>
 </div>
+
 <div class="construction_show"><%= render 'construction_show' %></div>
 
 <script>

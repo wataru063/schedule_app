@@ -2,7 +2,7 @@
 
 <div class="container">
   <h2 class="title title-calendar-index">日程詳細</h2>
-  <%= form_tag(calendar_show_path(current_user), method: "get", id: 'form') do %>
+  <%= form_tag(calendar_show_path, method: "get", id: 'form') do %>
   <%= select_tag 'facility_id', options_for_select(@facility.map{ |fa| [fa.name, fa.id] }, { selected: @facility_id.to_i }),class:"form-calendar", id: 'facility-calendar' %>
   <% end %>
 

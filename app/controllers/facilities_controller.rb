@@ -1,4 +1,7 @@
 class FacilitiesController < ApplicationController
+  before_action :logged_in_user
+  # TODO admin user only accessable
+
   def new
     @facility = Facility.new
     @facility.relate_to_oils.build

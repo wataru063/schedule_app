@@ -11,9 +11,7 @@
     </ul>
     <% if @user == current_user %>
     <div class="btn-list">
-      <a class="btn-user-edit" data-toggle="modal" data-target="#testModal">
-        編集
-      </a>
+      <%= link_to "編集", edit_user_path(@user),data: { method: :get, remote: true }, class:"btn-user-edit" %>
       <%= link_to "削除", @user, method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-user-edit" %>
     </div>
     <% end %>

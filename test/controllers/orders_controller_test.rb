@@ -6,7 +6,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get new_order_path(@user)
+    get new_order_path
     assert_response :success
     assert_select "title", "オーダー登録 | 需給管理システム"
   end

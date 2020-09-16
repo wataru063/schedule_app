@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+  before_action :logged_in_user, only: [:destroy]
+  before_action :logged_in_user_for_top, only: [:new, :create]
+
   def new
   end
 
@@ -8,7 +11,7 @@ class SessionsController < ApplicationController
       flash[:success] = 'ログインに成功しました。'
       log_in @user
       remember @user
-      redirect_to calendar_index_url(current_user)
+      redirect_back_or calendar_index_url
     else
       flash.now[:danger] = 'ログインに失敗しました。'
       render 'new'

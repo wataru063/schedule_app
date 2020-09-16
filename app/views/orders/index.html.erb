@@ -119,7 +119,7 @@
 
       <% @order.each do |order| %>
       <tr>
-        <td style="width:13%"><%= link_to order.name, order_path(current_user, order) %></td>
+        <td style="width:13%"><%= link_to order.name, order_path(current_user.category_id, order) %></td>
         <td style="width:14%"><%= order.company_name %></td>
         <td style="width:14%"><%= @shipment.find(order.shipment_id).name %></td>
         <td style="width:17%"><%= order.facility.name%></td>

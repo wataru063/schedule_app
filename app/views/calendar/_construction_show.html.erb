@@ -10,6 +10,7 @@
           </button>
         </h2>
       </div>
+      <% if @construction.present? %>
       <div class="modal-body edit-construction-form">
         <div id="construction-show-content">
           <div>工事名：</div>
@@ -44,6 +45,7 @@
           <% end %>
         </div>
       </div>
+      <% end %>
     </div>
   </div>
 </div>

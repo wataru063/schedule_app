@@ -4,3 +4,5 @@
 --require rails_helper
 # 出力結果をドキュメント風に見やすくする
 --format documentation
+
+--require spec_helper

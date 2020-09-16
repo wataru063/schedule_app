@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  before_action :logged_in_user, only: [:edit, :update, :show, :destroy]
+  before_action :correct_user,   only: [:edit, :update, :destroy]
+  before_action :logged_in_user_for_top, only: [:new, :create]
+
   def new
     @user = User.new
   end
@@ -8,7 +12,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash[:success] = '登録しました。'
-      redirect_to calendar_index_url(current_user)
+      redirect_to calendar_index_url
     else
       render :new
     end
@@ -33,7 +37,9 @@ class UsersController < ApplicationController
       flash[:success] = "登録情報を変更いたしました。"
       redirect_to @user
     else
-      render :edit
+      set_params
+      flash[:danger] = "登録情報変更に失敗しました。"
+      render :show
     end
   end
 
@@ -41,7 +47,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     flash[:success] = "#{@user.name}を削除しました。"
-    redirect_to signup_url
+    redirect_to root_url
   end
 
   private
@@ -51,20 +57,20 @@ class UsersController < ApplicationController
                                    :password_confirmation, :category_id)
     end
 
-  def set_params
-    @status = Status.all
-    @shipment = Shipment.all
-    oil_ids = []
-    @orders = @user.orders.order(arrive_at: :asc).paginate(page: params[:page], per_page: 6)
-    if @user.category_id == 6
-      @user.orders.each do |order|
-        oil_ids << order.oil.id
+    def set_params
+      @status = Status.all
+      @shipment = Shipment.all
+      oil_ids = []
+      @orders = @user.orders.order(arrive_at: :asc).paginate(page: params[:page], per_page: 6)
+      if @user.category_id == 6
+        @user.orders.each do |order|
+          oil_ids << order.oil.id
+        end
+        oil_ids.uniq!.sort! { |a, b| a.to_i <=> b.to_i }
+        @orders_constructions = Construction.where(oil_id: oil_ids).
+          order(start_at: :asc).paginate(page: params[:page], per_page: 6)
       end
-      oil_ids.uniq!.sort! { |a, b| a.to_i <=> b.to_i }
-      @orders_constructions = Construction.where(oil_id: oil_ids).
-        order(start_at: :asc).paginate(page: params[:page], per_page: 6)
+      @constructions = @user.constructions.order(start_at: :asc).
+        paginate(page: params[:page], per_page: 6)
     end
-    @constructions = @user.constructions.order(start_at: :asc).
-      paginate(page: params[:page], per_page: 6)
-  end
 end
