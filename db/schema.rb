@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20200830042637) do
   create_table "constructions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.text "notice"
-    t.integer "status"
+    t.integer "status_id"
     t.integer "facility_id"
     t.integer "oil_id"
     t.integer "category_id"

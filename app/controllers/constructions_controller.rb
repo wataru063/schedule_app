@@ -62,12 +62,12 @@ class ConstructionsController < ApplicationController
   def construction_params
     params.
       require(:construction).
-      permit(:name, :status, :notice, :facility_id, :oil_id, :category_id, :user_id,
+      permit(:name, :status_id, :notice, :facility_id, :oil_id, :category_id, :user_id,
              :start_at, :end_at, :start_at_date, :end_at_date)
   end
 
   def search_params
-    params.permit(:id, :status, :facility_id, :oil_id, :start_at, :end_at,
+    params.permit(:id, :status_id, :facility_id, :oil_id, :start_at, :end_at,
                   :start_at_date, :end_at_date)
   end
 

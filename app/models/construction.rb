@@ -6,12 +6,13 @@ class Construction < ApplicationRecord
   belongs_to :oil, class_name: "Oil", foreign_key: 'oil_id', optional: true
   belongs_to :user, class_name: "User", foreign_key: 'user_id', optional: true
   belongs_to :category, class_name: "Category", foreign_key: 'category_id', optional: true
-  validates :name,     presence: true
-  validates :status,   presence: true
-  validates :oil_id,   presence: true
-  validates :user_id,  presence: true
-  validates :start_at, presence: true
-  validates :end_at,   presence: true
+  belongs_to :status, class_name: "Status", foreign_key: 'status_id', optional: true
+  validates :name,          presence: true
+  validates :status_id,     presence: true
+  validates :oil_id,        presence: true
+  validates :user_id,       presence: true
+  validates :start_at,      presence: true
+  validates :end_at,        presence: true
   validates :category_id,   presence: true
   validates :start_at_date, presence: true
   validates :end_at_date,   presence: true
@@ -33,7 +34,7 @@ class Construction < ApplicationRecord
 
   # custom validation definition
   def self.search(params)
-    status = params[:status]
+    status_id = params[:status_id]
     facility_id = params[:facility_id]
     oil_id = params[:oil_id]
     start_at_date = params[:start_at_date]
@@ -47,7 +48,7 @@ class Construction < ApplicationRecord
                         params["end_at(3i)"].to_i)
     end
     @construction = Construction.all
-    @construction = @construction.where(status: status) if status.present?
+    @construction = @construction.where(status_id: status_id) if status_id.present?
     @construction = @construction.where(facility_id: facility_id) if facility_id.present?
     @construction = @construction.where(oil_id: oil_id) if oil_id.present?
     @construction = @construction.where("start_at >= ?", start_at) if start_at.present?

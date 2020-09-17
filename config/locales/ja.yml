@@ -25,7 +25,7 @@ ja:
         name: 設備名
       construction:
         name: 工事名
-        status: 現状況
+        status_id: 現状況
         notice: 特記事項
         facility_id: 制約が発生する設備名
         oil_id: 制約が発生する油種名

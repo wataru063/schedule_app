@@ -52,7 +52,7 @@ notices = ["工程内で制約日程は調整可能", "工事中は桟橋クロ�
   end_at   = start_at.since(d.days + dh.hour)
   users    = User.where(category_id: rand(1..5))
   user     = users[rand(0..users.count-1)]
-  status   = m < 3 ? 1 : 2
+  status_id   = m < 3 ? 1 : 2
   notice   = notices[rand(0..2)] if m > 4
   facility = Facility.find(rand(1..Facility.count-1))
   oil      = facility.oils[rand(0..facility.oils.count-1)]
@@ -63,11 +63,11 @@ notices = ["工程内で制約日程は調整可能", "工事中は桟橋クロ�
     name = "#{facility.name} #{oil.name} 配管補修工事"
     facility_id = facility.id
   else
-    name = "タンクヤード内 #{oil.name} 配管補修工事"
+    name = "タンク元 #{oil.name} 配管補修工事"
     facility_id = ""
   end
   construction = Construction.create!(name: name,
-                                      status: status,
+                                      status_id: status_id,
                                       facility_id: facility_id,
                                       oil_id: oil_id,
                                       user_id: user_id,
@@ -83,16 +83,16 @@ notices = ["工程内で制約日程は調整可能", "工事中は桟橋クロ�
     construction.update_attribute(:start_at, start_at)
     construction.update_attribute(:end_at, end_at)
     if end_at < Time.now
-      construction.update_attribute(:status, 4)
+      construction.update_attribute(:status_id, 4)
     else
-      construction.update_attribute(:status, 3)
+      construction.update_attribute(:status_id, 3)
     end
   elsif  n % 5 == 0
     start_at = Time.now.midnight.since(rand(1..30).days + h.hour)
     end_at   = start_at.since(d.days + dh.hour)
     construction.update_attribute(:start_at, start_at)
     construction.update_attribute(:end_at, end_at)
-    construction.update_attribute(:status, 2)
+    construction.update_attribute(:status_id, 2)
   end
 end
 

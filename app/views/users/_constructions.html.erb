@@ -19,7 +19,7 @@
       <td style="width:14%">
         <%= link_to c.name, construction_path(current_user, c) %>
       </td>
-      <td style="width:14%"><%= @status.find(c.status).name %></td>
+      <td style="width:14%"><%= @status.find(c.status_id).name %></td>
       <td style="width:15%">
         <% if c.facility_id.present? %>
         <%= c.facility.name%>

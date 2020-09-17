@@ -15,8 +15,8 @@
         <%= f.text_field :name, class: 'form-control' %>
 
         <div class=" form-group select">
-          <%= f.label :status, '現状況', class:'form-label-login'%>
-          <%= f.collection_select :status, @status, :id, :name, id: 'construction_status' %>
+          <%= f.label :status_id, '現状況', class:'form-label-login'%>
+          <%= f.collection_select :status_id, @status, :id, :name, id: 'construction_status' %>
         </div>
 
         <div class=" form-group">
