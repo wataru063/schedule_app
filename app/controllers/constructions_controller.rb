@@ -5,10 +5,12 @@ class ConstructionsController < ApplicationController
   def index
     set_select_params_for_index
     sort_column = params[:column].presence || 'start_at'
-    @construction = Construction.search(search_params).
+    @constructions = Construction.search(search_params).
       order(sort_column + ' ' + sort_direction).
       paginate(page: params[:page], per_page: 7)
     @search_params = search_params
+    @construction  = Construction.first
+    @comment = Comment.new
   end
 
   def search
@@ -57,6 +59,17 @@ class ConstructionsController < ApplicationController
     end
   end
 
+  def destroy
+    @construction = Construction.find(params[:id])
+    @construction.destroy
+    flash[:success] = "#{@construction.name} を削除しました。"
+    if url = request.referer
+      redirect_to url
+    else
+      redirect_to calendar_index_url
+    end
+  end
+
   private
 
   def construction_params
@@ -87,8 +100,8 @@ class ConstructionsController < ApplicationController
 
   def set_select_params_for_index
     @status = Status.all
-    @facility_id = Construction.select(:facility_id).distinct
-    @oil_id = Construction.select(:oil_id).distinct
+    @const_facil_id = Construction.select(:facility_id).distinct
+    @const_oil_id = Construction.select(:oil_id).distinct
   end
 
   def belong_to_construction_department
