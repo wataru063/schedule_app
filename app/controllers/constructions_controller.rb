@@ -1,6 +1,7 @@
 class ConstructionsController < ApplicationController
   before_action :logged_in_user
   before_action :belong_to_construction_department, only: [:new, :create]
+  # before_action :user_in_charge, only: [:edit, :update, :destroy]
 
   def index
     set_select_params_for_index
@@ -56,6 +57,29 @@ class ConstructionsController < ApplicationController
     else
       set_select_params_for_new
       render :new
+    end
+  end
+
+  def edit
+    set_select_params_for_new
+    @construction = Construction.find(params[:id])
+    @start_at_date = get_date(@construction, "start")
+    @end_at_date = get_date(@construction, "end")
+  end
+
+  def update
+    set_time(params[:construction], "start")
+    set_time(params[:construction], "end")
+    @construction = Construction.find(params[:id])
+    if @construction.update_attributes(construction_params)
+      flash[:success] = "登録情報を変更いたしました。"
+      redirect_to constructions_url
+    else
+      set_select_params_for_new
+      @start_at_date = get_date(@construction, "start")
+      @end_at_date = get_date(@construction, "end")
+      flash[:danger] = "登録情報変更に失敗しました。"
+      render :edit
     end
   end
 
@@ -115,3 +139,12 @@ class ConstructionsController < ApplicationController
     end
   end
 end
+#
+#現状況：工事中
+#制約油種：ベンゼン
+#開始日時：2020/9/15 15:00
+#終了日時：2020/9/22 18:00
+#制約設備：第七桟橋
+#担当者：武田 玲奈（電気Tm）
+#特記事項：工程内で制約日程は調整可能
+#

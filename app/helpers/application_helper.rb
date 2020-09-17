@@ -28,6 +28,15 @@ module ApplicationHelper
     end
   end
 
+  def get_date(variable, period)
+    if variable["#{period}_at"].present?
+      year = variable["#{period}_at"].strftime("%Y")
+      month = variable["#{period}_at"].strftime("%m")
+      day = variable["#{period}_at"].strftime("%d")
+      "#{year}-#{month}-#{day}"
+    end
+  end
+
   # sort
   def sort_asc(column_to_be_sorted, search_params = nil)
     opts = { :column => column_to_be_sorted, :direction => "asc" }

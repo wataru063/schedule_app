@@ -7,7 +7,7 @@
           <%= @construction.name %>
           <% if @construction.user == current_user %>
           <div class="lg">
-            <%= link_to "編集", edit_construction_path(@construction),data: { method: :get, remote: true }, class:"btn-construction-edit edt-btn" %>
+            <%= link_to "編集", edit_construction_path(@construction), class:"btn-construction-edit edt-btn" %>
             <%= link_to "削除", construction_path(@construction), method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-construction-edit dlt-btn" %>
           </div>
           <% end %>
@@ -18,8 +18,8 @@
       </div>
       <div class="modal-body edit-construction-form">
         <div class="construction-edit-btn sm">
-          <%= link_to "編集", edit_construction_path(@construction),data: { method: :get, remote: true }, class:"btn-construction-edit edt-btn" %>
-          <%= link_to "削除", @construction, method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-construction-edit dlt-btn" %>
+          <%= link_to "編集", edit_construction_path(@construction), class:"btn-construction-edit edt-btn" %>
+          <%= link_to "削除", construction_path(@construction), method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-construction-edit dlt-btn" %>
         </div>
         <div id="construction-show-content">
           <p class="const-show-element">現状況：<%= @construction.status.name %></p>
@@ -43,7 +43,7 @@
             投稿されたコメント： <%= @construction.comments.count %> 件<br>
           </div>
           <div id="construction-comment-wrapper">
-            <%= render 'calendar/comment' %>
+            <%= render 'constructions/comment' %>
           </div>
           <%= form_for(@comment, url: comments_url, remote: true) do |f| %>
           <%= render 'shared/error_messages', object: f.object %>

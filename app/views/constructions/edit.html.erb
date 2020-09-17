@@ -1,9 +1,9 @@
-<% provide(:title, '工事登録') %>
+<% provide(:title, '登録情報編集') %>
 
 <div class="container">
-  <h2 class="title">工事登録</h2>
+  <h2 class="title">登録情報編集</h2>
   <div class="row construction-row">
-    <%= form_for(@construction, url: constructions_path) do |f| %>
+    <%= form_for(@construction, method: :patch) do |f| %>
     <div class="col-sm-6 col-sm-offset-3">
       <%= render 'shared/error_messages', object: f.object %>
     </div>
@@ -12,7 +12,7 @@
       <div class="col-sm-5">
 
         <%= f.label :name, '工事名', class:'form-label-login'%>
-        <%= f.text_field :name, class: 'form-control' %>
+        <%= f.text_field :name, class: 'form-control', id:"const-name" %>
         <div class=" form-group select">
           <%= f.label :status_id, '現状況', class:'form-label-login'%>
           <%= f.collection_select :status_id, @status, :id, :name, {}, class: 'form-control' %>
@@ -33,7 +33,7 @@
         <%= f.label :start_at, '工事開始日時', class:'form-label-login'%>
         <div class="row">
           <div class="col-sm-7">
-            <input class="form-control" type="date" name="construction[start_at_date]" id="construction_status">
+            <input class="form-control" type="date" name="construction[start_at_date]" id="construction_status" value="<%= @start_at_date %>">
           </div>
           <div class="col-sm-5 time">
             <%= f.time_select :start_at, include_blank: true, minute_step: 30, class: 'form-control time' %>
@@ -42,7 +42,7 @@
         <%= f.label :end_at, '工事終了日時', class:'form-label-login'%>
         <div class="row">
           <div class="col-sm-7">
-            <input class="form-control" type="date" name="construction[end_at_date]" id="construction_status">
+            <input class="form-control" type="date" name="construction[end_at_date]" id="construction_status" value="<%= @end_at_date %>">
           </div>
           <div class="col-sm-5 time">
             <%= f.time_select :end_at, include_blank: true, minute_step: 30, class: 'form-control time' %>
@@ -65,19 +65,22 @@
       </div>
     </div>
 
-    <%= f.submit "登録", class: "btn btn-loggedIn col-sm-6 col-sm-offset-3" %>
+    <%= f.submit "編集", class: "btn btn-loggedIn col-sm-6 col-sm-offset-3", id:"const-edit-save" %>
     <% end %>
   </div>
 </div>
 
 <script>
   $(function() {
-    var a_props = {
-      "color": "#000000",
-      "font-weight": "bold",
-      "text-decoration": "none",
-      "background-color": "#f0f0f0"
-    };
-    $('#const_new a').css(a_props);
+    $(function() {
+      $('#const-edit-save').attr('disabled', false);
+      $('#const-name').keyup(function() {
+        if (!$(this).val().trim()) {
+          $('#const-edit-save').attr('disabled', true);
+        } else {
+          $('#const-edit-save').attr('disabled', false);
+        }
+      });
+    });
   });
 </script>

@@ -17,7 +17,7 @@ class Construction < ApplicationRecord
   validates :start_at_date, presence: true
   validates :end_at_date,   presence: true
   # custom validation
-  validate  :start_at_not_before_two_months_later
+  validate  :start_at_not_before_two_months_later, on: :create
   validate  :end_date_not_before_start_at_date
   # custom validation definition
   def start_at_not_before_two_months_later
