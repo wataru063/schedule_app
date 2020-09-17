@@ -174,7 +174,8 @@
 }
 
 .sm{
-  display: block;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .lg{
@@ -184,7 +185,6 @@
 
 .btn-construction-edit{
   font-size: 1.5em;
-  float: right;
   font-weight: bold;
   line-height: 35px;
   display: inline-block;

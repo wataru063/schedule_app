@@ -19,8 +19,8 @@
       </div>
       <div class="modal-body edit-construction-form">
         <div class="construction-edit-btn sm">
-          <%= link_to "削除", @construction, method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-construction-edit dlt-btn" %>
           <%= link_to "編集", edit_construction_path(@construction),data: { method: :get, remote: true }, class:"btn-construction-edit edt-btn" %>
+          <%= link_to "削除", @construction, method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-construction-edit dlt-btn" %>
         </div>
         <div id="construction-show-content">
           <p class="const-show-element">現状況：<%= @construction.status.name %></p>
