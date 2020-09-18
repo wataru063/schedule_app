@@ -11,8 +11,8 @@
     </ul>
     <% if @user == current_user %>
     <div class="btn-list">
-      <%= link_to "編集", edit_user_path(@user),data: { method: :get, remote: true }, class:"btn-user-edit" %>
-      <%= link_to "削除", @user, method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-user-edit" %>
+      <%= link_to "編集", edit_user_path(@user),data: { method: :get, remote: true }, class:"btn-user-edit edt-btn" %>
+      <%= link_to "削除", @user, method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-user-edit dlt-btn" %>
     </div>
     <% end %>
   </div>

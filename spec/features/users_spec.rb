@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Users", type: :feature do
   let(:user) { build(:user) }
+  let!(:facility) { create(:facility) }
 
   scenario "user creates a new project" do
     visit root_path

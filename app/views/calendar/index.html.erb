@@ -22,7 +22,7 @@
                 なし
                 <% else %>
                 <% @const_event[f.id].each do |c| %>
-                <li><%= link_to("#{c.start_at.strftime("%-m/%-d")} #{c.name}", construction_path(current_user), remote: true) %></li>
+                <li><%= link_to("#{c.start_at.strftime("%-m/%-d")} #{c.name}", construction_path(c), remote: true) %></li>
                 <% end %>
                 <% end %>
               </ul>
@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<div class="construction_show"><%= render 'construction_show' %></div>
+<div class="construction_show"><%= render 'constructions/show' %></div>
 
 <script>
   $(function() {

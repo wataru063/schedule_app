@@ -11,6 +11,7 @@ require 'csv'
       constructions.each do |c|
         con_attr = c.attributes
         con_attr["no"] = no
+        con_attr["status"] = c.status.name
         con_attr["oil_name"] = c.oil.name
         if c.facility_id.present?
           con_attr["facility_name"] = c.facility.name

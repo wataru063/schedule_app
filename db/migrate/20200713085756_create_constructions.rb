@@ -3,7 +3,7 @@ class CreateConstructions < ActiveRecord::Migration[5.1]
     create_table :constructions do |t|
       t.string   :name
       t.text     :notice
-      t.integer  :status
+      t.integer  :status_id
       t.integer  :facility_id
       t.integer  :oil_id
       t.integer  :category_id

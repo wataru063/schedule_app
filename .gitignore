@@ -26,3 +26,5 @@
 #erd.dot
 #erd.png
 /vendor/*
+/erd.dot
+/erd.png

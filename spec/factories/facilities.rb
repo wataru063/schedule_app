@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :test_facility, :class => "Facility" do
+    id   { 999 }
     name { "test_facility" }
   end
 

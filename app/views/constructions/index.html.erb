@@ -8,10 +8,10 @@
       <thead>
         <th>工事名</th>
         <th>
-          <select name="status" class="index-search">
+          <select name="status_id" class="index-search">
             <option value=""></option>
             <% @status.each do |s| %>
-            <% if s.id == @search_params[:status].to_i %>
+            <% if s.id == @search_params[:status_id].to_i %>
             <option value="<%= s.id %>" selected>
               <% else %>
             <option value="<%= s.id %>">
@@ -22,13 +22,13 @@
           </select>
           <br>
           現状況
-          <%= sort_asc('status', @search_params) %>
-          <%= sort_desc('status', @search_params) %>
+          <%= sort_asc('status_id', @search_params) %>
+          <%= sort_desc('status_id', @search_params) %>
         </th>
         <th>
           <select name="facility_id" class="index-search">
             <option value=""></option>
-            <% @facility_id.each do |c| %>
+            <% @const_facil_id.each do |c| %>
             <% if c.facility_id.present? && c.facility.id == @search_params[:facility_id].to_i %>
             <option value="<%= c.facility.id %>" selected>
               <%= c.facility.name %>
@@ -46,7 +46,7 @@
         <th>
           <select name="oil_id" class="index-search">
             <option value=""></option>
-            <% @oil_id.each do |c| %>
+            <% @const_oil_id.each do |c| %>
             <% if c.oil.id == @search_params[:oil_id].to_i %>
             <option value="<%= c.oil.id %>" selected>
               <% else %>
@@ -86,10 +86,10 @@
         </th>
       </thead>
 
-      <% @construction.each do |c| %>
+      <% @constructions.each do |c| %>
       <tr>
-        <td style="width:18%"><%= link_to c.name, construction_path(current_user, c) %></td>
-        <td style="width:15%"><%= @status.find(c.status).name %></td>
+        <td style="width:18%"><%= link_to c.name, construction_path(c), remote: true %></td>
+        <td style="width:15%"><%= c.status.name %></td>
         <td style="width:17%">
           <% if c.facility_id.present? %>
           <%= c.facility.name%>
@@ -112,8 +112,10 @@
   </div>
   </table>
   <% end %>
-  <%= will_paginate @construction, previous_label: '← 前', next_label: '次 →'%>
+  <%= will_paginate @constructions, previous_label: '← 前', next_label: '次 →'%>
 </div>
+
+<div class="construction_show"><%= render 'constructions/show' %></div>
 
 <script>
   $(function() {

@@ -1,0 +1,75 @@
+<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog" id="construction-modal-dialog">
+    <div class="modal-content" id="construction-modal-content">
+      <% if @construction.present? %>
+      <div class="modal-header" id="construction-modal-header">
+        <div class="modal-title construction-modal-title" id="myModalLabel">
+          <%= @construction.name %>
+          <% if @construction.user == current_user %>
+          <div class="lg">
+            <%= link_to "編集", edit_construction_path(@construction), class:"btn-construction-edit edt-btn" %>
+            <%= link_to "削除", construction_path(@construction), method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-construction-edit dlt-btn" %>
+          </div>
+          <% end %>
+        </div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;">
+          <i class="fa fa-2x fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body edit-construction-form">
+        <div class="construction-edit-btn sm">
+          <%= link_to "編集", edit_construction_path(@construction), class:"btn-construction-edit edt-btn" %>
+          <%= link_to "削除", construction_path(@construction), method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-construction-edit dlt-btn" %>
+        </div>
+        <div id="construction-show-content">
+          <p class="const-show-element">現状況：<%= @construction.status.name %></p>
+          <p class="const-show-element">制約油種：<%= @construction.oil.name %></p>
+          <p class="const-show-element">開始日時：<%= @construction.start_at.strftime("%Y/%-m/%-d %-H:%M") %></p>
+          <p class="const-show-element">終了日時：<%= @construction.end_at.strftime("%Y/%-m/%-d %-H:%M") %></p>
+          <% if @construction.facility.present? %>
+          <p class="const-show-element">制約設備：<%= @construction.facility.name %></p>
+          <% else %>
+          <p class="const-show-element">制約油種：-</p>
+          <% end %>
+          <p class="const-show-element">
+            担当者：<%= @construction.user.name + '（' + @construction.user.category.name + '）' %>
+          </p>
+          <% if @construction.notice.present? %>
+          <p class="const-show-element">特記事項：<%= @construction.notice %></p>
+          <% end %>
+        </div>
+        <div id="construction-show-comment">
+          <div id="construction-panel-heading">
+            投稿されたコメント： <%= @construction.comments.count %> 件<br>
+          </div>
+          <div id="construction-comment-wrapper">
+            <%= render 'constructions/comment' %>
+          </div>
+          <%= form_for(@comment, url: comments_url, remote: true) do |f| %>
+          <%= render 'shared/error_messages', object: f.object %>
+          <%= f.label :content, 'コメント', class:'form-label-login' %>
+          <%= f.text_area :content, value:'', class: 'form-control', id: "comment-text" %>
+          <%= f.hidden_field :construction_id, value: @construction.id %>
+          <%= f.submit '投稿', class: "btn btn-loggedIn", id: "comment-save" %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    $(function() {
+      $('#comment-save').attr('disabled', true);
+      $('#comment-text').keyup(function() {
+        if (!$(this).val().trim()) {
+          $('#comment-save').attr('disabled', true);
+        } else {
+          $('#comment-save').attr('disabled', false);
+        }
+      });
+    });
+  });
+</script>

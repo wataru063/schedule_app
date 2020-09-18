@@ -1,5 +1,5 @@
-$('#accordion-comment a').html('投稿されたコメント： <%= @construction.comments.count %> 件<br>')
-$('#construction-comment-wrapper').html("<%= escape_javascript(render 'calendar/comment') %>")
+$('#construction-panel-heading').html('投稿されたコメント： <%= @construction.comments.count %> 件<br>')
+$('#construction-comment-wrapper').html("<%= escape_javascript(render 'constructions/comment') %>")
 $('#comment-text').val("")
 $('#comment-save').attr('disabled', true);
 

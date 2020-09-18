@@ -19,9 +19,9 @@ RSpec.describe Construction, type: :model do
 
   describe 'status' do
     it 'is invalid without a status' do
-      @construction.status = ''
+      @construction.status_id = ''
       @construction.valid?
-      expect(@construction.errors[:status]).to include("を入力してください")
+      expect(@construction.errors[:status_id]).to include("を入力してください")
     end
   end
 

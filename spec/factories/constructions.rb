@@ -6,7 +6,7 @@ FactoryBot.define do
     end_at_date = Date.new(2100, 2, 1)
     name          { "test_construction" }
     notice        { "test_notice" }
-    status        { "1" }
+    status_id     { "1" }
     facility_id   { "1" }
     oil_id        { "1" }
     category_id   { "1" }
@@ -21,7 +21,7 @@ FactoryBot.define do
     sequence(:id) { rand(10000..99999) }
     sequence(:name) { |n| "TEST_CONSTRUCTION_NAME#{n}" }
     sequence(:notice) { |n| "TEST_NOTICE#{n}" }
-    sequence(:status) { "1" }
+    sequence(:status_id) { "1" }
     sequence(:facility_id) { rand(1..5) }
     sequence(:oil_id) { "1" }
     sequence(:category_id) { "1" }
