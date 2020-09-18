@@ -5,10 +5,11 @@ class OrdersController < ApplicationController
   def index
     set_select_params
     sort_column = params[:column].presence || 'arrive_at'
-    @order = Order.search(search_params).
+    @orders = Order.search(search_params).
       order(sort_column + ' ' + sort_direction).
       paginate(page: params[:page], per_page: 7)
     @search_params = search_params
+    @order = Order.first
   end
 
   def search
@@ -20,16 +21,12 @@ class OrdersController < ApplicationController
       @order = Order.search(search_params).order(sort_column + ' ' + sort_direction)
       send_data to_csv_order(@order), filename: "#{Time.current.strftime('%Y%m%d')}オーダー一覧.csv"
     else
-      @order = Order.search(search_params).
+      @orders = Order.search(search_params).
         order(sort_column + ' ' + sort_direction).
         paginate(page: params[:page], per_page: 7)
       @search_params = search_params
       render template: 'orders/index'
     end
-  end
-
-  def show
-    @order = Order.find(params[:id])
   end
 
   def new
@@ -59,6 +56,43 @@ class OrdersController < ApplicationController
     oil_id = Facility.find(params[:facility_id]).oils.ids
     @oils = Oil.where(id: oil_id).pluck(:id, :name).to_h.to_json
   end
+
+  def show
+    @order = Order.find(params[:id])
+  end
+
+  # def edit
+  #   set_select_params_for_new
+  #   @order = Order.find(params[:id])
+  #   @arrive_at_date = get_date(@construction, "arrive")
+  # end
+
+  # def update
+  #   set_time(params[:construction], "start")
+  #   set_time(params[:construction], "end")
+  #   @construction = Construction.find(params[:id])
+  #   if @construction.update_attributes(construction_params)
+  #     flash[:success] = "登録情報を変更いたしました。"
+  #     redirect_to constructions_url
+  #   else
+  #     set_select_params_for_new
+  #     @start_at_date = get_date(@construction, "start")
+  #     @end_at_date = get_date(@construction, "end")
+  #     flash[:danger] = "登録情報変更に失敗しました。"
+  #     render :edit
+  #   end
+  # end
+
+  # def destroy
+  #   @construction = Construction.find(params[:id])
+  #   @construction.destroy
+  #   flash[:success] = "#{@construction.name} を削除しました。"
+  #   if url = request.referer
+  #     redirect_to url
+  #   else
+  #     redirect_to constructions_url
+  #   end
+  # end
 
   private
 
