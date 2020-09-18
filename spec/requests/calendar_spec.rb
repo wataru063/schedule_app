@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Calendar", type: :request do
+  let!(:facility) { create(:facility) }
   let(:user) { create(:user) }
 
   describe "GET #index" do

@@ -1,7 +1,7 @@
 class ConstructionsController < ApplicationController
   before_action :logged_in_user
   before_action :belong_to_construction_department, only: [:new, :create]
-  # before_action :user_in_charge, only: [:edit, :update, :destroy]
+  before_action :user_in_charge, only: [:edit, :update, :destroy]
 
   def index
     set_select_params_for_index
@@ -90,7 +90,7 @@ class ConstructionsController < ApplicationController
     if url = request.referer
       redirect_to url
     else
-      redirect_to calendar_index_url
+      redirect_to constructions_url
     end
   end
 
@@ -138,13 +138,15 @@ class ConstructionsController < ApplicationController
       end
     end
   end
+
+  def user_in_charge
+    unless Construction.find(params[:id]).user.id == current_user.id
+      flash[:danger] = "アクセス権限がありません"
+      if url = request.referer
+        redirect_to url
+      else
+        redirect_to calendar_index_url
+      end
+    end
+  end
 end
-#
-#現状況：工事中
-#制約油種：ベンゼン
-#開始日時：2020/9/15 15:00
-#終了日時：2020/9/22 18:00
-#制約設備：第七桟橋
-#担当者：武田 玲奈（電気Tm）
-#特記事項：工程内で制約日程は調整可能
-#

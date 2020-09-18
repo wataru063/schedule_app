@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Orders", type: :request do
+  let!(:facility) { create(:facility) }
   let(:user) { create(:user, category_id: category_id) }
   let(:category_id) { 6 }
 

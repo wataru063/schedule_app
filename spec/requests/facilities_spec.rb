@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Facilities", type: :request do
+  let!(:facility) { create(:facility) }
+  let(:user) { create(:user) }
+
   describe "GET #new" do
     subject { get facility_path }
 
@@ -10,8 +13,6 @@ RSpec.describe "Facilities", type: :request do
 
     # TODO admin user only accessable
     context "as an authenticated user" do
-      let(:user) { create(:user) }
-
       before { sign_in_as user }
 
       it { is_expected.to eq(200) }
