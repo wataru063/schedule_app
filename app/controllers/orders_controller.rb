@@ -1,9 +1,10 @@
 class OrdersController < ApplicationController
   before_action :logged_in_user
   before_action :belong_to_supply_and_demand_management, only: [:new, :create]
+  before_action :user_in_charge, only: [:edit, :update, :destroy]
 
   def index
-    set_select_params_for_index
+    set_select_params
     sort_column = params[:column].presence || 'arrive_at'
     @orders = Order.search(search_params).
       order(sort_column + ' ' + sort_direction).
@@ -13,7 +14,7 @@ class OrdersController < ApplicationController
   end
 
   def search
-    set_select_params_for_index_for_index
+    set_select_params
     reset_time("arrive")
     set_time(params, "arrive")
     sort_column = params[:column].presence || 'arrive_at'
@@ -62,37 +63,35 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    set_select_params_for_new
+    set_select_params_all
     @order = Order.find(params[:id])
     @arrive_at_date = get_date(@order, "arrive")
   end
 
-  # def update
-  #   set_time(params[:construction], "start")
-  #   set_time(params[:construction], "end")
-  #   @construction = Construction.find(params[:id])
-  #   if @construction.update_attributes(construction_params)
-  #     flash[:success] = "登録情報を変更いたしました。"
-  #     redirect_to constructions_url
-  #   else
-  #     set_select_params_for_new
-  #     @start_at_date = get_date(@construction, "start")
-  #     @end_at_date = get_date(@construction, "end")
-  #     flash[:danger] = "登録情報変更に失敗しました。"
-  #     render :edit
-  #   end
-  # end
+  def update
+    set_time(params[:order], "arrive")
+    @order = Order.find(params[:id])
+    if @order.update_attributes(order_params)
+      flash[:success] = "登録情報を変更いたしました。"
+      redirect_to orders_url
+    else
+      set_select_params_all
+      @arrive_at_date = get_date(@order, "arrive")
+      flash[:danger] = "登録情報変更に失敗しました。"
+      render :edit
+    end
+  end
 
-  # def destroy
-  #   @construction = Construction.find(params[:id])
-  #   @construction.destroy
-  #   flash[:success] = "#{@construction.name} を削除しました。"
-  #   if url = request.referer
-  #     redirect_to url
-  #   else
-  #     redirect_to constructions_url
-  #   end
-  # end
+  def destroy
+    @order = Order.find(params[:id])
+    @order.destroy
+    flash[:success] = "#{@order.name} を削除しました。"
+    if url = request.referer
+      redirect_to url
+    else
+      redirect_to orders_url
+    end
+  end
 
   private
 
@@ -108,7 +107,7 @@ class OrdersController < ApplicationController
                   :quantity, :arrive_at, :arrive_at_date)
   end
 
-  def set_select_params_for_new
+  def set_select_params_all
     @shipment = []
     2.times do |n|
       @shipment << Shipment.find(n + 1)
@@ -118,7 +117,7 @@ class OrdersController < ApplicationController
     @user = User.all
   end
 
-  def set_select_params_for_index
+  def set_select_params
     @shipment = Shipment.all
     @name = Order.select(:name).distinct
     @company_name = Order.select(:company_name).distinct
@@ -128,6 +127,17 @@ class OrdersController < ApplicationController
 
   def belong_to_supply_and_demand_management
     unless current_user.category_id == 6
+      flash[:danger] = "アクセス権限がありません"
+      if url = request.referer
+        redirect_to url
+      else
+        redirect_to calendar_index_url
+      end
+    end
+  end
+
+  def user_in_charge
+    unless Order.find(params[:id]).user.id == current_user.id
       flash[:danger] = "アクセス権限がありません"
       if url = request.referer
         redirect_to url
