@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
   before_action :logged_in_user
-  before_action :belong_to_supply_and_demand_management
+  before_action :belong_to_supply_and_demand_management, only: [:new, :create]
 
   def index
-    set_select_params
+    set_select_params_for_index
     sort_column = params[:column].presence || 'arrive_at'
     @orders = Order.search(search_params).
       order(sort_column + ' ' + sort_direction).
@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def search
-    set_select_params
+    set_select_params_for_index_for_index
     reset_time("arrive")
     set_time(params, "arrive")
     sort_column = params[:column].presence || 'arrive_at'
@@ -61,11 +61,11 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
-  # def edit
-  #   set_select_params_for_new
-  #   @order = Order.find(params[:id])
-  #   @arrive_at_date = get_date(@construction, "arrive")
-  # end
+  def edit
+    set_select_params_for_new
+    @order = Order.find(params[:id])
+    @arrive_at_date = get_date(@order, "arrive")
+  end
 
   # def update
   #   set_time(params[:construction], "start")
@@ -108,7 +108,17 @@ class OrdersController < ApplicationController
                   :quantity, :arrive_at, :arrive_at_date)
   end
 
-  def set_select_params
+  def set_select_params_for_new
+    @shipment = []
+    2.times do |n|
+      @shipment << Shipment.find(n + 1)
+    end
+    @facility = Facility.all
+    @oil = Oil.all
+    @user = User.all
+  end
+
+  def set_select_params_for_index
     @shipment = Shipment.all
     @name = Order.select(:name).distinct
     @company_name = Order.select(:company_name).distinct

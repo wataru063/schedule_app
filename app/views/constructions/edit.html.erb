@@ -72,15 +72,13 @@
 
 <script>
   $(function() {
-    $(function() {
-      $('#const-edit-save').attr('disabled', false);
-      $('#const-name').keyup(function() {
-        if (!$(this).val().trim()) {
-          $('#const-edit-save').attr('disabled', true);
-        } else {
-          $('#const-edit-save').attr('disabled', false);
-        }
-      });
+    $('#const-edit-save').attr('disabled', false);
+    $('#const-name').keyup(function() {
+      if (!$(this).val().trim()) {
+        $('#const-edit-save').attr('disabled', true);
+      } else {
+        $('#const-edit-save').attr('disabled', false);
+      }
     });
   });
 </script>
