@@ -1,0 +1,36 @@
+<div class="modal fade" id="orderShowModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog" id="order-modal-dialog">
+    <div class="modal-content" id="order-modal-content">
+      <% if @order.present? %>
+      <div class="modal-header" id="order-modal-header">
+        <div class="modal-title order-modal-title" id="myModalLabel">
+          <%= '［' + @order.shipment.name + '］' + @order.name %>
+        </div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;">
+          <i class="fa fa-2x fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body edit-order-form">
+        <% if @order.user.id == current_user.id %>
+        <div class="order-edit-btn">
+          <%= link_to "編集", edit_order_path(@order), class:"btn-order-edit edt-btn" %>
+          <%= link_to "削除", order_path(@order), method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-order-edit dlt-btn" %>
+        </div>
+        <% end %>
+        <div id="order-show-content">
+          <p class="const-show-element">取引先：<%= @order.company_name %></p>
+          <p class="const-show-element">到着日時：<%= @order.arrive_at.strftime("%Y/%-m/%-d %-H:%M") %></p>
+          <p class="const-show-element">荷役設備：<%= @order.facility.name %></p>
+          <p class="const-show-element">荷役油種：<%= @order.oil.name %></p>
+          <p class="const-show-element">
+            数量：<%= @order.quantity.to_s + ' ' + @order.unit %>
+          </p>
+          <p class="const-show-element">
+            担当者：<%= @order.user.name + '（' + @order.user.category.name + '）' %>
+          </p>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

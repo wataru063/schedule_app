@@ -117,9 +117,9 @@
         </th>
       </thead>
 
-      <% @order.each do |order| %>
+      <% @orders.each do |order| %>
       <tr>
-        <td style="width:13%"><%= link_to order.name, order_path(current_user.category_id, order) %></td>
+        <td style="width:13%"><%= link_to order.name, order_path(order), remote: true %></td>
         <td style="width:14%"><%= order.company_name %></td>
         <td style="width:14%"><%= @shipment.find(order.shipment_id).name %></td>
         <td style="width:17%"><%= order.facility.name%></td>
@@ -135,8 +135,10 @@
   </table>
   <% end %>
 
-  <%= will_paginate @order, previous_label: '← 前', next_label: '次 →'%>
+  <%= will_paginate @orders, previous_label: '← 前', next_label: '次 →'%>
 </div>
+
+<div class="order_show"><%= render 'orders/show' %></div>
 
 <script>
   $(function() {

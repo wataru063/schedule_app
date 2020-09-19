@@ -15,9 +15,11 @@ module EventsHelper
       event.store(:title, "【制約】#{duration} #{c.name}")
       event.store(:start, c.start_at)
       event.store(:end, c.end_at)
+      # event.store(:url, "/constructions/#{c.id}")
       event.store(:display, "list-item")
       event.store(:color, "#ffff00")
       event.store(:textColor, "#000000")
+      event.store(:flag, 0)
       events << event
     end
 
@@ -27,13 +29,14 @@ module EventsHelper
       shipment = o.shipment_id == 1 ? "入" : "出"
       title = "［#{shipment}］#{o.arrive_at.strftime("%-H:%M")} #{o.name}
                 #{o.oil.name} #{o.quantity} #{o.unit} #{o.company_name}"
-      event.store(:id, n)
+      event.store(:id, o.id)
       event.store(:title, title)
       event.store(:start, o.arrive_at)
       event.store(:end, "")
-      event.store(:url, "/#{current_user.id}/orders/#{o.id}")
+      # event.store(:url, "/orders/#{o.id}")
       event.store(:color, "#e4e3e3")
       event.store(:textColor, "#000000")
+      event.store(:flag, 1)
       events << event
     end
     events

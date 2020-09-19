@@ -1,14 +1,16 @@
 class OrdersController < ApplicationController
   before_action :logged_in_user
   before_action :belong_to_supply_and_demand_management
+  before_action :user_in_charge, only: [:edit, :update, :destroy]
 
   def index
     set_select_params
     sort_column = params[:column].presence || 'arrive_at'
-    @order = Order.search(search_params).
+    @orders = Order.search(search_params).
       order(sort_column + ' ' + sort_direction).
       paginate(page: params[:page], per_page: 7)
     @search_params = search_params
+    @order = Order.first
   end
 
   def search
@@ -20,16 +22,12 @@ class OrdersController < ApplicationController
       @order = Order.search(search_params).order(sort_column + ' ' + sort_direction)
       send_data to_csv_order(@order), filename: "#{Time.current.strftime('%Y%m%d')}オーダー一覧.csv"
     else
-      @order = Order.search(search_params).
+      @orders = Order.search(search_params).
         order(sort_column + ' ' + sort_direction).
         paginate(page: params[:page], per_page: 7)
       @search_params = search_params
       render template: 'orders/index'
     end
-  end
-
-  def show
-    @order = Order.find(params[:id])
   end
 
   def new
@@ -60,6 +58,41 @@ class OrdersController < ApplicationController
     @oils = Oil.where(id: oil_id).pluck(:id, :name).to_h.to_json
   end
 
+  def show
+    @order = Order.find(params[:id])
+  end
+
+  def edit
+    set_select_params_all
+    @order = Order.find(params[:id])
+    @arrive_at_date = get_date(@order, "arrive")
+  end
+
+  def update
+    set_time(params[:order], "arrive")
+    @order = Order.find(params[:id])
+    if @order.update_attributes(order_params)
+      flash[:success] = "登録情報を変更いたしました。"
+      redirect_to orders_url
+    else
+      set_select_params_all
+      @arrive_at_date = get_date(@order, "arrive")
+      flash[:danger] = "登録情報変更に失敗しました。"
+      render :edit
+    end
+  end
+
+  def destroy
+    @order = Order.find(params[:id])
+    @order.destroy
+    flash[:success] = "#{@order.name} を削除しました。"
+    if url = request.referer
+      redirect_to url
+    else
+      redirect_to orders_url
+    end
+  end
+
   private
 
   def order_params
@@ -74,6 +107,16 @@ class OrdersController < ApplicationController
                   :quantity, :arrive_at, :arrive_at_date)
   end
 
+  def set_select_params_all
+    @shipment = []
+    2.times do |n|
+      @shipment << Shipment.find(n + 1)
+    end
+    @facility = Facility.all
+    @oil = Oil.all
+    @user = User.all
+  end
+
   def set_select_params
     @shipment = Shipment.all
     @name = Order.select(:name).distinct
@@ -84,6 +127,17 @@ class OrdersController < ApplicationController
 
   def belong_to_supply_and_demand_management
     unless current_user.category_id == 6
+      flash[:danger] = "アクセス権限がありません"
+      if url = request.referer
+        redirect_to url
+      else
+        redirect_to calendar_index_url
+      end
+    end
+  end
+
+  def user_in_charge
+    unless Order.find(params[:id]).user.id == current_user.id
       flash[:danger] = "アクセス権限がありません"
       if url = request.referer
         redirect_to url

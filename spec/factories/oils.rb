@@ -4,6 +4,7 @@ FactoryBot.define do
   end
 
   factory :oil do
+    sequence(:id) { rand(10000..99999) }
     sequence(:name) { |n| "OIL_NAME#{n}" }
   end
 end
