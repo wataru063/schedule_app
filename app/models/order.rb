@@ -44,7 +44,10 @@ class Order < ApplicationRecord
   end
 
   def arrive_at_not_overlap_with_construction
-    constructions = Construction.where(oil_id: oil_id) if oil_id.present?
+    if oil_id.present?
+      constructions = Construction.where(facility_id: nil, oil_id: oil_id) +
+                      Construction.where(facility_id: facility_id)
+    end
     if arrive_at_date.present? && arrive_at.present? && constructions.present?
       constructions.each do |c|
         if c.start_at < arrive_at && arrive_at < c.end_at

@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :logged_in_user
-  before_action :belong_to_supply_and_demand_management, only: [:new, :create]
+  before_action :belong_to_supply_and_demand_management
   before_action :user_in_charge, only: [:edit, :update, :destroy]
 
   def index

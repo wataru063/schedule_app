@@ -16,23 +16,22 @@ FactoryBot.define do
   end
 
   factory :order do
-    sequence(:id) { rand(10000..99999) }
     sequence(:name) { |n| "TEST_ORDER_NAME#{n}" }
     sequence(:quantity) { |n| n * 100 }
     sequence(:unit) { "kL" }
     sequence(:shipment_id) { rand(1..2) }
     sequence(:company_name) { |n| "TEST_ORDER_COMPANY_NAME#{n}" }
-    sequence(:facility_id) { rand(1..5) }
-    sequence(:oil_id) { rand(1..5) }
-    sequence(:user_id) { rand(1..5) }
     sequence(:arrive_at) do |n|
-      set_year = 3001 + n
+      set_year = 3001 + n + rand(0..900)
       Time.zone.local(set_year, 1, 1, 12, 0, 0)
     end
     sequence(:arrive_at_date) do |n|
-      set_year = 3001 + n
+      set_year = 3001 + n + rand(0..900)
       Date.new(set_year, 1, 1)
     end
+    association :facility, factory: :facility
+    association :oil, factory: :oil
+    association :user, factory: :user
 
     trait :invalid do
       sequence(:name) { nil }
