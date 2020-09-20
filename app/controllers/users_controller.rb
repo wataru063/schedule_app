@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update, :show, :destroy]
   before_action :correct_user,   only: [:edit, :update, :destroy]
   before_action :logged_in_user_for_top, only: [:new, :create]
+  before_action :forbid_guest_user, only: [:edit, :update, :destroy]
 
   def new
     @user = User.new
@@ -72,5 +73,16 @@ class UsersController < ApplicationController
       end
       @constructions = @user.constructions.order(start_at: :asc).
         paginate(page: params[:page], per_page: 6)
+    end
+
+    def forbid_guest_user
+      if @user.email == "guestuser@example.com"
+        flash[:notice] = "テストユーザーのため編集できません"
+        if url = request.referer
+          redirect_to url
+        else
+          redirect_to @user
+        end
+      end
     end
 end

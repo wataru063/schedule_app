@@ -39,6 +39,12 @@ User.create!(name:  "マスター",
                password_confirmation: password,
                category_id:           category)
 end
+User.create!(name:  "ゲストユーザー",
+             email: "guestuser@example.com",
+             password:              "guestuser",
+             password_confirmation: "guestuser",
+             category_id: 6)
+
 
 # construction
 notices = ["工程内で制約日程は調整可能", "工事中は桟橋クローズ", "足場組立て期間のみ桟橋クローズ", "", ""]

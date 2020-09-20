@@ -3,20 +3,18 @@
 <div class=" jumbotron top">
   <div class="before-login-container">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h3 class='form-title center'>ログイン</h3>
-
+      <h3 class='form-title center'>ログイン</h3>
+      <div class="col-sm-6 col-sm-offset-3">
         <%= form_for(:session, url: login_path) do |f| %>
-
         <%= f.label :メールアドレス, class:'form-label' %>
         <%= f.email_field :email, class: 'form-control' %>
-
         <%= f.label :パスワード, class:'form-label' %>
         <%= f.password_field :password, class: 'form-control' %>
-
-        <%= f.submit "ログイン", class: "btn btn-primary" %>
+        <div class="enter-btn">
+          <%= f.submit "ログイン", class: "btn btn-lg btn-primary" %><br>
+          <%= link_to 'ゲストログイン', guest_login_path, method: :post, class:"btn btn-lg btn-primary guest" %>
+        </div>
         <% end %>
-
         <p class='form-message center'>登録がお済みでない方は <%= link_to "こちら", signup_path %></p>
       </div>
     </div>
