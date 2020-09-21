@@ -30,7 +30,6 @@ class ApplicationController < ActionController::Base
     unless current_user?(@user)
       flash[:danger] = "権限がありません"
       if url = request.referer
-        p "==========================="
         redirect_to url
       else
         redirect_to @user
