@@ -25,7 +25,7 @@ class ConstructionsController < ApplicationController
       csv = Construction.search(search_params).order(sort_column + ' ' + sort_direction)
       send_data to_csv_construction(csv), filename: "#{Time.current.strftime('%Y%m%d')}工事一覧.csv"
     else
-      @construction = Construction.search(search_params).
+      @constructions = Construction.search(search_params).
         order(sort_column + ' ' + sort_direction).
         paginate(page: params[:page], per_page: 7)
       @search_params = search_params

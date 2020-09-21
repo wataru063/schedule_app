@@ -7,6 +7,39 @@ RSpec.describe Order, type: :model do
   it 'has a valid factory' do
     expect(order).to be_valid
   end
+  describe 'association' do
+    let(:association) do
+       described_class.reflect_on_association(target)
+    end
+
+    context 'facility' do
+      let(:target) { :facility }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'Facility' }
+    end
+
+    context 'oil' do
+      let(:target) { :oil }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'Oil' }
+    end
+
+    context 'user' do
+      let(:target) { :user }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'User' }
+    end
+
+    context 'shipment' do
+      let(:target) { :shipment }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'Shipment' }
+    end
+  end
 
   describe 'name' do
     it 'is invalid without a name' do

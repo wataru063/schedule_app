@@ -6,7 +6,6 @@ RSpec.describe "Constructions", type: :request do
   let(:category_id) { 1 }
   let!(:construction) { create(:construction, user_id: user.id) }
 
-
   describe "GET #new" do
     subject { get new_construction_path }
 
@@ -25,6 +24,10 @@ RSpec.describe "Constructions", type: :request do
 
       context "who is in charge" do
         it { is_expected.to eq(200) }
+        it 'show construction registration page' do
+          subject
+          expect(response.body).to include('工事登録')
+        end
       end
     end
   end
@@ -77,6 +80,10 @@ RSpec.describe "Constructions", type: :request do
       before { sign_in_as(user) }
 
       it { is_expected.to eq(200) }
+      it 'show constructions index page' do
+        subject
+        expect(response.body).to include('工事一覧')
+      end
     end
   end
 
@@ -91,6 +98,10 @@ RSpec.describe "Constructions", type: :request do
       before { sign_in_as(user) }
 
       it { is_expected.to eq(200) }
+      it 'show construction detail show page' do
+        subject
+        expect(response.body).to include(construction.name)
+      end
     end
   end
 
@@ -104,8 +115,20 @@ RSpec.describe "Constructions", type: :request do
     context "as an authenticated user" do
       before { sign_in_as(user) }
 
-      it { is_expected.to eq(200) }
-      it { is_expected.to render_template :index }
+      context "in order to export csv" do
+        subject { get constructions_search_path, params: { column: true } }
+
+        it { is_expected.to eq(200) }
+      end
+
+      context "in order to search by key word" do
+        it { is_expected.to eq(200) }
+        it { is_expected.to render_template :index }
+        it 'show constructions index page' do
+          subject
+          expect(response.body).to include('工事一覧')
+        end
+      end
     end
   end
 

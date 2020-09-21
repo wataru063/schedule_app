@@ -15,6 +15,9 @@ FactoryBot.define do
     start_at_date { start_at_date }
     end_at        { end_at }
     end_at_date   { end_at_date }
+    association :facility, factory: :facility
+    association :oil, factory: :oil
+    association :user, factory: :user
   end
 
   factory :construction do
@@ -42,6 +45,9 @@ FactoryBot.define do
       set_year = 2100 + n
       Date.new(set_year, 2, 1)
     end
+    association :facility, factory: :facility
+    association :oil, factory: :oil
+    association :user, factory: :user
 
     trait :invalid do
       sequence(:name) { nil }

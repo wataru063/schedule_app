@@ -1,13 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "Users", js: true, type: :request do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, category_id: 1) }
 
   describe "GET #new" do
     subject { get login_path }
 
     context "as a guest" do
       it { is_expected.to eq(200) }
+      it 'show signup page' do
+        subject
+        expect(response.body).to include('新規登録')
+      end
     end
 
     context "as a logged_in user" do
@@ -20,7 +24,7 @@ RSpec.describe "Users", js: true, type: :request do
   describe "POST #create" do
     subject { post signup_path, params: user_params }
 
-    let(:user_params) { { user: attributes_for(:user) } }
+    let(:user_params) { { user: attributes_for(:user, category_id: 1) } }
 
     context 'as a logged_in user' do
       before { sign_in_as user }
@@ -35,7 +39,7 @@ RSpec.describe "Users", js: true, type: :request do
     end
 
     context 'with invalid params' do
-      let(:user_params) { { user: attributes_for(:user, :invalid) } }
+      let(:user_params) { { user: attributes_for(:user, :invalid, category_id: 1) } }
 
       it { is_expected.to render_template :new }
       it { expect { subject }.not_to change(User, :count) }
@@ -53,7 +57,7 @@ RSpec.describe "Users", js: true, type: :request do
       before { sign_in_as user }
 
       it { is_expected.to eq(200) }
-      it ' render template including the user infomation ' do
+      it 'render template including the user infomation ' do
         get user_path(user)
         expect(response.body).to include(user.name)
         expect(response.body).to include(user.email)
@@ -78,7 +82,7 @@ RSpec.describe "Users", js: true, type: :request do
     end
 
     context "as another user" do
-      let(:other_user) { create(:user) }
+      let(:other_user) { create(:user, category_id: 1) }
 
       before { sign_in_as other_user }
 
@@ -88,18 +92,18 @@ RSpec.describe "Users", js: true, type: :request do
     context "as an authenticated user" do
       before { sign_in_as user }
 
-      # TODO Add test for confirmation of modal open
       it { is_expected.to eq(200) }
-      # it { expect(page).to have_content(page) }
-      # it { expect(response.body).to have_content(user.email) }
-      # it { expect(response.body).to have_content(user.category.name) }
+      it 'has .modal("show")' do
+        subject
+        expect(response.body).to include("jQuery('#editModal').modal('show');")
+      end
     end
   end
 
   describe "PATCH #update" do
     subject { patch user_path(user), params: user_params }
 
-    let(:user_params) { { user: attributes_for(:user) } }
+    let(:user_params) { { user: attributes_for(:user, category_id: 1) } }
 
     context 'as a guest' do
       it { is_expected.to redirect_to login_url }
@@ -119,7 +123,7 @@ RSpec.describe "Users", js: true, type: :request do
       end
 
       context 'with invalid params' do
-        let(:user_params) { { user: attributes_for(:user, :invalid) } }
+        let(:user_params) { { user: attributes_for(:user, :invalid, category_id: 1) } }
 
         it { is_expected.to render_template :show }
         it { expect { subject }.not_to change { User.find(user.id).name } }

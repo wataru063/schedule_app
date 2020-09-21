@@ -9,6 +9,54 @@ RSpec.describe Construction, type: :model do
     expect(@construction).to be_valid
   end
 
+  describe 'Association' do
+    let(:association) do
+       described_class.reflect_on_association(target)
+    end
+
+    context 'comments' do
+      let(:target) { :comments }
+
+      it { expect(association.macro).to eq :has_many }
+      it { expect(association.class_name).to eq 'Comment' }
+    end
+
+    context 'facility' do
+      let(:target) { :facility }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'Facility' }
+    end
+
+    context 'oil' do
+      let(:target) { :oil }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'Oil' }
+    end
+
+    context 'user' do
+      let(:target) { :user }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'User' }
+    end
+
+    context 'category' do
+      let(:target) { :category }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'Category' }
+    end
+
+    context 'status' do
+      let(:target) { :status }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'Status' }
+    end
+  end
+
   describe 'name' do
     it 'is invalid without a name' do
       @construction.name = ''
