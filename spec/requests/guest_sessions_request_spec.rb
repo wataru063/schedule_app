@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "GuestSessions", type: :request do
+  let!(:guest_user) { create(:guest_user) }
 
-  describe "GET /create" do
-    it "returns http success" do
-      #get "/guest_sessions/create"
-      #expect(response).to have_http_status(:success)
-    end
+  describe "POST #create" do
+    subject { post "/guest_login" }
+
+    it { is_expected.to eq(302) }
+    it { is_expected.to redirect_to calendar_index_url }
   end
-
 end
