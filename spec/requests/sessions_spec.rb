@@ -42,7 +42,6 @@ RSpec.describe "Sessions", type: :request do
     end
   end
 
-#
   describe "DELETE #destroy" do
     subject { delete logout_path }
 

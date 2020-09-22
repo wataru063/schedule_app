@@ -14,9 +14,9 @@ RSpec.feature "Users", type: :feature do
     fill_in "パスワード（確認用）", with: user.password
     click_button "登録"
 
-    #expect {
-      expect(page).to have_content(user.name)
-      expect(page).to have_content("ホーム")
-    #}.to change(User, :count).by(1)
+       # expect {
+       expect(page).to have_content(user.name)
+       expect(page).to have_content("ホーム")
+    # }.to change(User, :count).by(1)
   end
 end

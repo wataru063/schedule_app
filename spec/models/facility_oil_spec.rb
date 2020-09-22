@@ -11,17 +11,19 @@ RSpec.describe FacilityOil, type: :model do
 
   describe 'Association' do
     let(:association) do
-       described_class.reflect_on_association(target)
+      described_class.reflect_on_association(target)
     end
 
     context 'facility' do
       let(:target) { :facility }
+
       it { expect(association.macro).to eq :belongs_to }
       it { expect(association.class_name).to eq 'Facility' }
     end
 
     context 'oil' do
       let(:target) { :oil }
+
       it { expect(association.macro).to eq :belongs_to }
       it { expect(association.class_name).to eq 'Oil' }
     end
