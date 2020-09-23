@@ -29,7 +29,7 @@
 
               <div class=" form-group">
                 <%= f.label :facility_id, '対象設備*', class:'form-label-login'%>
-                <%= select_tag 'order[facility_id]', options_for_select(Facility.all.map{ |fa| [fa.name, fa.id] }),include_blank: "-- 選択してください --", class:"form-control", id: 'facility-select' %>
+                <%= select_tag 'order[facility_id]', options_for_select(Facility.all.map{ |fa| [fa.name, fa.id] }), selected: @selected_facility, class:"form-control", id: 'facility-select' %>
               </div>
             </div>
 
@@ -37,7 +37,9 @@
               <div class=" form-group">
                 <%= f.label :oil_id, '油種*', class:'form-label-login'%>
                 <select name="order[oil_id]" id="oil-select" class="form-control">
-                  <option value="">-- 選択してください --</option>
+                  <%= @selected_oils.each do |oil| %>
+                  <option value="<%= oil.id %>" class="oil-option"><%= oil.name %></option>
+                  <% end %>
                 </select>
               </div>
 
@@ -60,7 +62,7 @@
                   <input class="form-control" type="date" name="order[arrive_at_date]" value="<%= @arrive_at_date %>" style='width:285px;'>
                 </div>
                 <div class="col-sm-5 time">
-                  <%= f.time_select :arrive_at, minute_step: 10, class: 'form-control' %>
+                  <%= f.time_select :arrive_at, {default: Date.today + 8.hours, minute_step: 10}, class: 'form-control' %>
                 </div>
               </div>
 
@@ -93,20 +95,6 @@
       })
     });
     $('#o-new-btn').attr('disabled', true);
-    // $('.required').keyup(function() {
-    //   var label = $(".required-label").html();
-    //   if ($(this).val().trim()) {
-    //     $('#o-new-btn').attr('disabled', false);
-    //     $(this).css("border-color", "")
-    //     $(".required-label").css("color", "")
-    //   } else {
-    //     $(".required-label").html(`${label}`)
-    //     $('#o-new-btn').attr('disabled', true);
-    //     $(this).css("border-color", "red")
-    //     $(".required-label").css("color", "red")
-    //     $(".required-label").html(`${label} <div style = 'float:right;margin-left:10px;font-size:13px;vertical-align: middle;'> ※入力してください <div>`)
-    //   }
-    // });
     $('#o-new-name').keyup(function() {
       if (!$(this).val().trim()) {
         $('#o-new-btn').attr('disabled', true);

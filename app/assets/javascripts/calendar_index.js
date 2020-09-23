@@ -100,12 +100,20 @@ $(function () {
             var date = date.format();
             if (category_id == 6) {
               var name = 'orders';
+              if ( date <= moment(today).format('YYYY-MM-DD')) {
+                alert('オーダーは翌日以降から登録可能です')
+                return
+              }
             } else if (category_id < 6) {
               var name = 'constructions';
+              if (date <= moment(today).add(2, 'months').format('YYYY-MM-DD')) {
+                alert('工事は2ヶ月後以降から登録可能です \n緊急の場合はadmin権限を持つユーザーに登録を依頼してください')
+                return
+              }
             }
             $.ajax({
               url: `/${name}/new`,
-              data: { date: date },
+              data: { date: date, facility_id: id },
               dataType: "script",
             });
           },

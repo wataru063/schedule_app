@@ -29,7 +29,7 @@
               </div>
               <div class=" form-group">
                 <%= f.label :oil_id, '油種制約*', class:'form-label-login'%>
-                <%= f.collection_select :oil_id, @oil, :id, :name, {}, class: 'form-control' %>
+                <%= f.collection_select :oil_id, @selected_oils, :id, :name, {}, class: 'form-control' %>
               </div>
             </div>
 

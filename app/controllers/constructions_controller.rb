@@ -53,10 +53,13 @@ class ConstructionsController < ApplicationController
     @construction = Construction.new(construction_params)
     if @construction.save
       flash[:success] = "#{@construction.name} を登録しました。"
-      redirect_to new_construction_path
+      if url = request.referer
+        redirect_to url
+      else
+        redirect_to calendar_index_url
+      end
     else
-      set_select_params_for_new
-      render :new
+      render 'calendar/new'
     end
   end
 
@@ -116,6 +119,7 @@ class ConstructionsController < ApplicationController
     end
     @facility = Facility.all
     @oil = Oil.all
+    @selected_oils = Facility.find(params[:facility_id]).oils if params[:facility_id].present?
     @user = User.all
     @start_at_date = params[:date] if params[:date].present?
   end

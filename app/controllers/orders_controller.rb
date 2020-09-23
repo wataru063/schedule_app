@@ -45,9 +45,13 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     if @order.save
       flash[:success] = "#{@order.name}のオーダーを登録しました。"
-      redirect_to new_order_path
+      if url = request.referer
+        redirect_to url
+      else
+        redirect_to calendar_index_url
+      end
     else
-      render :new
+      render 'calendar/new'
     end
   end
 
@@ -111,7 +115,9 @@ class OrdersController < ApplicationController
       @shipment << Shipment.find(n + 1)
     end
     @facility = Facility.all
+    @selected_facility = params[:facility_id] if params[:facility_id].present?
     @oil = Oil.all
+    @selected_oils = Facility.find(params[:facility_id]).oils if params[:facility_id].present?
     @user = User.all
   end
 
