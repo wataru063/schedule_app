@@ -348,3 +348,43 @@ textarea{
   background: none;
   bottom: -30px;
 }
+
+/* new construction modal */
+#construction-new-modal-dialog {
+  width: 600px;
+  margin: 30px auto;
+}
+@media (min-width: 1300px){
+#construction-new-modal-dialog {
+  width: 1200px;
+}
+}
+#new-construction-form{
+  display: block;
+  margin: 0 auto;
+}
+
+#construction-new-left, #construction-new-right{
+  width: 100%;
+}
+
+#new_construction{
+  margin: 0 auto;
+  width: 90%;
+}
+
+@media (min-width: 1300px){
+#construction-new-left, #construction-new-right{
+  width: 48%;
+}
+#new-construction-form{
+  display: flex;
+  justify-content: space-between;
+}
+.construction-new-btn{
+  display: block !important;
+  margin: 60px auto;
+  width: 60%;
+}
+}
+
