@@ -42,13 +42,6 @@ RSpec.describe Construction, type: :model do
       it { expect(association.class_name).to eq 'User' }
     end
 
-    context 'category' do
-      let(:target) { :category }
-
-      it { expect(association.macro).to eq :belongs_to }
-      it { expect(association.class_name).to eq 'Category' }
-    end
-
     context 'status' do
       let(:target) { :status }
 
@@ -148,14 +141,6 @@ RSpec.describe Construction, type: :model do
       @construction.end_at_date = ''
       @construction.valid?
       expect(@construction.errors[:end_at_date]).to include("を入力してください")
-    end
-  end
-
-  describe 'category_id' do
-    it 'is invalid without a category_id' do
-      @construction.category_id = ''
-      @construction.valid?
-      expect(@construction.errors[:category_id]).to include("を入力してください")
     end
   end
 end

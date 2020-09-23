@@ -9,7 +9,6 @@ FactoryBot.define do
     status_id     { "1" }
     facility_id   { "1" }
     oil_id        { "1" }
-    category_id   { "1" }
     user_id       { "1" }
     start_at      { start_at }
     start_at_date { start_at_date }
@@ -27,7 +26,6 @@ FactoryBot.define do
     sequence(:status_id) { "1" }
     sequence(:facility_id) { rand(1..5) }
     sequence(:oil_id) { "1" }
-    sequence(:category_id) { "1" }
     sequence(:user_id) { "1" }
     sequence(:start_at) do |n|
       set_year = 2100 + n

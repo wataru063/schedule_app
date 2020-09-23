@@ -11,9 +11,6 @@ class OrdersController < ApplicationController
       paginate(page: params[:page], per_page: 7)
     @search_params = search_params
     @order = Order.first
-    @orders.each do |order|
-      p order.id, order.shipment_id
-    end
   end
 
   def search
@@ -34,14 +31,12 @@ class OrdersController < ApplicationController
   end
 
   def new
+    set_select_params_all
+    @arrive_at_date = params[:date] if params[:date].present?
     @order = Order.new
     if params[:facility_id].present?
       oil_id = Facility.find(params[:facility_id]).oils.ids
       @oils = Oil.where(id: oil_id).pluck(:id, :name).to_h.to_json
-    end
-    respond_to do |format|
-      format.html
-      format.js
     end
   end
 

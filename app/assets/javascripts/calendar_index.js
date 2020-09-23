@@ -97,6 +97,7 @@ $(function () {
           },
           dayClick: function (date, jsEvent, view) {
             var category_id = $('#cal_user_category').val();
+            var date = date.format();
             if (category_id == 6) {
               var name = 'orders';
             } else if (category_id < 6) {
@@ -104,7 +105,8 @@ $(function () {
             }
             $.ajax({
               url: `/${name}/new`,
-              dataType: "script"
+              data: { date: date },
+              dataType: "script",
             });
           },
         });

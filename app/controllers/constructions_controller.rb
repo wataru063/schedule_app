@@ -99,7 +99,7 @@ class ConstructionsController < ApplicationController
   def construction_params
     params.
       require(:construction).
-      permit(:name, :status_id, :notice, :facility_id, :oil_id, :category_id, :user_id,
+      permit(:name, :status_id, :notice, :facility_id, :oil_id, :user_id,
              :start_at, :end_at, :start_at_date, :end_at_date)
   end
 
@@ -117,9 +117,7 @@ class ConstructionsController < ApplicationController
     @facility = Facility.all
     @oil = Oil.all
     @user = User.all
-    5.times do |n|
-      @category << Category.find(n + 1)
-    end
+    @start_at_date = params[:date] if params[:date].present?
   end
 
   def set_select_params_for_index

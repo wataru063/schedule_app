@@ -49,17 +49,10 @@
           </div>
         </div>
         <div class=" form-group">
-          <%= f.label :category_id, 'カテゴリー', class:'form-label-login'%>
-          <%= f.collection_select :category_id, @category, :id, :name, {}, class: 'form-control' %>
-        </div>
-        <div class=" form-group">
           <%= f.label :user_id, '担当者', class:'form-label-login'%>
           <%= f.collection_select :user_id, @user, :id, :name,
                                   { selected: current_user.id }, class: 'form-control' %>
         </div>
-
-      </div>
-      <div class="col-sm-10">
         <%= f.label :notice, '特記事項', class:'form-label-login '%>
         <%= f.text_area :notice, placeholder: "任意", class: 'form-control notice' %>
       </div>

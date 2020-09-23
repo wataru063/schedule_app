@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20200830042637) do
     t.integer "status_id"
     t.integer "facility_id"
     t.integer "oil_id"
-    t.integer "category_id"
     t.integer "user_id"
     t.datetime "start_at"
     t.datetime "end_at"

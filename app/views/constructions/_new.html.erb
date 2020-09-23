@@ -16,10 +16,10 @@
           <%= render 'shared/error_messages', object: f.object %><br>
           <div id="new-construction-form">
             <div id="construction-new-left">
-              <%= f.label :name, '工事名', class:'form-label-login'%>
-              <%= f.text_field :name, class: 'form-control' %>
+              <%= f.label :name, '工事名*', class:'form-label-login', id:"c-new-name-label" %>
+              <%= f.text_field :name, class: 'form-control', id:"c-new-name" %>
               <div class=" form-group select">
-                <%= f.label :status_id, '現状況', class:'form-label-login'%>
+                <%= f.label :status_id, '現状況*', class:'form-label-login'%>
                 <%= f.collection_select :status_id, @status, :id, :name, {}, class: 'form-control' %>
               </div>
               <div class=" form-group">
@@ -28,45 +28,40 @@
                                   {include_blank: "選択しない"}, class: 'form-control' %>
               </div>
               <div class=" form-group">
-                <%= f.label :oil_id, '油種制約', class:'form-label-login'%>
-                <%= f.collection_select :oil_id, @oil, :id, :name,
-                {include_blank: "-- 選択してください --"}, class: 'form-control' %>
+                <%= f.label :oil_id, '油種制約*', class:'form-label-login'%>
+                <%= f.collection_select :oil_id, @oil, :id, :name, {}, class: 'form-control' %>
               </div>
             </div>
 
             <div id="construction-new-right">
-              <%= f.label :start_at, '工事開始日時', class:'form-label-login'%>
+              <%= f.label :start_at, '工事開始日時*', class:'form-label-login'%>
               <div class="row">
                 <div class="col-sm-7">
-                  <input class="form-control" type="date" name="construction[start_at_date]" id="construction_status" style='width:285px;'>
+                  <input class="form-control" type="date" name="construction[start_at_date]" id="construction_status" value="<%= @start_at_date %>" style='width:285px;'>
                 </div>
                 <div class="col-sm-5 time">
-                  <%= f.time_select :start_at, include_blank: true, minute_step: 30, class: 'form-control time' %>
+                  <%= f.time_select :start_at, {default: Date.today + 8.hours, minute_step: 30}, class: 'form-control time' %>
                 </div>
               </div>
-              <%= f.label :end_at, '工事終了日時', class:'form-label-login'%>
+              <%= f.label :end_at, '工事終了日時*', class:'form-label-login'%>
               <div class="row">
                 <div class="col-sm-7">
-                  <input class="form-control" type="date" name="construction[end_at_date]" id="construction_status" style='width:285px;'>
+                  <input class="form-control" type="date" name="construction[end_at_date]" id="construction_status" value="<%= @start_at_date %>" style='width:285px;'>
                 </div>
                 <div class="col-sm-5 time">
-                  <%= f.time_select :end_at, include_blank: true, minute_step: 30, class: 'form-control time' %>
+                  <%= f.time_select :end_at, {default: Date.today + 17.hours, minute_step: 30}, class: 'form-control time' %>
                 </div>
               </div>
               <div class=" form-group">
-                <%= f.label :category_id, 'カテゴリー', class:'form-label-login'%>
-                <%= f.collection_select :category_id, @category, :id, :name, {}, class: 'form-control' %>
-              </div>
-              <div class=" form-group">
-                <%= f.label :user_id, '担当者', class:'form-label-login'%>
+                <%= f.label :user_id, '担当者*', class:'form-label-login'%>
                 <%= f.collection_select :user_id, @user, :id, :name,
                                   { selected: current_user.id }, class: 'form-control' %>
               </div>
+              <%= f.label :notice, '特記事項', class:'form-label-login '%>
+              <%= f.text_area :notice, placeholder: "任意", class: 'form-control notice' %>
             </div>
           </div>
-          <%= f.label :notice, '特記事項', class:'form-label-login '%>
-          <%= f.text_area :notice, placeholder: "任意", class: 'form-control notice' %>
-          <%= f.submit "登録", class: "btn btn-loggedIn construction-new-btn" %>
+          <%= f.submit "登録", class: "btn btn-loggedIn", id: "c-new-btn" %>
           <% end %>
         </div>
         <% end %>
@@ -84,6 +79,20 @@
             facility_id: $('#facility-select').has('option:selected').val()
           },
         })
+      });
+      $('#c-new-btn').attr('disabled', true);
+      $('#c-new-name').keyup(function() {
+        if (!$(this).val().trim()) {
+          $('#c-new-btn').attr('disabled', true);
+          $(this).css("border-color", "red")
+          $("#c-new-name-label").css("color", "red")
+          $("#c-new-name-label").html("工事名*<div style='float:right;margin-left:10px;font-size:13px;vertical-align: middle;'>※入力してください<div>")
+        } else {
+          $('#c-new-btn').attr('disabled', false);
+          $(this).css("border-color", "")
+          $("#c-new-name-label").css("color", "")
+          $("#c-new-name-label").html("工事名*")
+        }
       });
     });
   </script>
