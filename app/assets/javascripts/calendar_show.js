@@ -50,8 +50,25 @@ $(function () {
         },
         eventClick: function (calEvent, jsEvent, view) {
           var dt = calEvent.id;
+          if (calEvent.flag == 0) {
+            var name = 'constructions';
+          } else if (calEvent.flag == 1) {
+            var name = 'orders';
+          }
           $.ajax({
-            url: `/constructions/${dt}`,
+            url: `/${name}/${dt}`,
+            dataType: "script"
+          });
+        },
+        dayClick: function (date, jsEvent, view) {
+          var category_id = $('#cal_user_category').val();
+          if (category_id == 6) {
+            var name = 'orders';
+          } else if (category_id < 6) {
+            var name = 'constructions';
+          }
+          $.ajax({
+            url: `/${name}/new`,
             dataType: "script"
           });
         },

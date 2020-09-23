@@ -11,6 +11,9 @@ class OrdersController < ApplicationController
       paginate(page: params[:page], per_page: 7)
     @search_params = search_params
     @order = Order.first
+    @orders.each do |order|
+      p order.id, order.shipment_id
+    end
   end
 
   def search

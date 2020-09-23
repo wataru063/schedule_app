@@ -1,2 +1,4 @@
-$('.order_show').html("<%= escape_javascript(render 'orders/show') %>")
+// var order = {};
+// order = $.parseJSON('<%== @order %>');
+$('.order_modal').html("<%= escape_javascript(render 'orders/show') %>")
 $('#orderShowModal').modal('show');
