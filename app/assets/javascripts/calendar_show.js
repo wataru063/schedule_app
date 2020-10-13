@@ -1,5 +1,7 @@
 $(function () {
   $(document).on('turbolinks:load', function () {
+    var today = new Date();
+    var id = $("#facility-calendar option:selected").val();
     if ($('#calendar20').length) {
       function eventCalendar() {
         return $('#calendar20').fullCalendar({
@@ -17,7 +19,7 @@ $(function () {
             url: '/events_show.json',
             data: function () {
               return {
-                facility_id: $("#facility-calendar option:selected").val()
+                facility_id: id
               };
             },
           },
@@ -62,14 +64,24 @@ $(function () {
         },
         dayClick: function (date, jsEvent, view) {
           var category_id = $('#cal_user_category').val();
+          var date = date.format();
           if (category_id == 6) {
             var name = 'orders';
+            if (date <= moment(today).format('YYYY-MM-DD')) {
+              alert('オーダーは翌日以降から登録可能です')
+              return
+            }
           } else if (category_id < 6) {
             var name = 'constructions';
+            if (date <= moment(today).add(2, 'months').format('YYYY-MM-DD')) {
+              alert('工事は2ヶ月後以降から登録可能です \n緊急の場合はadmin権限を持つユーザーに登録を依頼してください')
+              return
+            }
           }
           $.ajax({
             url: `/${name}/new`,
-            dataType: "script"
+            data: { date: date, facility_id: id },
+            dataType: "script",
           });
         },
       });

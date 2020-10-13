@@ -4,8 +4,7 @@ class EventsController < ApplicationController
     @events = create_event(@facility_id, current_user)
     respond_to do |format|
       format.json do
-        render json:
-        @events.to_json
+        render json: @events.to_json
       end
     end
   end
@@ -15,8 +14,7 @@ class EventsController < ApplicationController
     @events = create_event(@facility_id, current_user)
     respond_to do |format|
       format.json do
-        render json:
-        @events.to_json
+        render json: @events.to_json
       end
     end
   end

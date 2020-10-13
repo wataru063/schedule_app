@@ -59,7 +59,7 @@ class ConstructionsController < ApplicationController
         redirect_to calendar_index_url
       end
     else
-      render 'calendar/new'
+      render 'calendar/index'
     end
   end
 

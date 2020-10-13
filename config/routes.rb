@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get    '/events_index', to: 'events#index', as: 'events_index'
   get    '/events_show', to: 'events#show', as: 'events_show'
   get    '/calendar/index', to: 'calendar#index', as: 'calendar_index'
-  get    '/calendar/show/:facility_id', to: 'calendar#show', as: 'calendar_show'
+  get    '/calendar/show', to: 'calendar#show', as: 'calendar_show'
 
   get    '/orders/search', to: 'orders#search', as: 'orders_search'
   get    '/orders/oil', to: 'orders#oil', as: 'orders_oil'

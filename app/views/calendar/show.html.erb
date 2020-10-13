@@ -1,9 +1,9 @@
-<% provide(:title, '日程詳細') %>
+<% provide(:title, "日程詳細") %>
 
 <div class="container">
   <h2 class="title title-calendar-index">日程詳細</h2>
-  <%= form_tag(calendar_show_path, method: "get", id: 'form') do %>
-  <%= select_tag 'facility_id', options_for_select(@facility.map{ |fa| [fa.name, fa.id] }, { selected: @facility_id.to_i }),class:"form-calendar", id: 'facility-calendar' %>
+  <%= form_tag(calendar_show_path, method: "get", id: "form") do %>
+  <%= select_tag "facility_id", options_for_select(@facility.map{ |fa| [fa.name, fa.id] }, { selected: @facility_id.to_i }),class:"form-calendar", id: "facility-calendar" %>
   <% end %>
 
   <div class="calendar-show-container">
@@ -14,34 +14,34 @@
 
 <div class="construction_modal"></div>
 <div class="order_modal"></div>
-<input type="hidden" value=<%= current_user.category_id %> id='cal_user_category'></input>
+<input type="hidden" value=<%= current_user.category_id %> id="cal_user_category"></input>
 
 
 <script>
   $(function() {
-    var position_left = $('#calendar20').offset().left;
-    var position_top = $('#calendar20').offset().top;
+    var position_left = $("#calendar20").offset().left;
+    var position_top = $("#calendar20").offset().top;
     var a_props = {
       "color": "#000000",
       "font-weight": "bold",
       "text-decoration": "none",
       "background-color": "#f0f0f0"
     };
-    $('#calendar a').css(a_props);
-    $('#facility-calendar').css({
-      'top': position_top,
-      'left': position_left
+    $("#calendar a").css(a_props);
+    $("#facility-calendar").css({
+      "top": position_top,
+      "left": position_left
     });
     $(window).resize(function() {
-      var position_left = $('#calendar20').offset().left;
-      var position_top = $('#calendar20').offset().top;
-      $('#facility-calendar').css({
-        'top': position_top,
-        'left': position_left
+      var position_left = $("#calendar20").offset().left;
+      var position_top = $("#calendar20").offset().top;
+      $("#facility-calendar").css({
+        "top": position_top,
+        "left": position_left
       });
     });
     $("#facility-calendar").change(function() {
-      $('form').submit();
+      $("form").submit();
     });
   });
 </script>
