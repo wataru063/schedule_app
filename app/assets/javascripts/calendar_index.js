@@ -104,7 +104,6 @@ $(function () {
                 alert('オーダーは翌日以降から登録可能です')
                 return
               }
-              alert(`/${name}/new`)
             } else if (category_id < 6) {
               var name = 'constructions';
               if (date <= moment(today).add(2, 'months').format('YYYY-MM-DD')) {
@@ -112,7 +111,6 @@ $(function () {
                 return
               }
             }
-            alert(`/${name}/new`)
             $.ajax({
               url: `/${name}/new`,
               data: { date: date, facility_id: id },

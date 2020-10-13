@@ -1,5 +1,6 @@
 $(function () {
   $(document).on('turbolinks:load', function () {
+    // calendar control
     var today = new Date();
     var id = $("#facility-calendar option:selected").val();
     if ($('#calendar20').length) {
@@ -84,6 +85,24 @@ $(function () {
             dataType: "script",
           });
         },
+      });
+      // window control
+      var position_left = $("#calendar20").offset().left;
+      var position_top = $("#calendar20").offset().top;
+      $("#facility-calendar").css({
+        "top": position_top,
+        "left": position_left
+      });
+      $(window).resize(function () {
+        var position_left = $("#calendar20").offset().left;
+        var position_top = $("#calendar20").offset().top;
+        $("#facility-calendar").css({
+          "top": position_top,
+          "left": position_left
+        });
+      });
+      $("#facility-calendar").change(function () {
+        document.calChangeForm.submit();
       });
     }
   });

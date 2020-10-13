@@ -165,25 +165,31 @@ p {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .5);
 }
 /* メニューリストのグループ */
-#subheader ul.menu{
+#subheader ul.menu-group{
   list-style: none;
   margin: 0 auto;
   text-align: center;
 }
 /* メニューリスト */
-#subheader ul.menu li{
+#subheader ul.menu-group li{
   display:inline-block;
   text-align:center;
   width:180px;
   line-height:40px;
 }
 @media all and (max-width: 1250px) {
-#subheader ul.menu li{
+#subheader ul.menu-group li{
   width:135px;
 }
 }
+.is-active a {
+  color: #000000 !important;
+  font-weight: bold !important;
+  text-decoration: none !important;
+  background-color: #f0f0f0 !important;
+}
 /* メニューリストのリンク */
-#subheader ul.menu li a{
+#subheader ul.menu-group li a{
   display:block;
   font-size:1.4em;
   color:#fff;
