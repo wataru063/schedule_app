@@ -31,7 +31,7 @@
           <% if @construction.facility.present? %>
           <p class="const-show-element">制約設備：<%= @construction.facility.name %></p>
           <% else %>
-          <p class="const-show-element">制約油種：-</p>
+          <p class="const-show-element">制約設備：-</p>
           <% end %>
           <p class="const-show-element">
             担当者：<%= @construction.user.name + '（' + @construction.user.category.name + '）' %>
@@ -52,7 +52,7 @@
           <%= f.label :content, 'コメント', class:'form-label-login' %>
           <%= f.text_area :content, value:'', class: 'form-control', id: "comment-text" %>
           <%= f.hidden_field :construction_id, value: @construction.id %>
-          <%= f.submit '投稿', class: "btn btn-loggedIn", id: "comment-save" %>
+          <input type="submit" value="投稿" class="btn btn-loggedIn" id="comment-save" disabled>
           <% end %>
         </div>
       </div>
@@ -60,18 +60,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(function() {
-    $(function() {
-      $('#comment-save').attr('disabled', true);
-      $('#comment-text').keyup(function() {
-        if (!$(this).val().trim()) {
-          $('#comment-save').attr('disabled', true);
-        } else {
-          $('#comment-save').attr('disabled', false);
-        }
-      });
-    });
-  });
-</script>

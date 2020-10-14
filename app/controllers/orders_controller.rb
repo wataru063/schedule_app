@@ -33,6 +33,7 @@ class OrdersController < ApplicationController
 
   def new
     set_select_params_all
+    p params[:facility_id], @selected_facility
     @arrive_at_date = params[:date] if params[:date].present?
     @order = Order.new
     if params[:facility_id].present?

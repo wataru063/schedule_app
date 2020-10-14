@@ -17,7 +17,7 @@
           <div id="new-construction-form">
             <div id="construction-new-left">
               <%= f.label :name, '工事名*', class:'form-label-login', id:"c-new-name-label" %>
-              <%= f.text_field :name, class: 'form-control', id:"c-new-name" %>
+              <%= f.text_field :name, placeholder: "入力してください", class: 'form-control', id:"c-new-name" %>
               <div class=" form-group select">
                 <%= f.label :status_id, '現状況*', class:'form-label-login'%>
                 <%= f.collection_select :status_id, @status, :id, :name, {}, class: 'form-control' %>
@@ -61,38 +61,10 @@
               <%= f.text_area :notice, placeholder: "任意", class: 'form-control notice' %>
             </div>
           </div>
-          <%= f.submit "登録", class: "btn btn-loggedIn", id: "c-new-btn" %>
+          <input type="submit" value="登録" class="btn btn-loggedIn" id="c-new-btn" disabled>
           <% end %>
         </div>
         <% end %>
       </div>
     </div>
   </div>
-
-  <script>
-    $(function() {
-      var category_id = '<%= current_user.category_id %>';
-      $('#facility-select').change(function() {
-        $.get({
-          url: `/constructions/oil`,
-          data: {
-            facility_id: $('#facility-select').has('option:selected').val()
-          },
-        })
-      });
-      $('#c-new-btn').attr('disabled', true);
-      $('#c-new-name').keyup(function() {
-        if (!$(this).val().trim()) {
-          $('#c-new-btn').attr('disabled', true);
-          $(this).css("border-color", "red")
-          $("#c-new-name-label").css("color", "red")
-          $("#c-new-name-label").html("工事名*<div style='float:right;margin-left:10px;font-size:13px;vertical-align: middle;'>※入力してください<div>")
-        } else {
-          $('#c-new-btn').attr('disabled', false);
-          $(this).css("border-color", "")
-          $("#c-new-name-label").css("color", "")
-          $("#c-new-name-label").html("工事名*")
-        }
-      });
-    });
-  </script>
