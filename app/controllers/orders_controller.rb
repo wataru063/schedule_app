@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :logged_in_user
+  before_action :set_oil, only: [:show, :edit, :update, :destroy]
   before_action :belong_to_supply_and_demand_management
   before_action :user_in_charge, only: [:edit, :update, :destroy]
 
@@ -45,11 +46,8 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     if @order.save
       flash[:success] = "#{@order.name}のオーダーを登録しました。"
-      if url = request.referer
-        redirect_to url
-      else
-        redirect_to calendar_index_url
-      end
+      url = request.referer
+      url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
     else
       render 'calendar/index'
     end
@@ -58,21 +56,18 @@ class OrdersController < ApplicationController
   def oil
     oil_id = Facility.find(params[:facility_id]).oils.ids
     @oils = Oil.where(id: oil_id).pluck(:id, :name).to_h.to_json
+    p @oils.to_json
   end
 
-  def show
-    @order = Order.find(params[:id])
-  end
+  def show; end
 
   def edit
     set_select_params_all
-    @order = Order.find(params[:id])
     @arrive_at_date = get_date(@order, "arrive")
   end
 
   def update
     set_time(params[:order], "arrive")
-    @order = Order.find(params[:id])
     if @order.update_attributes(order_params)
       flash[:success] = "登録情報を変更いたしました。"
       redirect_to orders_url
@@ -85,17 +80,17 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    @order = Order.find(params[:id])
     @order.destroy
     flash[:success] = "#{@order.name} を削除しました。"
-    if url = request.referer
-      redirect_to url
-    else
-      redirect_to orders_url
-    end
+    url = request.referer
+    url.present? ? redirect_to(url) : redirect_to(orders_url)
   end
 
   private
+
+  def set_oil
+    @order = Order.find(params[:id])
+  end
 
   def order_params
     params.
@@ -132,22 +127,16 @@ class OrdersController < ApplicationController
   def belong_to_supply_and_demand_management
     unless current_user.category_id == 6
       flash[:danger] = "アクセス権限がありません"
-      if url = request.referer
-        redirect_to url
-      else
-        redirect_to calendar_index_url
-      end
+      url = request.referer
+      url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
     end
   end
 
   def user_in_charge
     unless Order.find(params[:id]).user.id == current_user.id
       flash[:danger] = "アクセス権限がありません"
-      if url = request.referer
-        redirect_to url
-      else
-        redirect_to calendar_index_url
-      end
+      url = request.referer
+      url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
     end
   end
 end
