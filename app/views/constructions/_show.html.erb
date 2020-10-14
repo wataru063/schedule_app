@@ -17,10 +17,12 @@
         </button>
       </div>
       <div class="modal-body edit-construction-form">
+        <% if @construction.user == current_user %>
         <div class="construction-edit-btn sm">
           <%= link_to "編集", edit_construction_path(@construction), class:"btn-construction-edit edt-btn" %>
           <%= link_to "削除", construction_path(@construction), method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-construction-edit dlt-btn" %>
         </div>
+        <% end %>
         <div id="construction-show-content">
           <p class="const-show-element">現状況：<%= @construction.status.name %></p>
           <p class="const-show-element">制約油種：<%= @construction.oil.name %></p>
