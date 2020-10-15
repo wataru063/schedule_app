@@ -1,14 +1,6 @@
 $(function () {
   $(document).on('turbolinks:load', function () {
-    $('.order_modal').on('change', '#facility-select', function () {
-      $.get({
-        url: '/orders/oil',
-        data: {
-          facility_id: $('#facility-select').has('option:selected').val()
-        },
-      })
-    });
-    var enableSelectors = '#o-new-name, #o-new-companyName, #number'
+    var enableSelectors = '#o-name, #o-companyName, #number'
     $('.order_modal').on('keyup', enableSelectors, function () {
       var idName = '#' + $(this).attr('id');
       var label = $(idName + '-label').text().replace("※入力してください", "");
@@ -22,10 +14,10 @@ $(function () {
         $(idName + '-label').css('color', '')
         $(idName + '-label').html(changeLabel)
       }
-      if (!!$('#o-new-name').val().trim() && !!$('#o-new-companyName').val().trim() && !!$('#number').val().trim()) {
-        $('#o-new-btn').attr('disabled', false);
+      if (!!$('#o-name').val().trim() && !!$('#o-companyName').val().trim() && !!$('#number').val().trim()) {
+        $('#o-btn').attr('disabled', false);
       } else {
-        $('#o-new-btn').attr('disabled', true);
+        $('#o-btn').attr('disabled', true);
       }
     });
   });

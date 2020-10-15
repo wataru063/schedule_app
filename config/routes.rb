@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   get    '/calendar/index', to: 'calendar#index', as: 'calendar_index'
   get    '/calendar/show', to: 'calendar#show', as: 'calendar_show'
 
+  get    '/oils/select', to: 'oils#select', as: 'oils_select'
+
   get    '/orders/search', to: 'orders#search', as: 'orders_search'
-  get    '/orders/oil', to: 'orders#oil', as: 'orders_oil'
   resources :orders
 
   resources :comments, only: [:create, :edit, :update, :destroy]

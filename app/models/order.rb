@@ -27,19 +27,26 @@ class Order < ApplicationRecord
   end
 
   def arrive_at_not_be_set_in_the_past
-    if arrive_at_date.present? && arrive_at.present? && arrive_at < Time.current.tomorrow.midnight
-      errors.add(:arrive_at, "は翌日以降に設定してください")
+    if id.present? && arrive_at_date.present? && arrive_at.present?
+      illegal_time = Time.current.ago(1.minutes)
+      errors.add(:arrive_at, "は現在時刻以降に設定してください") if arrive_at < illegal_time
+    elsif arrive_at_date.present? && arrive_at.present?
+      illegal_time = Time.current.tomorrow.midnight
+      errors.add(:arrive_at, "は翌日以降に設定してください") if arrive_at < illegal_time
     end
   end
 
   def arrive_at_not_be_duplicate
-    if arrive_at_date.present? && arrive_at.present? && facility_id.present?
-      if Order.find_by(arrive_at: arrive_at, facility_id: facility_id).present?
-        errors.add(
-          :arrive_at,
-          "：#{Facility.find(facility_id).name}のこの時間には他のオーダーが入っています"
-        )
-      end
+    if id.present?
+      other_order = Order.where.not(id: id).where(arrive_at: arrive_at, facility_id: facility_id)
+    else
+      other_order = Order.where(arrive_at: arrive_at, facility_id: facility_id)
+    end
+    if arrive_at_date.present? && arrive_at.present? && facility_id.present? && other_order.present?
+      errors.add(
+        :arrive_at,
+        "：#{Facility.find(facility_id).name}のこの時間には他のオーダーが入っています"
+      )
     end
   end
 
