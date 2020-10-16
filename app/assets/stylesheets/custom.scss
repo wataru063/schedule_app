@@ -229,9 +229,9 @@ p {
 .btn-primary:active, .btn-primary:active:focus, .btn-primary:active:hover, .btn-primary:active.focus,
 .btn-primary.active, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary.active.focus
 {
-  background: #008784;
+  background: #008784 !important;
   color: #fff;
-  border-color: #fff;
+  border-color: #fff !important;
   font-weight: bold;
   height: auto !important;
 }

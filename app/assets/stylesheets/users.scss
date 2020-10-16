@@ -179,10 +179,13 @@
 #user-modal-header {
   width: 90%;
   margin: 0 auto;
-  padding-top: 40px;
+  padding-top: 60px;
   padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .user-modal-title{
   font-weight: bold;
+  font-size: 1.7em;
 }
