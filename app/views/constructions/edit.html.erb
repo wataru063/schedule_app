@@ -8,24 +8,30 @@
       <%= render 'shared/error_messages', object: f.object %>
     </div>
 
-    <div class="row row-construction-form">
+    <div class="row row-construction-form construction_modal">
       <div class="col-sm-5">
 
-        <%= f.label :name, '工事名', class:'form-label-login'%>
-        <%= f.text_field :name, class: 'form-control', id:"const-name" %>
+        <%= f.label :name, '工事名', class:'form-label-login', id:"c-name-label"%>
+        <%= f.text_field :name, class: 'form-control', id:"c-name" %>
         <div class=" form-group select">
           <%= f.label :status_id, '現状況', class:'form-label-login'%>
           <%= f.collection_select :status_id, @status, :id, :name, {}, class: 'form-control' %>
         </div>
         <div class=" form-group">
           <%= f.label :facility_id, '設備制約', class:'form-label-login'%>
-          <%= f.collection_select :facility_id, @facility, :id, :name,
-                                  {include_blank: "選択しない"}, class: 'form-control' %>
+          <%= f.collection_select :facility_id, @all_facilities, :id, :name, { include_blank: "選択しない", selected: @facility }, class: 'form-control', id: 'facility-select' %>
         </div>
         <div class=" form-group">
           <%= f.label :oil_id, '油種制約', class:'form-label-login'%>
-          <%= f.collection_select :oil_id, @oil, :id, :name,
-                {include_blank: "-- 選択してください --"}, class: 'form-control' %>
+          <select name="construction[oil_id]" id="oil-select" class="form-control">
+            <%= @oils.each do |oil| %>
+            <% if oil.id == @construction.oil_id %>
+            <option value="<%= oil.id %>" class="oil-option" selected="selected"><%= oil.name %></option>
+            <% else %>
+            <option value="<%= oil.id %>" class="oil-option"><%= oil.name %></option>
+            <% end %>
+            <% end %>
+          </select>
         </div>
       </div>
 
@@ -49,36 +55,16 @@
           </div>
         </div>
         <div class=" form-group">
-          <%= f.label :category_id, 'カテゴリー', class:'form-label-login'%>
-          <%= f.collection_select :category_id, @category, :id, :name, {}, class: 'form-control' %>
-        </div>
-        <div class=" form-group">
           <%= f.label :user_id, '担当者', class:'form-label-login'%>
           <%= f.collection_select :user_id, @user, :id, :name,
                                   { selected: current_user.id }, class: 'form-control' %>
         </div>
-
-      </div>
-      <div class="col-sm-10">
         <%= f.label :notice, '特記事項', class:'form-label-login '%>
         <%= f.text_area :notice, placeholder: "任意", class: 'form-control notice' %>
       </div>
     </div>
 
-    <%= f.submit "編集", class: "btn btn-loggedIn col-sm-6 col-sm-offset-3", id:"const-edit-save" %>
+    <%= f.submit "編集", class: "btn btn-loggedIn col-sm-6 col-sm-offset-3", id:"c-btn" %>
     <% end %>
   </div>
 </div>
-
-<script>
-  $(function() {
-    $('#const-edit-save').attr('disabled', false);
-    $('#const-name').keyup(function() {
-      if (!$(this).val().trim()) {
-        $('#const-edit-save').attr('disabled', true);
-      } else {
-        $('#const-edit-save').attr('disabled', false);
-      }
-    });
-  });
-</script>

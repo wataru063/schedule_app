@@ -1,7 +1,6 @@
 class Category < ActiveHash::Base
   include ActiveHash::Associations
   has_many :users, class_name: "User"
-  has_many :constructions, class_name: "Construction"
   has_many :facility, class_name: "Facility"
   self.data = [
     { id: 1, name: '設備保全Tm' }, { id: 2, name: '設備検査Tm' }, { id: 3, name: '計装Tm' },

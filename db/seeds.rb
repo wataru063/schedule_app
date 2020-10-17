@@ -64,7 +64,6 @@ notices = ["工程内で制約日程は調整可能", "工事中は桟橋クロ�
   oil      = facility.oils[rand(0..facility.oils.count-1)]
   oil_id   = oil.id
   user_id  = user.id
-  category_id = user.category_id
   if n % 2 == 0
     name = "#{facility.name} #{oil.name} 配管補修工事"
     facility_id = facility.id
@@ -77,7 +76,6 @@ notices = ["工程内で制約日程は調整可能", "工事中は桟橋クロ�
                                       facility_id: facility_id,
                                       oil_id: oil_id,
                                       user_id: user_id,
-                                      category_id: category_id,
                                       start_at: start_at,
                                       end_at: end_at,
                                       start_at_date: start_at,

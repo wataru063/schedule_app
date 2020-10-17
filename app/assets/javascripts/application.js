@@ -20,3 +20,12 @@
 //= require moment
 //= require fullcalendar
 //= require_tree .
+
+$(function () {
+  $(document).on('turbolinks:load', function () {
+    var title = $('.title').text();
+    var li = $('.menu:contains(' + title + ')');
+    $(".menu li").removeClass('is-active')
+    li.addClass('is-active')
+});
+});

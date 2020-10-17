@@ -20,7 +20,6 @@ class ConstructionRegisterTest < ActionDispatch::IntegrationTest
                                                             status: "",
                                                             facility_id: "",
                                                             oil_id: "",
-                                                            category_id: "",
                                                             user_id: "",
                                                             start_at_date: "",
                                                             "start_at(1i)" =>
@@ -44,8 +43,7 @@ class ConstructionRegisterTest < ActionDispatch::IntegrationTest
                                                              Time.current.since(4.month).hour.to_s,
                                                             "end_at(5i)" =>
                                                              Time.current.since(4.month).min.to_s,
-                                                            notice: "" },
-                                            category_id: @user.category_id }
+                                                            notice: "" } }
     end
     assert_template 'constructions/new'
     assert_select 'div#error_explanation'
@@ -83,10 +81,9 @@ class ConstructionRegisterTest < ActionDispatch::IntegrationTest
                                                              Time.current.since(4.month).hour.to_s,
                                                             "end_at(5i)" =>
                                                              Time.current.since(4.month).min.to_s,
-                                                            notice: "Test" },
-                                            category_id: @user.category_id }
+                                                            notice: "Test" } }
     end
-    follow_redirect!
+    follow_redirect
     assert_template 'constructions/new'
     assert_not flash.empty?
   end

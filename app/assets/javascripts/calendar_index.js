@@ -15,7 +15,6 @@ $(function () {
       $(document).on('turbolinks:before-cache', clearCalendar);
       $('#calendar0').fullCalendar({
         titleFormat: 'YYYY年 M月',
-        //曜日を日本語表示
         dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
         defaultDate: today,
         defaultView: 'basicWeek',
@@ -59,15 +58,12 @@ $(function () {
             },
           },
           titleFormat: 'YYYY年 M月',
-          //曜日を日本語表示
           dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
-          //ボタンのレイアウト
           header: {
             left: '',
             center: '',
             right: ''
           },
-          //終了時刻がないイベントの表示間隔
           defaultTimedEventDuration: '03:00:00',
           buttonText: {
             prevYear: '前年',
@@ -77,7 +73,6 @@ $(function () {
             week: '週',
             day: '日'
           },
-          //イベントの時間表示を２４時間に
           timeFormat: "HH:mm",
           displayEventTime: false,
           defaultDate: today,
@@ -98,6 +93,28 @@ $(function () {
             $.ajax({
               url: `/${name}/${dt}`,
               dataType: "script"
+            });
+          },
+          dayClick: function (date, jsEvent, view) {
+            var category_id = $('#cal_user_category').val();
+            var date = date.format();
+            if (category_id == 6) {
+              var name = 'orders';
+              if ( date <= moment(today).format('YYYY-MM-DD')) {
+                alert('オーダーは翌日以降から登録可能です')
+                return
+              }
+            } else if (category_id < 6) {
+              var name = 'constructions';
+              if (date <= moment(today).add(2, 'months').format('YYYY-MM-DD')) {
+                alert('工事は2ヶ月後以降から登録可能です \n緊急の場合はadmin権限を持つユーザーに登録を依頼してください')
+                return
+              }
+            }
+            $.ajax({
+              url: `/${name}/new`,
+              data: { date: date, facility_id: id },
+              dataType: "script",
             });
           },
         });

@@ -5,6 +5,40 @@ RSpec.describe Facility, type: :model do
     @facility = build(:test_facility)
   end
 
+  describe 'Association' do
+    let(:association) do
+       described_class.reflect_on_association(target)
+    end
+
+    context 'relate_to_oils' do
+      let(:target) { :relate_to_oils }
+
+      it { expect(association.macro).to eq :has_many }
+      it { expect(association.class_name).to eq 'FacilityOil' }
+    end
+
+    context 'oils' do
+      let(:target) { :oils }
+
+      it { expect(association.macro).to eq :has_many }
+      it { expect(association.class_name).to eq 'Oil' }
+    end
+
+    context 'constructions' do
+      let(:target) { :constructions }
+
+      it { expect(association.macro).to eq :has_many }
+      it { expect(association.class_name).to eq 'Construction' }
+    end
+
+    context 'orders' do
+      let(:target) { :orders }
+
+      it { expect(association.macro).to eq :has_many }
+      it { expect(association.class_name).to eq 'Order' }
+    end
+  end
+
   describe 'name' do
     it 'is invalid with blank words' do
       @facility.name = ''

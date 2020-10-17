@@ -7,6 +7,40 @@ RSpec.describe User, type: :model do
     it { expect(user).to be_valid }
   end
 
+  describe 'association' do
+    let(:association) do
+       described_class.reflect_on_association(target)
+    end
+
+    context 'constructions' do
+      let(:target) { :constructions }
+
+      it { expect(association.macro).to eq :has_many }
+      it { expect(association.class_name).to eq 'Construction' }
+    end
+
+    context 'orders' do
+      let(:target) { :orders }
+
+      it { expect(association.macro).to eq :has_many }
+      it { expect(association.class_name).to eq 'Order' }
+    end
+
+    context 'comments' do
+      let(:target) { :comments }
+
+      it { expect(association.macro).to eq :has_many }
+      it { expect(association.class_name).to eq 'Comment' }
+    end
+
+    context 'category' do
+      let(:target) { :category }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'Category' }
+    end
+  end
+
   describe 'name' do
     let(:user) { build(:user, name: name) }
 

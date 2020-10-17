@@ -5,7 +5,6 @@ class Construction < ApplicationRecord
   belongs_to :facility, class_name: "Facility", foreign_key: 'facility_id', optional: true
   belongs_to :oil, class_name: "Oil", foreign_key: 'oil_id', optional: true
   belongs_to :user, class_name: "User", foreign_key: 'user_id', optional: true
-  belongs_to :category, class_name: "Category", foreign_key: 'category_id', optional: true
   belongs_to :status, class_name: "Status", foreign_key: 'status_id', optional: true
   validates :name,          presence: true
   validates :status_id,     presence: true
@@ -13,7 +12,6 @@ class Construction < ApplicationRecord
   validates :user_id,       presence: true
   validates :start_at,      presence: true
   validates :end_at,        presence: true
-  validates :category_id,   presence: true
   validates :start_at_date, presence: true
   validates :end_at_date,   presence: true
   # custom validation

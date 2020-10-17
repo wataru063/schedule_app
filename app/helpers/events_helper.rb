@@ -1,5 +1,5 @@
 module EventsHelper
-  def create_event(id)
+  def create_event(id, current_user)
     events = []
     facility_id = id.present? ? id : 1
     oil_ids     = Facility.find(facility_id).oils.ids
@@ -23,22 +23,25 @@ module EventsHelper
       events << event
     end
 
-    @orders.each do |o|
-      n += 1
-      event = {}
-      shipment = o.shipment_id == 1 ? "入" : "出"
-      title = "［#{shipment}］#{o.arrive_at.strftime("%-H:%M")} #{o.name}
-                #{o.oil.name} #{o.quantity} #{o.unit} #{o.company_name}"
-      event.store(:id, o.id)
-      event.store(:title, title)
-      event.store(:start, o.arrive_at)
-      event.store(:end, "")
-      # event.store(:url, "/orders/#{o.id}")
-      event.store(:color, "#e4e3e3")
-      event.store(:textColor, "#000000")
-      event.store(:flag, 1)
-      events << event
+    if current_user.category_id == 6
+      @orders.each do |o|
+        n += 1
+        event = {}
+        shipment = o.shipment_id == 1 ? "入" : "出"
+        title = "［#{shipment}］#{o.arrive_at.strftime("%-H:%M")} #{o.name}
+                  #{o.oil.name} #{o.quantity} #{o.unit} #{o.company_name}"
+        event.store(:id, o.id)
+        event.store(:title, title)
+        event.store(:start, o.arrive_at)
+        event.store(:end, "")
+        # event.store(:url, "/orders/#{o.id}")
+        event.store(:color, "#e4e3e3")
+        event.store(:textColor, "#000000")
+        event.store(:flag, 1)
+        events << event
+      end
     end
+
     events
   end
 end

@@ -7,6 +7,39 @@ RSpec.describe Order, type: :model do
   it 'has a valid factory' do
     expect(order).to be_valid
   end
+  describe 'association' do
+    let(:association) do
+      described_class.reflect_on_association(target)
+    end
+
+    context 'facility' do
+      let(:target) { :facility }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'Facility' }
+    end
+
+    context 'oil' do
+      let(:target) { :oil }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'Oil' }
+    end
+
+    context 'user' do
+      let(:target) { :user }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'User' }
+    end
+
+    context 'shipment' do
+      let(:target) { :shipment }
+
+      it { expect(association.macro).to eq :belongs_to }
+      it { expect(association.class_name).to eq 'Shipment' }
+    end
+  end
 
   describe 'name' do
     it 'is invalid without a name' do
@@ -65,46 +98,49 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'arrive_at' do
-    it 'is invalid without a arrive_at' do
-      order.arrive_at = ''
-      order.valid?
-      expect(order.errors[:arrive_at]).to include("を入力してください")
+    before { order.valid? }
+
+    context 'with nil' do
+      let(:order) { build(:order, arrive_at: '') }
+
+      it { expect(order.errors[:arrive_at]).to include("を入力してください") }
     end
 
     context 'in today or past' do
-      it 'is invalid' do
-        order.arrive_at = Time.current.end_of_day
-        order.valid?
-        expect(order.errors[:arrive_at]).to include("は翌日以降に設定してください")
-      end
+      let(:order) { build(:order, arrive_at: Time.current.end_of_day) }
+
+      it { expect(order.errors[:arrive_at]).to include("は翌日以降に設定してください") }
     end
 
     context 'after tomorrow' do
-      it 'is valid' do
-        order.arrive_at = Time.current.tomorrow.beginning_of_day
-        expect(order).to be_valid
+      let(:order) { build(:order, arrive_at: Time.current.tomorrow.beginning_of_day) }
+
+      it { expect(order).to be_valid }
+    end
+
+    context 'overlap with other orders' do
+      let(:other_order) { build(:order, facility_id: order.facility_id, arrive_at: order.arrive_at) }
+
+      it 'is invalid' do
+        order.save
+        other_order.valid?
+        expect(other_order.errors[:arrive_at]).to include(
+          "：#{other_order.facility.name}のこの時間には他のオーダーが入っています"
+        )
       end
     end
 
-    it 'is invalid with a duplicate arrival time' do
-      duplicate_order = order
-      order.save
-      duplicate_order.valid?
-      expect(duplicate_order.errors[:arrive_at]).to include(
-        "：#{duplicate_order.facility.name}のこの時間には他のオーダーが入っています"
-      )
-    end
-
     context 'during construction' do
-      let(:construction) { build(:construction, facility_id: order.facility_id) }
+      let(:construction) { create(:construction, facility_id: order.facility_id) }
+      let(:test_order) do
+        build(:order, facility_id: order.facility_id, arrive_at: construction.start_at + 1.day,
+                      arrive_at_date: construction.start_at_date + 1.day)
+      end
 
       it 'is invalid' do
-        order.arrive_at = construction.start_at + 1.day
-        order.arrive_at_date = construction.start_at_date + 1.day
-        construction.save
-        order.valid?
-        expect(order.errors[:arrive_at]).to include(
-          "：#{order.facility.name}のこの時間は工事(#{construction.name})による出荷制約があります"
+        test_order.valid?
+        expect(test_order.errors[:arrive_at]).to include(
+          "：#{test_order.facility.name}のこの時間は工事(#{construction.name})による出荷制約があります"
         )
       end
     end

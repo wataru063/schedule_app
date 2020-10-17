@@ -19,7 +19,7 @@ RSpec.describe "Calendar", type: :request do
   end
 
   describe "GET #show" do
-    subject { get calendar_show_path(facility) }
+    subject { get calendar_show_path }
 
     let(:facility) { create(:facility) }
 

@@ -4,7 +4,7 @@ class CalendarController < ApplicationController
   def index
     @comment = Comment.new
     set_construction
-    @facilities = Facility.all
+    @facility = Facility.all
   end
 
   def show
@@ -21,7 +21,7 @@ class CalendarController < ApplicationController
         oil_ids = f.oils.ids
         @const_event[f.id] = Construction.where(facility_id: f.id,
                                                 start_at: Time.current.beginning_of_week - 1.day..
-                                                           Time.current.since(14.days).end_of_day) +
+                                                          Time.current.since(14.days).end_of_day) +
                              Construction.where(facility_id: nil, oil_id: oil_ids,
                                                 start_at: Time.current.beginning_of_week - 1.day..
                                                           Time.current.since(14.days).end_of_day)

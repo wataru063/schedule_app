@@ -29,7 +29,6 @@ ja:
         notice: 特記事項
         facility_id: 制約が発生する設備名
         oil_id: 制約が発生する油種名
-        category_id: カテゴリー名
         user_id: 担当者名
         start_at: 工事開始日時
         end_at: 工事終了日時

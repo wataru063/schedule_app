@@ -138,16 +138,4 @@
   <%= will_paginate @orders, previous_label: '← 前', next_label: '次 →'%>
 </div>
 
-<div class="order_show"><%= render 'orders/show' %></div>
-
-<script>
-  $(function() {
-    var a_props = {
-      "color": "#000000",
-      "font-weight": "bold",
-      "text-decoration": "none",
-      "background-color": "#f0f0f0"
-    };
-    $('#order_index a').css(a_props);
-  });
-</script>
+<div class="order_modal"></div>

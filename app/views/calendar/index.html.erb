@@ -9,11 +9,11 @@
     </div>
     <div id="calendar-wrapper">
       <div id='calendar'>
-        <% @facilities.each do |f|  %>
+        <% @facility.each do |f|  %>
         <div class="row calendar-table">
           <div class="col-sm-3">
             <div class="tab-title">
-              <%= link_to(f.name, calendar_show_path(f)) %>
+              <%= link_to(f.name, calendar_show_path(facility_id: f.id)) %>
             </div>
             <div class="twoweek-const">
               <div class="twoweek-const-title">近日開始予定の工事</div>
@@ -30,23 +30,12 @@
           </div>
           <div class="col-sm-9 tabs" data-calendar="<%= f.id %>"></div>
         </div>
-        <% end  %>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
 
-<div class="construction_show"><%= render 'constructions/show' %></div>
-<div class="order_show"><%= render 'orders/show' %></div>
-
-<script>
-  $(function() {
-    var a_props = {
-      "color": "#000000",
-      "font-weight": "bold",
-      "text-decoration": "none",
-      "background-color": "#f0f0f0"
-    };
-    $('#home a').css(a_props);
-  });
-</script>
+<div class="construction_modal"></div>
+<div class="order_modal"></div>
+<input type="hidden" value=<%= current_user.category_id %> id='cal_user_category'></input>

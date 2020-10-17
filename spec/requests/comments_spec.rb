@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Comments", type: :request do
   let(:user) { create(:user) }
-  let(:construction) { create(:construction) }
+  let!(:construction) { create(:construction) }
 
   describe "POST #create" do
     subject { post comments_path, params: comment_params, xhr: true }
@@ -23,9 +23,9 @@ RSpec.describe "Comments", type: :request do
       end
 
       context 'with invalid params' do
-        let(:comment_params) { { comment: attributes_for(:comment, :invalid) } }
+        let(:comment_params) { { comment: { content: nil, construction_id: construction.id } } }
 
-        it { is_expected.to render_template 'calendar/index' }
+        it { is_expected.to render_template 'constructions/_comment', 'comments/create' }
         it { expect { subject }.not_to change(Comment, :count) }
       end
     end
@@ -50,7 +50,4 @@ RSpec.describe "Comments", type: :request do
       end
     end
   end
-
-  # TODO   describe "GET #edit" do
-  # TODO   describe "PATCH #update" do
 end

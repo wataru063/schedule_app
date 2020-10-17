@@ -17,7 +17,7 @@
     <% @user.constructions.each do |c| %>
     <tr>
       <td style="width:14%">
-        <%= link_to c.name, construction_path(current_user, c) %>
+        <%= link_to c.name, construction_path(c), remote: true %>
       </td>
       <td style="width:14%"><%= @status.find(c.status_id).name %></td>
       <td style="width:15%">

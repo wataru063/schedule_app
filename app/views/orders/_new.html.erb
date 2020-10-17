@@ -1,0 +1,81 @@
+<div class="modal fade" id="orderNewModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog" id="order-new-modal-dialog">
+    <div class="modal-content" id="order-modal-content">
+      <% if @order.present? %>
+      <div class="modal-header" id="order-modal-header">
+        <div class="modal-title order-modal-title" id="myModalLabel">
+          オーダー登録
+        </div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;">
+          <i class="fa fa-2x fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="order-new-content">
+          <%= form_for(@order, remote: true) do |f| %>
+          <div id="error-form"><%= render 'shared/error_messages', object: f.object %></div><br>
+          <div id="new-order-form">
+            <div id="order-new-left">
+              <%= f.label :name, '船名*', class:'form-label-login required-label', id: "o-name-label" %>
+              <%= f.text_field :name, placeholder: "入力してください", class: 'form-control required', id: "o-name" %>
+
+              <div class=" form-group">
+                <%= f.label :shipment_id, '入出荷*', class:'form-label-login'%>
+                <%= f.collection_select :shipment_id, @shipment, :id, :name, {}, class: 'form-control' %>
+              </div>
+
+              <%= f.label :company_name, '取引先会社名*', class:'form-label-login required-label', id: "o-companyName-label" %>
+              <%= f.text_field :company_name, placeholder: "入力してください", class: 'form-control', id: "o-companyName" %>
+
+              <div class=" form-group">
+                <%= f.label :facility_id, '対象設備*', class:'form-label-login'%>
+                <%= f.collection_select :facility_id, @all_facilities, :id, :name, {selected: @facility}, class: 'form-control', id: 'facility-select' %>
+              </div>
+            </div>
+
+            <div id="order-new-right">
+              <div class=" form-group">
+                <%= f.label :oil_id, '油種*', class:'form-label-login'%>
+                <select name="order[oil_id]" id="oil-select" class="form-control">
+                  <%= @oils.each do |oil| %>
+                  <option value="<%= oil.id %>" class="oil-option"><%= oil.name %></option>
+                  <% end %>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :unit, '数量・単位*', class:'form-label-login required-label', id: "number-label"%>
+                <div class="row">
+                  <div class="col-sm-7">
+                    <%= f.number_field :quantity, placeholder: "入力してください", class: 'form-control required', min: 1, id: "number" %>
+                  </div>
+                  <div class="col-sm-5">
+                    <%= f.select :unit, options_for_select([['kL'], ['t']]), {}, class: 'form-control' %>
+                  </div>
+                </div>
+              </div>
+
+              <%= f.label :arrive_at, '荷役作業日時*', class:'form-label-login'%>
+              <div class="row">
+                <div class="col-sm-7">
+                  <input class="form-control" type="date" name="order[arrive_at_date]" value="<%= @arrive_at_date %>" style='width:285px;'>
+                </div>
+                <div class="col-sm-5 time">
+                  <%= f.time_select :arrive_at, {default: Date.today + 8.hours, minute_step: 10}, class: 'form-control' %>
+                </div>
+              </div>
+
+              <div class=" form-group">
+                <%= f.label :user_id, '担当者*', class:'form-label-login'%>
+                <%= f.collection_select :user_id, User.all, :id, :name, {selected: current_user.id},class: 'form-control' %>
+              </div>
+            </div>
+          </div>
+          <input type="submit" value="登録" class="btn btn-loggedIn" id="o-btn" disabled>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

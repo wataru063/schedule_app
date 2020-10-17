@@ -7,8 +7,8 @@ FactoryBot.define do
     category_id { '6' }
 
     after(:create) do |user|
-      create_list(:order, 3, user_id: user.id, oil_id: 1, facility_id: 1)
-      create_list(:construction, 2, user_id: user.id, oil_id: 1, facility_id: 1)
+      create_list(:order, 3, user_id: user.id)
+      create_list(:construction, 2, user_id: user.id)
     end
   end
 
@@ -20,11 +20,10 @@ FactoryBot.define do
     category_id { '6' }
 
     after(:create) do |user|
-      create_list(:order, 3, user_id: user.id, oil_id: 1, facility_id: 1)
-      create_list(:construction, 2, user_id: user.id, oil_id: 1, facility_id: 1)
+      create_list(:order, 3, user_id: user.id)
+      create_list(:construction, 2, user_id: user.id)
     end
   end
-
 
   factory :user do
     sequence(:id) { rand(10000..99999) }

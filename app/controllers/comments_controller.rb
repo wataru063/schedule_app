@@ -4,14 +4,12 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.build(comment_params)
-    if @comment.save
-      @construction = Construction.find(params[:comment][:construction_id])
-      respond_to do |format|
-        format.html { redirect_to calendar_index_url }
-        format.js
-      end
-    else
-      render 'calendar/index'
+    @comment.save
+    params_id = params[:comment][:construction_id]
+    @construction = Construction.find(params_id) if params_id.present?
+    respond_to do |format|
+      format.html { redirect_to calendar_index_url }
+      format.js
     end
   end
 
