@@ -7,7 +7,9 @@ RSpec.describe "Constructions", type: :request do
   let!(:construction) { create(:construction, user_id: user.id) }
 
   describe "GET #new" do
-    subject { get new_construction_path }
+    subject do
+      get new_construction_path, xhr: true, params: { facility_id: construction.facility_id }
+    end
 
     context "as a guest" do
       it { is_expected.to redirect_to login_path }
@@ -33,7 +35,7 @@ RSpec.describe "Constructions", type: :request do
   end
 
   describe "POST #create" do
-    subject { post constructions_path, params: construction_params }
+    subject { post constructions_path, xhr: true, params: construction_params }
 
     let(:construction_params) { { construction: attributes_for(:construction) } }
 
@@ -52,8 +54,7 @@ RSpec.describe "Constructions", type: :request do
 
       context "who is in charge" do
         context 'with valid params' do
-          it { is_expected.to eq(302) }
-          it { is_expected.to redirect_to new_construction_url }
+          it { is_expected.to eq(200) }
           it { expect { subject }.to change(Construction, :count).by(1) }
         end
 
@@ -62,7 +63,7 @@ RSpec.describe "Constructions", type: :request do
             { construction: attributes_for(:construction, :invalid) }
           end
 
-          it { is_expected.to render_template :new }
+          it { is_expected.to render_template 'shared/_error_messages', 'constructions/create' }
           it { expect { subject }.not_to change(Construction, :count) }
         end
       end

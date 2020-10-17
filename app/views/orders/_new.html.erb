@@ -12,8 +12,8 @@
       </div>
       <div class="modal-body">
         <div class="order-new-content">
-          <%= form_for(@order) do |f| %>
-          <%= render 'shared/error_messages', object: f.object %><br>
+          <%= form_for(@order, remote: true) do |f| %>
+          <div id="error-form"><%= render 'shared/error_messages', object: f.object %></div><br>
           <div id="new-order-form">
             <div id="order-new-left">
               <%= f.label :name, '船名*', class:'form-label-login required-label', id: "o-name-label" %>
@@ -29,7 +29,7 @@
 
               <div class=" form-group">
                 <%= f.label :facility_id, '対象設備*', class:'form-label-login'%>
-                <%= f.collection_select :shipment_id, @all_facilities, :id, :name, {selected: @facility}, class: 'form-control', id: 'facility-select' %>
+                <%= f.collection_select :facility_id, @all_facilities, :id, :name, {selected: @facility}, class: 'form-control', id: 'facility-select' %>
               </div>
             </div>
 

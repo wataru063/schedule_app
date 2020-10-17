@@ -40,14 +40,18 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     if @order.save
       flash[:success] = "#{@order.name}のオーダーを登録しました。"
-      url = request.referer
-      url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
-    else
-      render 'calendar/index'
+      respond_to do |format|
+        format.js { render ajax_redirect_to(calendar_index_url) }
+      end
     end
   end
 
-  def show; end
+  def show
+    respond_to do |format|
+      format.html { redirect_to edit_order_url(@order) }
+      format.js
+    end
+  end
 
   def edit
     set_select_params
@@ -62,7 +66,6 @@ class OrdersController < ApplicationController
     else
       set_select_params
       @arrive_at_date = get_date(@order, "arrive")
-      flash[:danger] = "登録情報変更に失敗しました。"
       render :edit
     end
   end
@@ -108,18 +111,16 @@ class OrdersController < ApplicationController
   end
 
   def belong_to_supply_and_demand_management
-    unless current_user.category_id == 6
-      flash[:danger] = "アクセス権限がありません"
-      url = request.referer
-      url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
-    end
+    return if current_user.category_id == 6
+    flash[:danger] = "アクセス権限がありません"
+    url = request.referer
+    url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
   end
 
   def user_in_charge
-    unless Order.find(params[:id]).user.id == current_user.id
-      flash[:danger] = "アクセス権限がありません"
-      url = request.referer
-      url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
-    end
+    return if Order.find(params[:id]).user.id == current_user.id
+    flash[:danger] = "アクセス権限がありません"
+    url = request.referer
+    url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
   end
 end

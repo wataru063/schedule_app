@@ -12,8 +12,8 @@
       </div>
       <div class="modal-body">
         <div class="construction-new-content">
-          <%= form_for(@construction) do |f| %>
-          <%= render 'shared/error_messages', object: f.object %><br>
+          <%= form_for(@construction, remote: true) do |f| %>
+          <div id="error-form"><%= render 'shared/error_messages', object: f.object %></div><br>
           <div id="new-construction-form">
             <div id="construction-new-left">
               <%= f.label :name, '工事名*', class:'form-label-login', id:"c-name-label" %>

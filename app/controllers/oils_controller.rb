@@ -1,4 +1,5 @@
 class OilsController < ApplicationController
+  before_action :logged_in_user
   def select
     if params[:facility_id].present?
       oil_id = Facility.find(params[:facility_id]).oils.ids

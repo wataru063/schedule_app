@@ -34,6 +34,10 @@ class ConstructionsController < ApplicationController
 
   def show
     @comment = Comment.new
+    respond_to do |format|
+      format.html { redirect_to edit_construction_url(@construction) }
+      format.js
+    end
   end
 
   def new
@@ -47,10 +51,9 @@ class ConstructionsController < ApplicationController
     @construction = Construction.new(construction_params)
     if @construction.save
       flash[:success] = "#{@construction.name} を登録しました。"
-      url = request.referer
-      url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
-    else
-      render 'calendar/index'
+      respond_to do |format|
+        format.js { render ajax_redirect_to(calendar_index_url) }
+      end
     end
   end
 
@@ -69,9 +72,9 @@ class ConstructionsController < ApplicationController
       redirect_to constructions_url
     else
       set_select_params
+      @oils = @construction.facility.present? ? @construction.facility.oils : @all_oils
       @start_at_date = get_date(@construction, "start")
       @end_at_date = get_date(@construction, "end")
-      flash[:danger] = "登録情報変更に失敗しました。"
       render :edit
     end
   end
@@ -118,18 +121,16 @@ class ConstructionsController < ApplicationController
   end
 
   def belong_to_construction_department
-    if current_user.category_id == 6
-      flash[:danger] = "アクセス権限がありません"
-      url = request.referer
-      url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
-    end
+    return unless current_user.category_id == 6
+    flash[:danger] = "アクセス権限がありません"
+    url = request.referer
+    url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
   end
 
   def user_in_charge
-    unless Construction.find(params[:id]).user.id == current_user.id
-      flash[:danger] = "アクセス権限がありません"
-      url = request.referer
-      url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
-    end
+    return if Construction.find(params[:id]).user.id == current_user.id
+    flash[:danger] = "アクセス権限がありません"
+    url = request.referer
+    url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
   end
 end

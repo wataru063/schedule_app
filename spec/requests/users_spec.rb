@@ -95,7 +95,7 @@ RSpec.describe "Users", js: true, type: :request do
       it { is_expected.to eq(200) }
       it 'has .modal("show")' do
         subject
-        expect(response.body).to include("jQuery('#editModal').modal('show');")
+        expect(response.body).to include("$('#editModal').modal('show');")
       end
     end
   end
