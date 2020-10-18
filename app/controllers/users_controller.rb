@@ -62,17 +62,17 @@ class UsersController < ApplicationController
       @status = Status.all
       @shipment = Shipment.all
       oil_ids = []
-      @orders = @user.orders.order(arrive_at: :asc).paginate(page: params[:page], per_page: 6)
+      @orders = @user.orders.order(arrive_at: :asc).paginate(page: params[:page], per_page: 5)
       if @user.category_id == 6
         @user.orders.each do |order|
           oil_ids << order.oil.id
         end
         oil_ids.uniq!.sort! { |a, b| a.to_i <=> b.to_i }
         @orders_constructions = Construction.where(oil_id: oil_ids).
-          order(start_at: :asc).paginate(page: params[:page], per_page: 6)
+          order(start_at: :asc).paginate(page: params[:page], per_page: 5)
       end
       @constructions = @user.constructions.order(start_at: :asc).
-        paginate(page: params[:page], per_page: 6)
+        paginate(page: params[:page], per_page: 5)
     end
 
     def forbid_guest_user

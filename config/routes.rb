@@ -2,6 +2,14 @@ Rails.application.routes.draw do
 
   root   'home#top'
 
+  namespace :admin do
+    get '/', to: 'home#top', as: 'admin_top'
+    resources :users
+    resources :orders
+    resources :constructions
+    resources :facility
+  end
+
   get    '/events_index', to: 'events#index', as: 'events_index'
   get    '/events_show', to: 'events#show', as: 'events_show'
   get    '/calendar/index', to: 'calendar#index', as: 'calendar_index'

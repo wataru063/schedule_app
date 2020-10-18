@@ -4,6 +4,11 @@
   <h2 class="title">ユーザー登録情報</h2>
 
   <div class="user-info-wrapper">
+    <% if @user.admin? %>
+    <span style="font-size: 14px; padding-left: -10px;">【管理者】</span><br>
+    <% else %>
+    <span>【一般】</span><br>
+    <% end %>
     <ul class="user-info">
       <li>氏名：<%= @user.name %></li><br>
       <li>メールアドレス：<%= @user.email %></li><br>
