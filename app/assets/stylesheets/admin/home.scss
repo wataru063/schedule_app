@@ -1,3 +1,86 @@
-// Place all the styles related to the admin::home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.admin-wrapper {
+  display:flex;
+  margin: 0 auto;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 20px;
+}
+.admin-menu-wrapper {
+  height: 600px;
+  width: 13%;
+  margin: 0 auto;
+  .blank-space {
+    display: inline-block;
+    width: 100%;
+    height: 268px;
+    border-right: 0.5px #c7c7c7 solid;
+  }
+}
+.admin-info-wrapper {
+  width: 87%;
+  margin: 0 auto;
+  padding: 30px;
+  border-top: 0.5px #c7c7c7 solid;
+  border-bottom: 0.5px #c7c7c7 solid;
+  border-right: 0.5px #c7c7c7 solid;
+}
+.admin-menu {
+  display:flex;
+  list-style: none;
+  width: 100%;
+  text-align: right;
+  margin-bottom: 0 !important;
+  ul {
+    flex-direction:column;
+  }
+  a {
+    display:block;
+    font-size: 1.3em;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #dadada;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    border-right: 0.5px #c7c7c7 solid;
+    &:hover {
+      text-decoration: none;
+      color: #000000;
+    }
+  }
+}
+.admin-active {
+  border: none !important;
+  color: black !important;
+  border-top: 0.5px #c7c7c7 solid !important;
+  border-bottom: 0.5px #c7c7c7 solid !important;
+  border-left: 0.5px #c7c7c7 solid !important;
+  text-decoration: none;
+  &:active, &:focus {
+    text-decoration: none;
+    color: #000000;
+  }
+}
+.admin-user-name {
+  width: 30%;
+}
+.admin-user-name {
+  width: 25%;
+}
+.admin-user-name {
+  width: 25%;
+}
+.admin-user-btn {
+  width: 20%;
+}
+.admin-info {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.admin-users {
+  width: 75%;
+}
+.user_search {
+  width: 25%;
+}
