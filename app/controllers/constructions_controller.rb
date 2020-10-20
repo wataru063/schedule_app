@@ -6,28 +6,20 @@ class ConstructionsController < ApplicationController
 
   def index
     set_params_for_search
-    sort_column = params[:column].presence || 'start_at'
-    @constructions = Construction.search(search_params).order(sort_column + ' ' + sort_direction).
-      paginate(page: params[:page], per_page: 7)
-    @search_params = search_params
-    @construction  = Construction.first
+    @construction = Construction.first
     @comment = Comment.new
   end
 
   def search
-    set_params_for_search
     reset_time("start")
     reset_time("end")
     set_time(params, "start")
     set_time(params, "end")
-    sort_column = params[:column].presence || 'start_at'
+    set_params_for_search
     if params[:export_csv]
-      csv = Construction.search(search_params).order(sort_column + ' ' + sort_direction)
+      csv = Construction.search(search_params).order(@sort_column + ' ' + sort_direction)
       send_data to_csv_construction(csv), filename: "#{Time.current.strftime('%Y%m%d')}工事一覧.csv"
     else
-      @constructions = Construction.search(search_params).order(sort_column + ' ' + sort_direction).
-        paginate(page: params[:page], per_page: 7)
-      @search_params = search_params
       render :index
     end
   end
@@ -60,8 +52,6 @@ class ConstructionsController < ApplicationController
   def edit
     set_select_params
     @oils = @construction.facility.present? ? @construction.facility.oils : @all_oils
-    @start_at_date = get_date(@construction, "start")
-    @end_at_date = get_date(@construction, "end")
   end
 
   def update
@@ -73,8 +63,6 @@ class ConstructionsController < ApplicationController
     else
       set_select_params
       @oils = @construction.facility.present? ? @construction.facility.oils : @all_oils
-      @start_at_date = get_date(@construction, "start")
-      @end_at_date = get_date(@construction, "end")
       render :edit
     end
   end
@@ -111,13 +99,19 @@ class ConstructionsController < ApplicationController
     @all_oils = Oil.all
     @oils = Facility.find(params[:facility_id]).oils if params[:facility_id].present?
     @user = User.all
-    @start_at_date = params[:date] if params[:date].present?
+    @start_at_date = params[:date]
+    @start_at_date = get_date(@construction, "start") if @construction.present?
+    @end_at_date = get_date(@construction, "end") if @construction.present?
   end
 
   def set_params_for_search
     @status = Status.all
     @const_facil_id = Construction.select(:facility_id).distinct
     @const_oil_id = Construction.select(:oil_id).distinct
+    @sort_column = params[:column].presence || 'start_at'
+    @constructions = Construction.search(search_params).order(@sort_column + ' ' + sort_direction).
+      page(params[:page]).per(7)
+    @search_params = search_params
   end
 
   def belong_to_construction_department

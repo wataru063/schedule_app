@@ -1,3 +1,19 @@
 <div class="container">
-  <h2 class="title">ユーザー登録情報</h2>
+  <h2 class="title">管理画面</h2>
+
+  <div class="admin-wrapper">
+    <div class="admin-menu-wrapper">
+      <ul class="admin-menu" style="flex-direction:column;">
+        <li><a class="admin-active">ホーム</a></li>
+        <li> <%= link_to "ユーザー", admin_users_path, remote: true %> </li>
+        <li><a>オーダー</a></li>
+        <li><a>工事</a></li>
+        <li><a>荷役設備</a></li>
+        <div class="blank-space"></div>
+      </ul>
+    </div>
+    <div class=" admin-info-wrapper">
+      <div class="admin-info"> </div>
+    </div>
+  </div>
 </div>

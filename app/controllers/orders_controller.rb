@@ -6,10 +6,6 @@ class OrdersController < ApplicationController
 
   def index
     set_params_for_search
-    sort_column = params[:column].presence || 'arrive_at'
-    @orders = Order.search(search_params).order(sort_column + ' ' + sort_direction).
-      paginate(page: params[:page], per_page: 7)
-    @search_params = search_params
     @order = Order.first
   end
 
@@ -17,15 +13,11 @@ class OrdersController < ApplicationController
     set_params_for_search
     reset_time("arrive")
     set_time(params, "arrive")
-    sort_column = params[:column].presence || 'arrive_at'
     if params[:export_csv]
-      @order = Order.search(search_params).order(sort_column + ' ' + sort_direction)
+      @order = Order.search(search_params).order(@sort_column + ' ' + sort_direction)
       send_data to_csv_order(@order), filename: "#{Time.current.strftime('%Y%m%d')}オーダー一覧.csv"
     else
-      @orders = Order.search(search_params).order(sort_column + ' ' + sort_direction).
-        paginate(page: params[:page], per_page: 7)
-      @search_params = search_params
-      render template: 'orders/index'
+      render :index
     end
   end
 
@@ -108,6 +100,10 @@ class OrdersController < ApplicationController
     @company_name = Order.select(:company_name).distinct
     @facility_id = Order.select(:facility_id).distinct
     @oil_id = Order.select(:oil_id).distinct
+    @sort_column = params[:column].presence || 'arrive_at'
+    @orders = Order.search(search_params).order(@sort_column + ' ' + sort_direction).
+      page(params[:page]).per(7)
+    @search_params = search_params
   end
 
   def belong_to_supply_and_demand_management

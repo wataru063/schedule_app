@@ -1,0 +1,57 @@
+<div class="modal fade" id="userShowModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog" id="user-new-modal-dialog">
+    <div class="modal-content" id="user-modal-content">
+      <% if @user.present? %>
+      <div class="modal-header" id="user-modal-header">
+        <div class="modal-title user-modal-title" id="myModalLabel">
+          ユーザー詳細
+        </div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;">
+          <i class="fa fa-2x fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="admin-user-info-wrapper">
+          <% if @user.admin? %>
+          <span style="font-size: 14px;">【管理者】</span><br>
+          <% else %>
+          <span>【一般】</span><br>
+          <% end %>
+          <ul class="admin-user-info">
+            <li>氏名：<%= @user.name %></li><br>
+            <li>メールアドレス：<%= @user.email %></li><br>
+            <li>所属部署：<%= @user.category.name %></li>
+          </ul>
+        </div>
+        <% if @user.category_id == 6 %>
+        <div class="related-info-container">
+          <div class="related-info row">
+            <div class="col-sm-6">
+              <%= link_to "担当荷役 (#{@user.orders.count})", user_path(@user),
+          data: { value: :orders, method: :get, remote: true }, class:"current" %>
+            </div>
+            <div class="col-sm-6">
+              <%= link_to "投稿コメント (#{@user.orders.count})", user_path(@user), data: { value: :comments, method: :get, remote: true } %>
+            </div>
+            <span id="slide-line"></span>
+          </div>
+        </div>
+        <% else %>
+        <div class="related-info-container">
+          <div class="related-info row">
+            <div class="col-sm-6">
+              <%= link_to "担当工事 (#{@constructions.count})", user_path(@user), data: { value: :constructions, method: :get, remote: true} , class:"current" %>
+            </div>
+            <div class="col-sm-6">
+              <%= link_to "投稿コメント (#{@user.orders.count})", user_path(@user), data: { value: :comments, method: :get, remote: true } %>
+            </div>
+            <span id="slide-line"></span>
+          </div>
+        </div>
+        <% end %>
+
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

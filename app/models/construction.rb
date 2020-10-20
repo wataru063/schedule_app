@@ -30,7 +30,7 @@ class Construction < ApplicationRecord
     end
   end
 
-  # custom validation definition
+  # search
   def self.search(params)
     status_id = params[:status_id]
     facility_id = params[:facility_id]

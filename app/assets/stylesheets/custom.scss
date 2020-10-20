@@ -403,17 +403,14 @@ button {
 .pagination>li>a {
   border: none;
   color: #00ADA9;
-  font-weight: bold !important;
 }
 
-/* 表示しているページ番号のデザイン */
 .pagination>.active>a {
   background: #00ADA9 !important;
   border: none;
   border-radius: 20px !important;
   &:hover {
   color: #ffffff !important;
-  // background: #00ADA9 !important;
   }
 }
 

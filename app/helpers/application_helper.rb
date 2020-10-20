@@ -38,16 +38,16 @@ module ApplicationHelper
   end
 
   # sort
-  def sort_asc(column_to_be_sorted, search_params = nil)
+  def sort_asc(column_to_be_sorted, search_params = nil, remote = false)
     opts = { :column => column_to_be_sorted, :direction => "asc" }
-    opts.merge!(search_params) if search_params.present?
-    link_to "▲", opts
+    # opts.merge!(search_params) if search_params.present?
+    link_to "▲", opts, remote: remote
   end
 
-  def sort_desc(column_to_be_sorted, search_params = nil)
+  def sort_desc(column_to_be_sorted, search_params = nil, remote = false)
     opts = { :column => column_to_be_sorted, :direction => "desc" }
-    opts.merge!(search_params) if search_params.present?
-    link_to "▼", opts
+    # opts.merge!(search_params) if search_params.present?
+    link_to "▼", opts, remote: remote
   end
 
   def sort_direction

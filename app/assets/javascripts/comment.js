@@ -19,7 +19,7 @@ $(function () {
           height: small_height
         }, 300);
         show_content.removeClass("open");
-        $(this).html('<i class="fas fa-angle-down"></i> &nbsp; 続きを読む').removeClass("active");
+        $(this).html('<i class="fas fa-angle-down"></i> &nbsp; 続きを読む').removeClass("active-long");
       } else {
         show_content
           .height(small_height)
@@ -29,7 +29,7 @@ $(function () {
             show_content.height("auto");
           });
         show_content.addClass("open");
-        $(this).html('<i class="fas fa-angle-up"></i> &nbsp; 閉じる').addClass("active");
+        $(this).html('<i class="fas fa-angle-up"></i> &nbsp; 閉じる').addClass("active-long");
       }
     });
   });

@@ -53,4 +53,14 @@ class User < ApplicationRecord
   def category?(category)
     categories.include?(category)
   end
+
+  # search
+  def self.search(params)
+    name = "%#{params[:name]}%"
+    category_id = params[:category_id]
+    @user = User.all
+    @user = @user.where("name LIKE ?", name) if name.present?
+    @user = @user.where(category_id: category_id) if category_id.present?
+    @user
+  end
 end

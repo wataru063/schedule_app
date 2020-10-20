@@ -81,7 +81,7 @@
 }
 }
 
-.related-info-wrapper{
+.related-info-container{
   width: 90%;
   margin: 0 auto;
   padding-top: 30px;
@@ -110,12 +110,12 @@
 }
 
 #slide-line{
-    position: absolute;
-    bottom: 0;
-    height: 2px;
-    -webkit-transition: all .3s ease;
-    transition: all .3s ease;
-    background-color:#000000;
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  background-color:#000000;
 }
 
 .current{

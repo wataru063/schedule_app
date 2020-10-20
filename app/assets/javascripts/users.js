@@ -3,10 +3,29 @@ $(function () {
   window.addEventListener('popstate', function () {
     window.location.reload();
   });
-
   document.addEventListener("turbolinks:load", function () {
     var slideLine = $("#slide-line")
-    var aTag = $(".related-info a")
+    var parentsTag = '.related-info-wrapper, .admin-info'
+    var aTag = ".related-info a"
+    $('.admin-info').on('shown.bs.modal', '#userShowModal', function () {
+      var slideLine = $("#slide-line")
+      if ($(".current").length) {
+        slideLine.css({
+          "width": $(".current").width() + 20,
+          "left": $(".current").offset().left - 10,
+          "top": $(".current").offset().top + 30
+        });
+      }
+      $(window).resize(function () {
+        if ($(".current").length) {
+          slideLine.css({
+            "width": $(".current").width() + 20,
+            "left": $(".current").offset().left - 10,
+            "top": $(".current").offset().top + 30
+          });
+        }
+      });
+    });
     if ($(".current").length) {
       slideLine.css({
         "width": $(".current").width() + 20,
@@ -23,21 +42,21 @@ $(function () {
         });
       }
     });
-    aTag.click(function () {
+    $(parentsTag).on('click', aTag, function () {
       if ($(this).hasClass("current")) { } else {
         $(".current").removeClass("current");
         $(this).addClass("current");
       }
     });
-    aTag.hover(
-      function () {
+    $(parentsTag).on({
+      "mouseenter": function () {
         slideLine.css({
           "width": $(this).width() + 20,
           "left": $(this).offset().left - 10,
           "top": $(this).offset().top + 30
         });
       },
-      function () {
+      "mouseleave": function () {
         if ($(".current")) {
           slideLine.css({
             "width": $(".current").width() + 20,
@@ -48,9 +67,10 @@ $(function () {
           slideLine.width(0);
         }
       }
-    );
+    }, aTag);
+
     var enableSelectors = '#u-name, #u-email, #u-pass, #u-pass-c'
-    $('.user_form').on('keyup', enableSelectors, function () {
+    $('.user_form, .admin-info').on('keyup', enableSelectors, function () {
       var idName = '#' + $(this).attr('id');
       var label = $(idName + '-label').text().replace("※入力してください", "").replace("※255文字以内で入力してください", "").replace("※50文字以内で入力してください", "").replace("※6文字以上で入力してください", "").replace("※パスワードと異なります", "");
       if (!$(this).val().trim()) {

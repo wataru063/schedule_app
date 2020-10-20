@@ -40,7 +40,7 @@ User.create!(name:  "需給担当ゲストユーザー",
              password_confirmation: "SupplyDemand",
              category_id: 6)
 
-17.times do |n|
+67.times do |n|
   name  = Faker::Name.name
   email = Faker::Internet.email
   password = "test0#{n+1}"

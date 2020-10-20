@@ -1,0 +1,10 @@
+if (<%== @success%>) {
+console.log('success')
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+$('#userNewModal').modal('hide');
+$('.admin-info').html("<%= escape_javascript(render 'index') %>")
+} else {
+$('.admin-user-new-content').html("<%= escape_javascript(render 'form') %>")
+}
+

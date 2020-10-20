@@ -1,0 +1,21 @@
+<div class="modal fade" id="userNewModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog" id="user-new-modal-dialog">
+    <div class="modal-content" id="user-modal-content">
+      <% if @user.present? %>
+      <div class="modal-header" id="user-modal-header">
+        <div class="modal-title user-modal-title" id="myModalLabel">
+          ユーザー登録
+        </div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;">
+          <i class="fa fa-2x fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="admin-user-new-content">
+          <%= render "form" %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
