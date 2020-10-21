@@ -86,7 +86,7 @@
   margin: 0 auto;
   padding-top: 30px;
   padding-bottom: 30px;
-  border-top: 0.5px #c7c7c7 solid;
+  border-top: 0.5px #e6e6e6 solid;
 }
 
 .related-info{
@@ -111,6 +111,7 @@
 
 #slide-line{
   position: absolute;
+  z-index: 100;
   bottom: 0;
   height: 2px;
   -webkit-transition: all .3s ease;
@@ -170,8 +171,12 @@
 @media (min-width: 1390px){
 #user-modal-dialog {
   padding: 5% 0;
-}}
-
+}
+.info-table-partial {
+  width: 80%;
+  margin: 0 auto;
+}
+}
 
 #user-panel-heading {
   padding: 10px 0;
@@ -191,3 +196,4 @@
   font-weight: bold;
   font-size: 1.7em;
 }
+

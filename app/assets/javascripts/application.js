@@ -14,11 +14,11 @@
 //= require rails-ujs
 //= require bootstrap
 //= bootstrap-sprockets
-//= require toastr
 //= require turbolinks
 //= require cocoon
 //= require moment
 //= require fullcalendar
+//= require toastr
 //= require_tree .
 
 $(function () {

@@ -4,7 +4,6 @@ $(function () {
     window.location.reload();
   });
   document.addEventListener("turbolinks:load", function () {
-    var slideLine = $("#slide-line")
     var parentsTag = '.related-info-wrapper, .admin-info'
     var aTag = ".related-info a"
     $('.admin-info').on('shown.bs.modal', '#userShowModal', function () {
@@ -27,7 +26,7 @@ $(function () {
       });
     });
     if ($(".current").length) {
-      slideLine.css({
+      $("#slide-line").css({
         "width": $(".current").width() + 20,
         "left": $(".current").offset().left - 10,
         "top": $(".current").offset().top + 30
@@ -35,7 +34,7 @@ $(function () {
     }
     $(window).resize(function () {
       if ($(".current").length) {
-        slideLine.css({
+        $("#slide-line").css({
           "width": $(".current").width() + 20,
           "left": $(".current").offset().left - 10,
           "top": $(".current").offset().top + 30
@@ -50,7 +49,7 @@ $(function () {
     });
     $(parentsTag).on({
       "mouseenter": function () {
-        slideLine.css({
+        $("#slide-line").css({
           "width": $(this).width() + 20,
           "left": $(this).offset().left - 10,
           "top": $(this).offset().top + 30
@@ -58,13 +57,13 @@ $(function () {
       },
       "mouseleave": function () {
         if ($(".current")) {
-          slideLine.css({
+          $("#slide-line").css({
             "width": $(".current").width() + 20,
             "left": $(".current").offset().left - 10,
             "top": $(".current").offset().top + 30
           });
         } else {
-          slideLine.width(0);
+          $("#slide-line").width(0);
         }
       }
     }, aTag);

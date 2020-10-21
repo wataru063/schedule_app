@@ -18,4 +18,20 @@ require 'csv'
       end
     end
   end
+
+  def set_params_user_show
+    @status = Status.all
+    @shipment = Shipment.all
+    @orders = @user.orders.order(arrive_at: :asc).page(params[:page]).per(5)
+    if @user.category_id == 6
+      oil_ids = []
+      @user.orders.each do |order|
+        oil_ids << order.oil.id
+      end
+      oil_ids.uniq!.sort! { |a, b| a.to_i <=> b.to_i }
+      @orders_constructions = Construction.where(oil_id: oil_ids).order(start_at: :asc).
+        page(params[:page]).per(5)
+    end
+    @constructions = @user.constructions.order(start_at: :asc).page(params[:page]).per(5)
+  end
 end

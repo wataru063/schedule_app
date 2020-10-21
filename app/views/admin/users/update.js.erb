@@ -1,0 +1,12 @@
+var id = <%== @user.id%>
+if (<%== @success%>) {
+console.log('success')
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+$('#userShowModal').modal('hide');
+$('.admin-info').html("<%= escape_javascript(render 'admin/users/partial/index') %>")
+toastr.success("登録情報を変更いたしました。")
+} else {
+$('.admin-user-new-content').html("<%= escape_javascript(render 'admin/users/partial/form', u_pass: '', edit: 'true', url: `/admin/users/${id}` ) %>")
+}
+

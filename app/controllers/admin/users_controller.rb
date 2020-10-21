@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :admin_user
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_users, except: [:new, :show]
 
   def index; end
@@ -25,11 +25,13 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    set_params
+    set_params_user_show
   end
 
+  def edit; end
+
   def update
-    @success = @user.save ? true : false
+    @success = @user.update_attributes(user_params) ? true : false
   end
 
   def destroy
@@ -56,21 +58,5 @@ class Admin::UsersController < ApplicationController
       @users = User.search(search_params).order(@sort_column + ' ' + sort_direction).
         page(params[:page]).per(13)
       @search_params = search_params
-    end
-
-    def set_params
-      @status = Status.all
-      @shipment = Shipment.all
-      @orders = @user.orders.order(arrive_at: :asc).page(params[:page]).per(5)
-      if @user.category_id == 6
-        oil_ids = []
-        @user.orders.each do |order|
-          oil_ids << order.oil.id
-        end
-        oil_ids.uniq!.sort! { |a, b| a.to_i <=> b.to_i }
-        @orders_constructions = Construction.where(oil_id: oil_ids).order(start_at: :asc).
-          page(params[:page]).per(5)
-      end
-      @constructions = @user.constructions.order(start_at: :asc).page(params[:page]).per(5)
     end
 end

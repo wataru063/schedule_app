@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update, :destroy]
   before_action :logged_in_user_for_top, only: [:new, :create]
   before_action :forbid_guest_user, only: [:edit, :update, :destroy]
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def new
     @user = User.new
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    set_params
+    set_params_user_show
     respond_to do |format|
       format.html
       format.js
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
       flash[:success] = "登録情報を変更いたしました。"
       redirect_to @user
     else
-      set_params
+      set_params_user_show
       render :show
     end
   end
@@ -55,22 +55,6 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :category_id)
-    end
-
-    def set_params
-      @status = Status.all
-      @shipment = Shipment.all
-      oil_ids = []
-      @orders = @user.orders.order(arrive_at: :asc).page(params[:page]).per(5)
-      if @user.category_id == 6
-        @user.orders.each do |order|
-          oil_ids << order.oil.id
-        end
-        oil_ids.uniq!.sort! { |a, b| a.to_i <=> b.to_i }
-        @orders_constructions = Construction.where(oil_id: oil_ids).order(start_at: :asc).
-          page(params[:page]).per(5)
-      end
-      @constructions = @user.constructions.order(start_at: :asc).page(params[:page]).per(5)
     end
 
     def forbid_guest_user
