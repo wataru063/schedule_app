@@ -1,0 +1,65 @@
+  <%= form_for @order, url: url, remote: remote do |f| %>
+  <div class="row order-row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <%= render 'shared/error_messages', object: f.object %>
+    </div>
+
+    <div class="row row-order-form order_modal">
+      <div class="col-sm-5">
+        <%= f.label :name, '船名', class:'form-label-login', id: 'o-name-label' %>
+        <%= f.text_field :name, placeholder: "入力してください", class: 'form-control', id: 'o-name' %>
+        <div class=" form-group">
+          <%= f.label :shipment_id, '入出荷', class:'form-label-login'%>
+          <%= f.collection_select :shipment_id, @shipment, :id, :name,
+                {selected: @order.shipment_id}, class: 'form-control' %>
+        </div>
+        <%= f.label :company_name, '取引先会社名', class:'form-label-login order-edit-alerm', id: 'o-companyName-label' %>
+        <%= f.text_field :company_name, class: 'form-control', id:"o-companyName" %>
+        <div class=" form-group">
+          <%= f.label :facility_id, '対象設備', class:'form-label-login'%>
+          <%= f.collection_select :facility_id, Facility.all, :id, :name,{selected: @order.facility_id}, class: 'form-control', id: 'facility-select' %>
+        </div>
+      </div>
+
+      <div class="col-sm-5">
+        <div class=" form-group">
+          <%= f.label :oil_id, '油種', class:'form-label-login'%>
+          <select name="order[oil_id]" id="oil-select" class="form-control">
+            <%= @order.facility.oils.each do |oil| %>
+            <% if oil.id == @order.oil_id %>
+            <option value="<%= oil.id %>" class="oil-option" selected="selected"><%= oil.name %></option>
+            <% else %>
+            <option value="<%= oil.id %>" class="oil-option"><%= oil.name %></option>
+            <% end %>
+            <% end %>
+          </select>
+        </div>
+        <div class="form-group">
+          <%= f.label :unit, '数量・単位', class:'form-label-login', id: 'number-label' %>
+          <div class="row">
+            <div class="col-sm-7">
+              <%= f.number_field :quantity, class: 'form-control', min: 1, id: "number" %>
+            </div>
+            <div class="col-sm-5">
+              <%= f.select :unit, options_for_select([['kL'], ['t']]), {}, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <%= f.label :arrive_at, '荷役作業日時', class:'form-label-login'%>
+        <div class="row">
+          <div class="col-sm-7">
+            <input class="form-control" type="date" name="order[arrive_at_date]" value="<%= @arrive_at_date %>">
+          </div>
+          <div class="col-sm-5 time">
+            <%= f.time_select :arrive_at, class: 'form-control' %>
+          </div>
+        </div>
+        <div class=" form-group">
+          <%= f.label :user_id, '担当者', class:'form-label-login'%>
+          <%= f.collection_select :user_id, User.all, :id, :name,{selected: @order.user.id}, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= f.submit "編集", class: "btn btn-loggedIn", id:"o-btn" %>
+  <% end %>

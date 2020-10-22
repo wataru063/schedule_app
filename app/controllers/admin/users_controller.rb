@@ -40,23 +40,25 @@ class Admin::UsersController < ApplicationController
 
   private
 
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :category_id)
-    end
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :category_id)
+  end
 
-    def search_params
-      params.permit(:name, :email, :password, :password_confirmation, :category_id)
-    end
+  def search_params
+    params.permit(:name, :email, :password, :password_confirmation, :category_id)
+  end
 
-    def set_users
-      @categories = Category.all
-      @sort_column = params[:column].presence || 'category_id'
-      @users = User.search(search_params).order(@sort_column + ' ' + sort_direction).
-        page(params[:page]).per(13)
-      @search_params = search_params
-    end
+  def set_users
+    @categories = Category.all
+    @sort_column = params[:column].presence || 'category_id'
+    @all_users = User.all
+    @users = User.search(search_params)
+    @count = @users.count
+    @users = @users.order(@sort_column + ' ' + sort_direction).page(params[:page]).per(13)
+    @search_params = search_params
+  end
 end

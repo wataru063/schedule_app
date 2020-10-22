@@ -34,9 +34,7 @@ gem 'bcrypt', '~> 3.1.7'
 # add
 gem 'active_hash'
 gem 'bootstrap-sass'
-# gem 'bootstrap-will_paginate', '1.0.0'
 gem 'cocoon'
-# gem 'devise'
 gem 'faker', '1.7.3'
 gem 'fullcalendar-rails'
 gem 'jquery-rails', '4.3.1'
@@ -44,7 +42,6 @@ gem 'kaminari'
 gem 'momentjs-rails'
 gem 'rails-i18n'
 gem 'toastr-rails'
-# gem 'will_paginate', '3.1.6'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

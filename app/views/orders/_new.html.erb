@@ -12,7 +12,7 @@
       </div>
       <div class="modal-body">
         <div class="order-new-content">
-          <%= form_for(@order, remote: true) do |f| %>
+          <%= form_for @order, url: url, remote: true do |f| %>
           <div id="error-form"><%= render 'shared/error_messages', object: f.object %></div><br>
           <div id="new-order-form">
             <div id="order-new-left">

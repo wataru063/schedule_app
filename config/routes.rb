@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get '/', to: 'home#top', as: 'top'
     get '/users/search', to: 'users#search', as: 'users_search'
     resources :users
+    get '/orders/search', to: 'orders#search', as: 'orders_search'
     resources :orders
     resources :constructions
     resources :facility

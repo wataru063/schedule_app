@@ -17,22 +17,19 @@ class ApplicationController < ActionController::Base
   def admin_user
     return if current_user.admin?
     flash[:danger] = "アクセス権限がありません"
-    url = request.referer
-    url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
+    request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
   end
 
   def logged_in_user_for_top
     return unless logged_in?
     flash[:danger] = "ログインしています"
-    url = request.referer
-    url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
+    request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
   end
 
   def correct_user
     @user = User.find(params[:id])
     return if current_user?(@user)
     flash[:danger] = "権限がありません"
-    url = request.referer
-    url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
+    request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
   end
 end

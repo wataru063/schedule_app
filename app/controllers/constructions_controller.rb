@@ -70,8 +70,7 @@ class ConstructionsController < ApplicationController
   def destroy
     @construction.destroy
     flash[:success] = "#{@construction.name} を削除しました。"
-    url = request.referer
-    url.present? ? redirect_to(url) : redirect_to(constructions_url)
+    request.referer.present? ? redirect_to(request.referer) : redirect_to(constructions_url)
   end
 
   private
@@ -117,14 +116,12 @@ class ConstructionsController < ApplicationController
   def belong_to_construction_department
     return unless current_user.category_id == 6
     flash[:danger] = "アクセス権限がありません"
-    url = request.referer
-    url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
+    request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
   end
 
   def user_in_charge
     return if Construction.find(params[:id]).user.id == current_user.id
     flash[:danger] = "アクセス権限がありません"
-    url = request.referer
-    url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
+    request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
   end
 end

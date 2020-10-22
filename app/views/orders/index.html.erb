@@ -7,43 +7,21 @@
     <table class="table table-hover">
       <thead>
         <th>
-          <select name="name" class="index-search">
-            <option value=""></option>
-            <% @name.each do |o| %>
-            <% if o.name == @search_params[:name] %>
-            <option value="<%= o.name %>" selected>
-              <% else %>
-            <option value="<%= o.name %>">
-              <% end %>
-              <%= o.name %>
-            </option>
-            <% end %>
-          </select>
+          <%= f.text_field :name, value: @search_params[:name], class: 'index-search'%>
           <br>
           船名
           <%= sort_asc('name', @search_params) %>
           <%= sort_desc('name', @search_params) %>
         </th>
         <th>
-          <select name="company_name" class="index-search">
-            <option value=""></option>
-            <% @company_name.each do |o| %>
-            <% if o.company_name == @search_params[:company_name] %>
-            <option value="<%= o.company_name %>" selected>
-              <% else %>
-            <option value="<%= o.company_name %>">
-              <% end %>
-              <%= o.company_name %>
-            </option>
-            <% end %>
-          </select>
+          <%= f.text_field :company_name, value: @search_params[:company_name], class: 'index-search'%>
           <br>
           会社名
           <%= sort_asc('company_name', @search_params) %>
           <%= sort_desc('company_name', @search_params) %>
         </th>
         <th>
-          <select name="shipment" class="index-search">
+          <select name="shipment_id" class="index-search">
             <option value=""></option>
             <% @shipment.each do |s| %>
             <% if s.id == @search_params[:shipment_id].to_i %>

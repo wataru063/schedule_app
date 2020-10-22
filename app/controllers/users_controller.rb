@@ -60,7 +60,6 @@ class UsersController < ApplicationController
     def forbid_guest_user
       return unless @user.email == "guestuser@example.com"
       flash[:notice] = "テストユーザーのため編集できません"
-      url = request.referer
-      url.present? ? redirect_to(url) : redirect_to(@user)
+      request.referer.present? ? redirect_to(request.referer) : redirect_to(@user)
     end
 end

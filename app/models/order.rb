@@ -68,21 +68,21 @@ class Order < ApplicationRecord
   end
 
   def self.search(params)
-    ship_name = params[:name]
+    name = "%#{params[:name]}%"
+    company_name = "%#{params[:company_name]}%"
     shipment = params[:shipment_id]
     facility_id = params[:facility_id]
     oil_id = params[:oil_id]
     arrive_at_date = params[:arrive_at_date]
-    company_name = params[:company_name]
     if arrive_at_date.present?
       arrive_at = Date.new(params["arrive_at(1i)"].to_i, params["arrive_at(2i)"].to_i,
                            params["arrive_at(3i)"].to_i)
     end
     @order = Order.all
-    @order = @order.where(name: ship_name) if ship_name.present?
+    @order = @order.where("name LIKE ?", name) if name.present?
+    @order = @order.where("company_name  LIKE ?", company_name) if company_name.present?
     @order = @order.where(shipment_id: shipment) if shipment.present?
     @order = @order.where(facility_id: facility_id) if facility_id.present?
-    @order = @order.where(company_name: company_name) if company_name.present?
     @order = @order.where(oil_id: oil_id) if oil_id.present?
     @order = @order.where("arrive_at >= ?", arrive_at) if arrive_at.present?
     @order

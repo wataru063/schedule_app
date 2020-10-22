@@ -1,18 +1,14 @@
 class OrdersController < ApplicationController
   before_action :logged_in_user
-  before_action :set_oil, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_orders, except: [:new, :show]
+  before_action :set_order_select, only: [:new, :create, :edit, :update]
   before_action :belong_to_supply_and_demand_management
   before_action :user_in_charge, only: [:edit, :update, :destroy]
 
-  def index
-    set_params_for_search
-    @order = Order.first
-  end
+  def index; end
 
   def search
-    set_params_for_search
-    reset_time("arrive")
-    set_time(params, "arrive")
     if params[:export_csv]
       @order = Order.search(search_params).order(@sort_column + ' ' + sort_direction)
       send_data to_csv_order(@order), filename: "#{Time.current.strftime('%Y%m%d')}オーダー一覧.csv"
@@ -22,8 +18,7 @@ class OrdersController < ApplicationController
   end
 
   def new
-    set_select_params
-    @arrive_at_date = params[:date] if params[:date].present?
+    @arrive_at_date = params[:date].present? ? params[:date] : Date.tomorrow
     @order = Order.new
   end
 
@@ -40,15 +35,14 @@ class OrdersController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html { redirect_to edit_order_url(@order) }
+      format.html do
+        request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
+      end
       format.js
     end
   end
 
-  def edit
-    set_select_params
-    @arrive_at_date = get_date(@order, "arrive")
-  end
+  def edit; end
 
   def update
     set_time(params[:order], "arrive")
@@ -56,7 +50,6 @@ class OrdersController < ApplicationController
       flash[:success] = "登録情報を変更いたしました。"
       redirect_to orders_url
     else
-      set_select_params
       @arrive_at_date = get_date(@order, "arrive")
       render :edit
     end
@@ -65,13 +58,13 @@ class OrdersController < ApplicationController
   def destroy
     @order.destroy
     flash[:success] = "#{@order.name} を削除しました。"
-    url = request.referer
-    url.present? ? redirect_to(url) : redirect_to(orders_url)
+    request.referer.present? ? redirect_to(request.referer) : redirect_to(orders_url)
   end
 
   private
 
-  def set_oil
+  def set_order
+    @arrive_at_date = get_date(@order, "arrive") if action_name == "edit"
     @order = Order.find(params[:id])
   end
 
@@ -86,37 +79,15 @@ class OrdersController < ApplicationController
                   :quantity, :arrive_at, :arrive_at_date)
   end
 
-  def set_select_params
-    @shipment = Shipment.all
-    @all_facilities = Facility.all
-    @facility = params[:facility_id] if params[:facility_id].present?
-    @oils = Facility.find(params[:facility_id]).oils if params[:facility_id].present?
-    @user = User.all
-  end
-
-  def set_params_for_search
-    @shipment = Shipment.all
-    @name = Order.select(:name).distinct
-    @company_name = Order.select(:company_name).distinct
-    @facility_id = Order.select(:facility_id).distinct
-    @oil_id = Order.select(:oil_id).distinct
-    @sort_column = params[:column].presence || 'arrive_at'
-    @orders = Order.search(search_params).order(@sort_column + ' ' + sort_direction).
-      page(params[:page]).per(7)
-    @search_params = search_params
-  end
-
   def belong_to_supply_and_demand_management
     return if current_user.category_id == 6
     flash[:danger] = "アクセス権限がありません"
-    url = request.referer
-    url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
+    request.referer.present? ? redirect_to(request.referer) : redirect_to(orders_url)
   end
 
   def user_in_charge
     return if Order.find(params[:id]).user.id == current_user.id
     flash[:danger] = "アクセス権限がありません"
-    url = request.referer
-    url.present? ? redirect_to(url) : redirect_to(calendar_index_url)
+    request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
   end
 end
