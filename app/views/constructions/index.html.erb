@@ -28,7 +28,7 @@
         <th>
           <select name="facility_id" class="index-search">
             <option value=""></option>
-            <% @const_facil_id.each do |c| %>
+            <% @facility_id.each do |c| %>
             <% if c.facility_id.present? && c.facility.id == @search_params[:facility_id].to_i %>
             <option value="<%= c.facility.id %>" selected>
               <%= c.facility.name %>
@@ -46,7 +46,7 @@
         <th>
           <select name="oil_id" class="index-search">
             <option value=""></option>
-            <% @const_oil_id.each do |c| %>
+            <% @oil_id.each do |c| %>
             <% if c.oil.id == @search_params[:oil_id].to_i %>
             <option value="<%= c.oil.id %>" selected>
               <% else %>

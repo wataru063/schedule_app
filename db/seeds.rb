@@ -30,12 +30,12 @@ User.create!(name:  "admin_user",
              admin: true,
              category_id: 6)
 User.create!(name:  "工事担当ゲストユーザー",
-             email: "construction-guestuser@example.com",
+             email: "construction@guestuser.com",
              password:              "construction",
              password_confirmation: "construction",
              category_id: 1)
 User.create!(name:  "需給担当ゲストユーザー",
-             email: "supply-demand-guestuser@example.com",
+             email: "supply-demand@guestuser.com",
              password:              "SupplyDemand",
              password_confirmation: "SupplyDemand",
              category_id: 6)

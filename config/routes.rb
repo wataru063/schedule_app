@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :users
     get '/orders/search', to: 'orders#search', as: 'orders_search'
     resources :orders
+    get '/constructions/search', to: 'constructions#search', as: 'constructions_search'
     resources :constructions
     resources :facility
   end

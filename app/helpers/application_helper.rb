@@ -18,7 +18,7 @@ module ApplicationHelper
     end
   end
 
-  def reset_time(period)
+  def reset_time(params, period)
     return if params["#{period}_at_date"].present?
     3.times do |n|
       n += 1

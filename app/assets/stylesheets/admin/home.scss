@@ -161,12 +161,15 @@
 .admin-index-search-time{
   display: inline-block;
   height: 25px;
+  margin-bottom: 5px;
   padding: 0;
-  margin-bottom: 20px;
   border: 2.4px #00ADA9 solid;
   border-radius: 4px;
 }
 .admin-count {
   font-size: 20px;
   padding: 10px;
+}
+.admin-operation-form-container {
+  margin-bottom: 20px;
 }

@@ -27,8 +27,10 @@ require 'csv'
   end
 
   def set_orders
-    reset_time("arrive")
-    set_time(params, "arrive")
+    if params[:order].present?
+      reset_time(params[:order], :arrive)
+      set_time(params[:order], :arrive)
+    end
     @all_orders = Order.all
     @shipment = Shipment.all
     @facility_id = Order.order('facility_id ASC').select(:facility_id).distinct

@@ -5,12 +5,14 @@
       <div class="admin-search-title"> <i class="fas fa-search"></i> 検索フォーム</div>
       <div class="admin-search-form">
         <%= form_with url: admin_users_search_path, method: :get, local: true, id:"admin-operation-form" do |f| %>
-        <%= f.label :name, 'ユーザー名', class:'form-label-login admin-label'%>
-        <%= f.text_field :name, value: @search_params[:name], class: 'admin-index-search'%>
-        <%= f.label :email, 'メールアドレス', class:'form-label-login admin-label'%>
-        <%= f.text_field :email, value: @search_params[:email], class: 'admin-index-search'%>
-        <%= f.label :category_id, '所属部署', class:'form-label-login admin-label'%>
-        <%= f.collection_select :category_id, @categories, :id, :name, {include_blank: true, selected: @search_params[:category_id].to_i}, class: 'admin-index-search', id:'admin-search-user-category'%>
+        <div class="admin-operation-form-container">
+          <%= f.label :name, 'ユーザー名', class:'form-label-login admin-label'%>
+          <%= f.text_field :name, value: @search_params[:name], class: 'admin-index-search'%>
+          <%= f.label :email, 'メールアドレス', class:'form-label-login admin-label'%>
+          <%= f.text_field :email, value: @search_params[:email], class: 'admin-index-search'%>
+          <%= f.label :category_id, '所属部署', class:'form-label-login admin-label'%>
+          <%= f.collection_select :category_id, @categories, :id, :name, {include_blank: true, selected: @search_params[:category_id].to_i}, class: 'admin-index-search', id:'admin-search-user-category'%>
+        </div>
         <button type="submit" class="btn-admin search admin-search-btn"> 検索 </button><br>
         <button type="submit" class="btn-admin admin-csv"> CSV出力 </button>
         <% end %>
@@ -49,7 +51,7 @@
       <td><%= u.email %></td>
       <td><%= u.category.name %></td>
       <td>
-        <% unless u.email == "construction-guestuser@example.com" || u.email == "supply-demand-guestuser@example.com" %>
+        <% unless u.email == "construction@guestuser.com" || u.email == "supply-demand@guestuser.com" %>
         <%= link_to edit_admin_user_path(u), remote: true do %>
         <i class="fa fa-edit"></i>
         <% end %>

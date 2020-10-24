@@ -34,10 +34,9 @@ class OrdersController < ApplicationController
   end
 
   def show
+    url = request.referer
     respond_to do |format|
-      format.html do
-        request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
-      end
+      format.html { url.present? ? redirect_to(url) : redirect_to(calendar_index_url) }
       format.js
     end
   end
@@ -64,8 +63,8 @@ class OrdersController < ApplicationController
   private
 
   def set_order
-    @arrive_at_date = get_date(@order, "arrive") if action_name == "edit"
     @order = Order.find(params[:id])
+    @arrive_at_date = get_date(@order, "arrive") if action_name == "edit"
   end
 
   def order_params
@@ -80,12 +79,14 @@ class OrdersController < ApplicationController
   end
 
   def belong_to_supply_and_demand_management
+    return if current_user.admin?
     return if current_user.category_id == 6
     flash[:danger] = "アクセス権限がありません"
     request.referer.present? ? redirect_to(request.referer) : redirect_to(orders_url)
   end
 
   def user_in_charge
+    return if current_user.admin?
     return if Order.find(params[:id]).user.id == current_user.id
     flash[:danger] = "アクセス権限がありません"
     request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)

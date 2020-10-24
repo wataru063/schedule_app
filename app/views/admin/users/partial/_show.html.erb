@@ -34,7 +34,6 @@
               <div class="col-sm-6">
                 <%= link_to "投稿コメント (#{@user.orders.count})", admin_user_path(@user), data: { value: :comments, method: :get, remote: true } %>
               </div>
-              <span id="slide-line"></span>
             </div>
           </div>
           <% else %>

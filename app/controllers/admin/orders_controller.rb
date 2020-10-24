@@ -1,4 +1,5 @@
 class Admin::OrdersController < ApplicationController
+  before_action :logged_in_user
   before_action :admin_user
   before_action :set_order,  only: [:show, :edit, :update, :destroy]
   before_action :set_orders, only: [:index, :search, :create, :edit, :update, :destroy]
@@ -16,7 +17,7 @@ class Admin::OrdersController < ApplicationController
       format.html do
         if search_params.present?
           csv = Order.search(search_params).order(@sort_column + ' ' + sort_direction)
-          send_data to_csv_order(csv), filename: "#{Time.current.strftime('%Y%m%d')}ユーザー一覧.csv"
+          send_data to_csv_order(csv), filename: "#{Time.current.strftime('%Y%m%d')}オーダー一覧.csv"
         else
           redirect_to admin_top_url
         end
@@ -41,7 +42,7 @@ class Admin::OrdersController < ApplicationController
   end
 
   def edit
-    @arrive_at_date = get_date(@order, "arrive")
+    @arrive_at_date = get_date(@order, "arrive") if action_name == "edit"
     respond_to do |format|
       format.html { redirect_to admin_top_url }
       format.js
@@ -55,6 +56,7 @@ class Admin::OrdersController < ApplicationController
 
   def destroy
     @order.destroy
+    @count = Order.search(search_params).count
   end
 
   private

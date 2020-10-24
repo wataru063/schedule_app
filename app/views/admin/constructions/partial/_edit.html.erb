@@ -1,10 +1,10 @@
-<div class="modal fade" id="constructionNewModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+<div class="modal fade" id="constructionEditModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
   <div class="modal-dialog" id="construction-new-modal-dialog">
     <div class="modal-content" id="construction-modal-content">
       <% if @construction.present? %>
       <div class="modal-header" id="construction-modal-header">
         <div class="modal-title construction-modal-title" id="myModalLabel">
-          工事登録
+          工事編集
         </div>
         <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;">
           <i class="fa fa-2x fa-times"></i>
@@ -12,9 +12,10 @@
       </div>
       <div class="modal-body">
         <div class="construction-modal-form-content">
-          <%= render "constructions/form", url: url, remote: true, edit: nil %>
+          <%= render "constructions/form", url: "/admin/constructions/#{@construction.id}", remote: true, edit: true %>
         </div>
-        <% end %>
       </div>
+      <% end %>
     </div>
   </div>
+</div>

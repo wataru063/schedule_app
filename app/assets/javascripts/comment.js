@@ -1,13 +1,13 @@
 $(function () {
   $(document).on('turbolinks:load', function () {
-    $('.construction_modal').on('keyup', '#comment-text', function () {
+    $('.admin-info, .construction_modal').on('keyup', '#comment-text', function () {
       if (!$(this).val().trim()) {
         $('#comment-save').attr('disabled', true);
       } else {
         $('#comment-save').attr('disabled', false);
       }
     });
-    $('.construction_modal').on('click', '.show_more', function () {
+    $('.admin-info, .construction_modal').on('click', '.show_more', function () {
       var show_content = $(this).parent(".content-wrapper").find(".content");
       var small_height = 25;
       var original_height = show_content.css({

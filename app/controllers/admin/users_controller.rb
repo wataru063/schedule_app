@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_action :logged_in_user
   before_action :admin_user
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_users, except: [:new, :show]
