@@ -6,7 +6,11 @@
     <%= form_with url: constructions_search_path, method: :get, local: true do |f| %>
     <table class="table table-hover">
       <thead>
-        <th>工事名</th>
+        <th>
+          <%= f.text_field :name, value: @search_params[:name], class: 'index-search'%>
+          <br>
+          工事名
+        </th>
         <th>
           <select name="status_id" class="index-search">
             <option value=""></option>
@@ -88,25 +92,25 @@
 
       <% @constructions.each do |c| %>
       <tr>
-        <td style="width:18%"><%= link_to c.name, construction_path(c), remote: true %></td>
-        <td style="width:15%"><%= c.status.name %></td>
-        <td style="width:17%">
+        <td style="width:20%"><%= link_to c.name, construction_path(c), remote: true %></td>
+        <td style="width:14%"><%= c.status.name %></td>
+        <td style="width:14%">
           <% if c.facility_id.present? %>
           <%= c.facility.name%>
           <% else %>
           ―
           <% end %>
         </td>
-        <td style="width:17%"><%= c.oil.name %></td>
-        <td style="width:7%">
+        <td style="width:13%"><%= c.oil.name %></td>
+        <td style="width:13%">
           <%= c.start_at.strftime("%Y/%-m/%-d") %><br>
           <%= c.start_at.strftime("%-H:%M") %>
         </td>
-        <td style="width:7%">
+        <td style="width:13%">
           <%= c.end_at.strftime("%Y/%-m/%-d") %><br>
           <%= c.end_at.strftime("%-H:%M") %>
         </td>
-        <td style="width:14%"><%= c.notice %></td>
+        <td style="width:13%"><%= c.notice %></td>
       </tr>
       <% end %>
   </div>
