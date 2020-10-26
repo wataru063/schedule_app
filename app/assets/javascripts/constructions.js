@@ -1,6 +1,6 @@
 $(function () {
   $(document).on('turbolinks:load', function () {
-    $('.admin-info, .construction_modal').on('keyup', '#c-name', function () {
+    $('.construction-edit-content, .admin-info, .construction_modal').on('keyup', '#c-name', function () {
       var idName = '#' + $(this).attr('id');
       var label = $(idName + '-label').text().replace("※入力してください", "");
       if (!$(this).val().trim()) {

@@ -72,6 +72,10 @@ textarea{
 }
 
 @media all and (max-width: 1125px) {
+.constructions-container{
+  margin: 0 auto;
+  width: 101%;
+}
 .index-search-time{
   display: inline-block;
   width: 118px !important;

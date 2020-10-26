@@ -1,5 +1,5 @@
 <div class="modal fade" id="orderEditModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-  <div class="modal-dialog" id="order-new-modal-dialog">
+  <div class="modal-dialog" id="order-modal-dialog">
     <div class="modal-content" id="order-modal-content">
       <% if @order.present? %>
       <div class="modal-header" id="order-modal-header">
@@ -11,8 +11,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="admin-order-new-content">
-          <%= render "orders/edit_form", url: "/admin/orders/#{@order.id}", remote: "true" %>
+        <div class="order-modal-form-content">
+          <%= render "orders/form", url: "/admin/orders/#{@order.id}", remote: true, edit: true %>
         </div>
       </div>
       <% end %>

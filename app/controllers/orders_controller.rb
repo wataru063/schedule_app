@@ -1,8 +1,9 @@
 class OrdersController < ApplicationController
   before_action :logged_in_user
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :set_orders, except: [:new, :show]
-  before_action :set_order_select, only: [:new, :create, :edit, :update]
+  before_action :set_order_times, only: [:create, :update]
+  before_action :set_order,  only: [:show, :edit, :update, :destroy]
+  before_action :set_orders, only: [:index, :search]
+  before_action :set_order_select, only: [:new, :edit, :create, :update]
   before_action :belong_to_supply_and_demand_management
   before_action :user_in_charge, only: [:edit, :update, :destroy]
 
@@ -23,8 +24,8 @@ class OrdersController < ApplicationController
   end
 
   def create
-    set_time(params[:order], "arrive")
     @order = Order.new(order_params)
+    @arrive_at_date = get_date(@order, "arrive")
     if @order.save
       flash[:success] = "#{@order.name}のオーダーを登録しました。"
       respond_to do |format|
@@ -44,12 +45,11 @@ class OrdersController < ApplicationController
   def edit; end
 
   def update
-    set_time(params[:order], "arrive")
+    @arrive_at_date = get_date(@order, "arrive")
     if @order.update_attributes(order_params)
       flash[:success] = "登録情報を変更いたしました。"
-      redirect_to orders_url
+      redirect_to calendar_index_url
     else
-      @arrive_at_date = get_date(@order, "arrive")
       render :edit
     end
   end

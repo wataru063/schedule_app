@@ -3,6 +3,22 @@
   margin: 0 auto;
 }
 
+#order_date {
+  height: 43px;
+  border: 2.4px #00ADA9 solid;
+  border-radius: 4px;
+  padding-left: 15px;
+  color: rgb(87, 87, 87);
+}
+@media all and (max-width: 1300px) {
+.order-edit-content #order_date {
+  width: 350px;
+}
+.order-modal-form-content #order_date {
+  width: 285px;
+}
+}
+
 @media all and (max-width: 1250px) {
 .orders-container{
   width: 100%;
@@ -114,12 +130,12 @@ margin: 0 auto;
   margin: 30px auto;
 }
 
-#order-new-modal-dialog {
+#order-modal-dialog {
   width: 600px;
   margin: 30px auto;
 }
 @media (min-width: 1300px){
-#order-new-modal-dialog {
+#order-modal-dialog {
   width: 1200px;
 }
 }
@@ -183,44 +199,40 @@ margin: 0 auto;
      color: #fff;
    }
 }
-
-#order-show-content, #order-new-content{
+#order-show-content, #order-modal-form-content{
   margin: 0 auto;
   width: 100%;
 }
-
-#order-show-content div, #order-new-content div{
+#order-show-content div, #order-modal-form-content div{
   font-size: 1.2em;
 }
-
 .order-modal-title{
   font-weight: bold;
   font-size: 1.7em;
 }
-
 .orders-show-container{
   margin: 0 auto;
 }
-
-#new-order-form{
+#order-form{
   display: block;
   margin: 0 auto;
 }
-
-#order-new-left, #order-new-right{
+#order-form-left, #order-form-right{
   width: 100%;
 }
-
-#new_order{
+.order-modal-form-content{
   margin: 0 auto;
   width: 90%;
 }
-
+.order-edit-content {
+  width: 70%;
+  margin: 0 auto;
+}
 @media (min-width: 1300px){
-#order-new-left, #order-new-right{
+#order-form-left, #order-form-right{
   width: 48%;
 }
-#new-order-form{
+#order-form{
   display: flex;
   justify-content: space-between;
 }
@@ -228,5 +240,11 @@ margin: 0 auto;
   display: block;
   margin: 60px auto;
   width: 60%;
+}
+.order-edit-content {
+  width: 60%;
+}
+.order-modal-form-content {
+  padding-bottom: 0;
 }
 }

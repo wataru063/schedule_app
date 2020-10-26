@@ -1,7 +1,7 @@
 $(function () {
   $(document).on('turbolinks:load', function () {
     var enableSelectors = '#o-name, #o-companyName, #number'
-    $('.admin-info, .order_modal').on('keyup', enableSelectors, function () {
+    $('.order-edit-content, .admin-info, .order_modal').on('keyup', enableSelectors, function () {
       var idName = '#' + $(this).attr('id');
       var label = $(idName + '-label').text().replace("※入力してください", "");
       if (!$(this).val().trim()) {

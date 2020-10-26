@@ -1,1 +1,2 @@
-$('#error-form').html("<%= escape_javascript(render 'shared/error_messages', object: @order) %>");
+$('.order-modal-form-content').html("<%= escape_javascript(render 'orders/form', url: '/orders', remote: true, edit: nil) %>");
+$('#o-btn').attr('disabled', false);

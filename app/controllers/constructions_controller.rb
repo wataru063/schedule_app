@@ -37,10 +37,15 @@ class ConstructionsController < ApplicationController
 
   def create
     @construction = Construction.new(construction_params)
-    @url = request.referer.present? ? request.referer : calendar_index_url
+    @start_at_date = get_date(@construction, "start")
+    @end_at_date = get_date(@construction, "end")
     context = current_user.admin? ? :admin : ""
-    @success = @construction.save!(context: context) ? true : false
-    flash[:success] = "#{@construction.name} を登録しました。" if @success
+    if @construction.save(context: context)
+      flash[:success] = "#{@construction.name} を登録しました。"
+      respond_to do |format|
+        format.js { render ajax_redirect_to(calendar_index_url) }
+      end
+    end
   end
 
   def edit; end

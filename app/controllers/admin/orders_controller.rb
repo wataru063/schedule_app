@@ -1,6 +1,7 @@
 class Admin::OrdersController < ApplicationController
   before_action :logged_in_user
   before_action :admin_user
+  before_action :set_order_times, only: [:create, :update]
   before_action :set_order,  only: [:show, :edit, :update, :destroy]
   before_action :set_orders, only: [:index, :search, :create, :edit, :update, :destroy]
   before_action :set_order_select, only: [:new, :create, :edit, :update]
@@ -36,13 +37,13 @@ class Admin::OrdersController < ApplicationController
   end
 
   def create
-    set_time(params[:order], "arrive")
     @order = Order.new(order_params)
+    @arrive_at_date = get_date(@order, "arrive")
     @success = @order.save ? true : false
   end
 
   def edit
-    @arrive_at_date = get_date(@order, "arrive") if action_name == "edit"
+    @arrive_at_date = get_date(@order, "arrive")
     respond_to do |format|
       format.html { redirect_to admin_top_url }
       format.js
@@ -50,7 +51,7 @@ class Admin::OrdersController < ApplicationController
   end
 
   def update
-    set_time(params[:order], "arrive")
+    @arrive_at_date = get_date(@order, "arrive")
     @success = @order.update_attributes(order_params) ? true : false
   end
 
