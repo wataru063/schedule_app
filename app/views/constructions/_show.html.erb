@@ -1,11 +1,11 @@
-<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+<div class="modal fade" id="constructionShowModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
   <div class="modal-dialog" id="construction-modal-dialog">
     <div class="modal-content" id="construction-modal-content">
       <% if @construction.present? %>
       <div class="modal-header" id="construction-modal-header">
         <div class="modal-title construction-modal-title" id="myModalLabel">
           <%= @construction.name %>
-          <% if @construction.user.id == current_user.id || current_user.admin? %>
+          <% if (@construction.user.id == current_user.id || current_user.admin?) && admin.blank? %>
           <div class="lg">
             <%= link_to "編集", edit_construction_path(@construction), class:"btn-construction-edit edt-btn" %>
             <%= link_to "削除", construction_path(@construction), method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-construction-edit dlt-btn" %>
@@ -17,7 +17,7 @@
         </button>
       </div>
       <div class="modal-body edit-construction-form">
-        <% if @construction.user.id == current_user.id || current_user.admin? %>
+        <% if (@construction.user.id == current_user.id || current_user.admin?) && admin.blank? %>
         <div class="construction-edit-btn sm">
           <%= link_to "編集", edit_construction_path(@construction), class:"btn-construction-edit edt-btn" %>
           <%= link_to "削除", construction_path(@construction), method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-construction-edit dlt-btn" %>

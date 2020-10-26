@@ -20,7 +20,7 @@ class Admin::ConstructionsController < ApplicationController
           csv = Construction.search(search_params).order(@sort_column + ' ' + sort_direction)
           send_data to_csv_construction(csv), filename: "#{Time.current.strftime('%Y%m%d')}工事一覧.csv"
         else
-          redirect_to admin_top_url if search_params.blank?
+          redirect_to admin_top_url
         end
       end
     end
@@ -36,7 +36,15 @@ class Admin::ConstructionsController < ApplicationController
 
   def create
     @construction = Construction.new(construction_params)
-    @success = @construction.save!(context: :admin) ? true : false
+    @success = @construction.save(context: :admin) ? true : false
+  end
+
+  def show
+    @comment = Comment.new
+    respond_to do |format|
+      format.html { redirect_to admin_top_url }
+      format.js
+    end
   end
 
   def edit

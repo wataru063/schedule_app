@@ -94,7 +94,7 @@
     </thead>
     <% @constructions.each do |c| %>
     <tr>
-      <td><%= link_to c.name, construction_path(c), remote: true %></td>
+      <td><%= link_to c.name, admin_construction_path(c), remote: true %></td>
       <td><%= c.status.name %></td>
       <td style="width:17%">
         <% if c.facility_id.present? %>
@@ -125,6 +125,7 @@
     <% end %>
   </table>
 
-  <%= paginate @constructions, remote: true %>
+  <!-- TODO destroy後に機能しない -->
+  <%= paginate @constructions, url: '/admin/constructions', remote: true %>
 </div>
 <div class="construction_modal"></div>

@@ -91,7 +91,7 @@
     </thead>
     <% @orders.each do |o| %>
     <tr>
-      <td><%= link_to o.name, order_path(o), remote: true %></td>
+      <td><%= link_to o.name, admin_order_path(o), remote: true %></td>
       <td><%= o.company_name %></td>
       <td><%= @shipment.find(o.shipment_id).name %></td>
       <td><%= o.facility.name%></td>

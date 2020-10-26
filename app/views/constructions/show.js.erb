@@ -1,2 +1,2 @@
-$('.construction_modal').html("<%= escape_javascript(render 'constructions/show') %>")
-$('#testModal').modal('show');
+$('.construction_modal').html("<%= escape_javascript(render 'constructions/show', admin:'') %>")
+$('#constructionShowModal').modal('show');

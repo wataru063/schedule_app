@@ -50,7 +50,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def search_params
-    params.permit(:name, :email, :password, :password_confirmation, :category_id)
+    params.permit(:name, :email, :category_id)
   end
 
   def set_users
