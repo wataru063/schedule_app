@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   include OrdersHelper
   include EventsHelper
   include UsersHelper
+  include FacilitiesHelper
+  include Admin::UsersHelper
 
   def logged_in_user
     return if logged_in?

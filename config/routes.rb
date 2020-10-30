@@ -3,14 +3,16 @@ Rails.application.routes.draw do
   root   'home#top'
 
   namespace :admin do
-    get '/', to: 'home#top', as: 'top'
+    get '/', to: 'users#index', as: 'users'
     get '/users/search', to: 'users#search', as: 'users_search'
-    resources :users
+    resources :users, except: :index
     get '/orders/search', to: 'orders#search', as: 'orders_search'
     resources :orders
     get '/constructions/search', to: 'constructions#search', as: 'constructions_search'
     resources :constructions
-    resources :facility
+    delete '/facilities/:id/:oil_id', to: 'facilities#related_oil_destroy', as: 'related_oil_destroy'
+    get '/facilities/search', to: 'facilities#search', as: 'facilities_search'
+    resources :facilities
   end
 
   get    '/events_index',   to: 'events#index',   as: 'events_index'

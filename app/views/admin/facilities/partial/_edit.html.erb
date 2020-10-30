@@ -1,0 +1,21 @@
+<div class="modal fade" id="facilityEditModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog" id="facility-new-modal-dialog">
+    <div class="modal-content" id="facility-modal-content">
+      <% if @facility.present? %>
+      <div class="modal-header" id="facility-modal-header">
+        <div class="modal-title facility-modal-title" id="myModalLabel">
+          荷役設備編集
+        </div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;">
+          <i class="fa fa-2x fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="admin-facility-new-content">
+          <%= render "/admin/facilities/partial/form", url: "/admin/facilities/#{@facility.id}", remote: true, edit: true, action:"edit", id: @facility.id %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

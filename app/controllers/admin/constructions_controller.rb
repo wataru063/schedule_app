@@ -6,10 +6,7 @@ class Admin::ConstructionsController < ApplicationController
   before_action :set_construction_select, only: [:new, :create, :edit, :update]
 
   def index
-    respond_to do |format|
-      format.html { redirect_to admin_top_url }
-      format.js
-    end
+    admin_respond_to_html_js
   end
 
   def search
@@ -28,10 +25,7 @@ class Admin::ConstructionsController < ApplicationController
 
   def new
     @construction = Construction.new
-    respond_to do |format|
-      format.html { redirect_to admin_top_url }
-      format.js
-    end
+    admin_respond_to_html_js
   end
 
   def create
@@ -41,17 +35,11 @@ class Admin::ConstructionsController < ApplicationController
 
   def show
     @comment = Comment.new
-    respond_to do |format|
-      format.html { redirect_to admin_top_url }
-      format.js
-    end
+    admin_respond_to_html_js
   end
 
   def edit
-    respond_to do |format|
-      format.html { redirect_to admin_top_url }
-      format.js
-    end
+    admin_respond_to_html_js
   end
 
   def update

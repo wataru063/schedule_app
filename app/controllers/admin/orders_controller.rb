@@ -7,7 +7,7 @@ class Admin::OrdersController < ApplicationController
   before_action :set_order_select, only: [:new, :create, :edit, :update]
 
   def index
-    respond_to_html_js
+    admin_respond_to_html_js
   end
 
   def search
@@ -27,7 +27,7 @@ class Admin::OrdersController < ApplicationController
   def new
     @arrive_at_date = params[:date].present? ? params[:date] : Date.tomorrow
     @order = Order.new
-    respond_to_html_js
+    admin_respond_to_html_js
   end
 
   def create
@@ -37,12 +37,12 @@ class Admin::OrdersController < ApplicationController
   end
 
   def show
-    respond_to_html_js
+    admin_respond_to_html_js
   end
 
   def edit
     @arrive_at_date = get_date(@order, "arrive")
-    respond_to_html_js
+    admin_respond_to_html_js
   end
 
   def update
@@ -70,12 +70,5 @@ class Admin::OrdersController < ApplicationController
   def search_params
     params.permit(:id, :name, :company_name, :shipment_id, :unit, :facility_id, :oil_id,
                   :quantity, :arrive_at, :arrive_at_date)
-  end
-
-  def respond_to_html_js
-    respond_to do |format|
-      format.html { redirect_to admin_top_url }
-      format.js
-    end
   end
 end

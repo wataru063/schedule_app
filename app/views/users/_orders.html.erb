@@ -6,27 +6,39 @@
 <table class="table table-hover" style="width: 90%;">
   <thead>
     <th>船名</th>
+    <% if admin.blank? %>
     <th>会社名</th>
+    <% end %>
     <th>入出荷</th>
     <th>対象設備</th>
     <th>油種</th>
     <th>荷役作業日時</th>
+    <% if admin.blank? %>
     <th>数量</th>
+    <% end %>
   </thead>
   <tbody>
     <% @orders.each do |order| %>
     <tr>
       <td style="width:11%">
+        <% if admin.blank? %>
         <%= link_to order.name, order_path(order), remote: true %>
+        <% else %>
+        <%= order.name %>
+        <% end %>
       </td>
+      <% if admin.blank? %>
       <td style="width:13%"><%= order.company_name %></td>
+      <% end %>
       <td style="width:13%"><%= @shipment.find(order.shipment_id).name %></td>
       <td style="width:17%"><%= order.facility.name%></td>
       <td style="width:15%"><%= order.oil.name %></td>
       <td style="width:19%">
         <%= order.arrive_at.strftime("%Y/%m/%d") %><br>
         <%= order.arrive_at.strftime("%H:%M") %> </td>
+      <% if admin.blank? %>
       <td style="width:14%"><%= order.quantity %> <%= order.unit %></td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>

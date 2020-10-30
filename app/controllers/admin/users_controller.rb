@@ -4,7 +4,12 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_users, except: [:new, :show]
 
-  def index; end
+  def index
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
 
   def search
     respond_to do |format|
@@ -18,6 +23,7 @@ class Admin::UsersController < ApplicationController
 
   def new
     @user = User.new
+    admin_respond_to_html_js
   end
 
   def create
@@ -29,7 +35,9 @@ class Admin::UsersController < ApplicationController
     set_params_user_show
   end
 
-  def edit; end
+  def edit
+    admin_respond_to_html_js
+  end
 
   def update
     @success = @user.update_attributes(user_params) ? true : false

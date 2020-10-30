@@ -1,0 +1,75 @@
+<div class="admin_operation-wrapper">
+  <div class="admin_operation">
+    <%= button_to '＋ 新規登録', new_admin_facility_path, method: :get, remote: true, class:'btn-admin search'%>
+    <div class="admin-search-wrapper">
+      <div class="admin-search-title"> <i class="fas fa-search"></i> 検索フォーム</div>
+      <div class="admin-search-form">
+        <%= form_with url: admin_facilities_search_path, method: :get, local: true, id:"admin-operation-form" do |f| %>
+        <div class="admin-operation-form-container">
+          <%= f.label :name, '工事名', class:'form-label-login admin-label'%>
+          <%= f.text_field :name, value: @search_params[:name], class: 'admin-index-search'%>
+          <%= f.label :created_at, '登録日時 (:from)', class:'form-label-login admin-label'%>
+          <input type="date" value="<%= @search_params[:created_at_date] %>" name="created_at_date" class="admin-index-search-time">
+          <%= f.date_select :created_at, discard_year: true, discard_month: true, discard_day: true %>
+          <%= f.label :updated_at, '更新日時 (:from)', class:'form-label-login admin-label'%>
+          <input type="date" value="<%= @search_params[:updated_at_date] %>" name="updated_at_date" class="admin-index-search-time">
+          <%= f.date_select :updated_at, discard_year: true, discard_month: true, discard_day: true %>
+        </div>
+        <button type="submit" class="btn-admin search admin-search-btn"> 検索 </button><br>
+        <button type="submit" class="btn-admin admin-csv"> CSV出力 </button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="admin-show-table">
+  <% if @all_facilities.count == @count %>
+  <div class="admin-count"><%= "全#{@all_facilities.count}件" %></div>
+  <% else %>
+  <div class="admin-count"><%= "#{@count}件 / 全#{@all_facilities.count}件中" %></div>
+  <% end %>
+  <table class="table table-hover">
+    <thead>
+      <th>
+        荷役設備名
+        <%= sort_asc('name', @search_params, true) %>
+        <%= sort_desc('name', @search_params, true) %>
+      </th>
+      <th>
+        登録日時
+        <%= sort_asc('created_at', @search_params, true) %>
+        <%= sort_desc('created_at', @search_params, true) %>
+      </th>
+      <th>
+        更新日時
+        <%= sort_asc('updated_at', @search_params, true) %>
+        <%= sort_desc('updated_at', @search_params, true) %>
+      </th>
+      <th class="admin-facility-btn"></th>
+    </thead>
+    <% @facilities.each do |f| %>
+    <tr>
+      <td><%= link_to f.name, admin_facility_path(f), remote: true %></td>
+      <td>
+        <%= f.created_at.strftime("%Y/%-m/%-d %-H:%M") %>
+      </td>
+      <td>
+        <%= f.updated_at.strftime("%Y/%-m/%-d %-H:%M") %>
+      </td>
+      <td>
+        <%= link_to edit_admin_facility_path(f), remote: true do %>
+        <i class="fa fa-edit"></i>
+        <% end %>
+        <%= link_to admin_facility_path(f),
+          data: { confirm: "関連する工事や入出荷オーダーも併せて削除されます。\n本当に削除しますか?", method: :delete, remote: true } do %>
+        <i class="fa fa-trash" aria-hidden="true"></i>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+
+  <!-- TODO destroy後に機能しない -->
+  <%= paginate @facilities, url: '/admin/facilities', remote: true %>
+</div>
+<div class="facility_modal"></div>

@@ -1,0 +1,43 @@
+<div class="modal fade" id="facilityShowModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog" id="facility-new-modal-dialog">
+    <div class="modal-content" id="facility-modal-content">
+      <% if @facility.present? %>
+      <div class="modal-header" id="facility-modal-header">
+        <div class="modal-title facility-modal-title" id="myModalLabel">
+          荷役設備詳細
+        </div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;">
+          <i class="fa fa-2x fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="admin-facility-show-modal-body-wrapper">
+          <div class="admin-facility-info-wrapper">
+            <ul class="admin-facility-info">
+              <li>荷役設備名：<%= @facility.name %></li><br>
+              <li>登録日時：<%= @facility.created_at.strftime("%Y/%-m/%-d %-H:%M") %></li><br>
+            </ul>
+            <% if @facility.oils.blank? %>
+            <br><br>
+            <div class="nodata-wrapper">
+              <div class="nodata">登録油種なし</div>
+            </div>
+            <% else %>
+            <div id="registered-oils-wrapper">
+              <p>登録油種 (<%= @facility.oils.count %>)</p><br>
+              <div id="registered-oils-container">
+                <% @oils.each do |oil| %>
+                <div class="oils">
+                  <span><%= oil.name %></span>
+                </div>
+                <% end %>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

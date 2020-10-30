@@ -14,7 +14,7 @@
       <li>メールアドレス：<%= @user.email %></li><br>
       <li>所属部署：<%= @user.category.name %></li>
     </ul>
-    <% if (current_user.admin? || @user == current_user) && (@user.email != "construction@guestuser.com" ||@user.email != "supply-demand@guestuser.com") %>
+    <% if (current_user.admin? || @user == current_user) && (@user.email != "construction@guestuser.com" &&@user.email != "supply-demand@guestuser.com") %>
     <div class="btn-list">
       <%= link_to "編集", edit_user_path(@user),data: { method: :get, remote: true }, class:"btn-user-edit edt-btn" %>
       <%= link_to "削除", @user, method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-user-edit dlt-btn" %>
@@ -55,7 +55,7 @@
 
   <div class="info-table-partial" id="info-table-partial">
     <% if @user.category_id == 6 %>
-    <%= render 'orders' %>
+    <%= render 'orders', admin: "" %>
     <% else %>
     <%= render 'constructions', admin: "" %>
     <% end %>

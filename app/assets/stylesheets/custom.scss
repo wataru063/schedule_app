@@ -421,3 +421,13 @@ button {
 .pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
   color: #cacaca !important;
 }
+
+/* modal */
+.modal-title {
+  font-weight: bold;
+  font-size: 1.7em;
+}
+
+.fa-trash, .fa-edit {
+  color: #00ADA9;
+}

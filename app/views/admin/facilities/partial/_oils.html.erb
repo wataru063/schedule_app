@@ -1,0 +1,19 @@
+<% if @oils.blank? %>
+<div class="nodata-wrapper">
+  <div class="nodata">登録情報なし</div>
+</div>
+<% else %>
+<table class="table table-hover" style="width: 90%;">
+  <thead>
+    <th>油種名</th>
+  </thead>
+  <tbody>
+    <% @oils.each do |oil| %>
+    <tr>
+      <td><%= oil.name %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @oils, remote: true %>
+<% end %>

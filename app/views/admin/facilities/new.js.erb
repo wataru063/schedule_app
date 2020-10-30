@@ -1,0 +1,17 @@
+var selectCount = '<%== @select_count %>'
+var oils = {};
+oils = $.parseJSON('<%== @oil_selects %>');
+var nextSelectCount = Number(selectCount)
+
+if (selectCount.length) {
+$.each(oils, function(index, value){
+  if (index == nextSelectCount) {
+    $(`#oil-select-${nextSelectCount}`).append('<option value=' + index + ' selected>' + value + '</option>');
+  } else {
+    $(`#oil-select-${nextSelectCount}`).append('<option value=' + index + '>' + value + '</option>');
+  }
+});
+} else {
+  $('.facility_modal').html("<%= escape_javascript(render 'admin/facilities/partial/new') %>")
+  $('#facilityNewModal').modal('show');
+}
