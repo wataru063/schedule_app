@@ -6,15 +6,23 @@
       <div class="admin-search-form">
         <%= form_with url: admin_users_search_path, method: :get, local: true, id:"admin-operation-form" do |f| %>
         <div class="admin-operation-form-container">
-          <%= f.label :name, 'ユーザー名', class:'form-label-login admin-label'%>
-          <%= f.text_field :name, value: @search_params[:name], class: 'admin-index-search'%>
-          <%= f.label :email, 'メールアドレス', class:'form-label-login admin-label'%>
-          <%= f.text_field :email, value: @search_params[:email], class: 'admin-index-search'%>
-          <%= f.label :category_id, '所属部署', class:'form-label-login admin-label'%>
-          <%= f.collection_select :category_id, @categories, :id, :name, {include_blank: true, selected: @search_params[:category_id].to_i}, class: 'admin-index-search', id:'admin-search-user-category'%>
+          <div>
+            <%= f.label :name, 'ユーザー名', class:'form-label-login admin-label'%>
+            <%= f.text_field :name, value: @search_params[:name], class: 'admin-index-search'%>
+          </div>
+          <div>
+            <%= f.label :email, 'メールアドレス', class:'form-label-login admin-label'%>
+            <%= f.text_field :email, value: @search_params[:email], class: 'admin-index-search'%>
+          </div>
+          <div>
+            <%= f.label :category_id, '所属部署', class:'form-label-login admin-label'%>
+            <%= f.collection_select :category_id, @categories, :id, :name, {include_blank: true, selected: @search_params[:category_id].to_i}, class: 'admin-index-search', id:'admin-search-user-category'%>
+          </div>
         </div>
-        <button type="submit" class="btn-admin search admin-search-btn"> 検索 </button><br>
-        <button type="submit" class="btn-admin admin-csv"> CSV出力 </button>
+        <div class="admin-operation-submit-btn">
+          <button type="submit" class="btn-admin search admin-search-btn"> 検索 </button><br>
+          <button type="submit" class="btn-admin admin-csv"> CSV出力 </button>
+        </div>
         <% end %>
       </div>
     </div>

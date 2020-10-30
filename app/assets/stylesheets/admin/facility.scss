@@ -42,11 +42,9 @@
     font-size: 1.2em;
   }
 }
-#registered-oils-container {
+#registered-oils-container{
   display: flex;
   flex-wrap: wrap;
-}
-#registered-oils-container{
   margin: 0 auto;
   .oils {
     text-align: center;
@@ -56,6 +54,7 @@
   span {
     display: block;
     width:70%;
+    font-size: 16px;
     padding-bottom: 2px;
     border-bottom: 0.1px solid #e1e1e1;
   }

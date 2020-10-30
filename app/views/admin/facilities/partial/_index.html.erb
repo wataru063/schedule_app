@@ -6,18 +6,23 @@
       <div class="admin-search-form">
         <%= form_with url: admin_facilities_search_path, method: :get, local: true, id:"admin-operation-form" do |f| %>
         <div class="admin-operation-form-container">
-          <%= f.label :name, '工事名', class:'form-label-login admin-label'%>
-          <%= f.text_field :name, value: @search_params[:name], class: 'admin-index-search'%>
-          <%= f.label :created_at, '登録日時 (:from)', class:'form-label-login admin-label'%>
-          <input type="date" value="<%= @search_params[:created_at_date] %>" name="created_at_date" class="admin-index-search-time">
-          <%= f.date_select :created_at, discard_year: true, discard_month: true, discard_day: true %>
-          <%= f.label :updated_at, '更新日時 (:from)', class:'form-label-login admin-label'%>
-          <input type="date" value="<%= @search_params[:updated_at_date] %>" name="updated_at_date" class="admin-index-search-time">
-          <%= f.date_select :updated_at, discard_year: true, discard_month: true, discard_day: true %>
+          <div>
+            <%= f.label :name, '工事名', class:'form-label-login admin-label'%>
+            <%= f.text_field :name, value: @search_params[:name], class: 'admin-index-search'%>
+          </div>
+          <div>
+            <%= f.label :created_at, '登録日時 (:from)', class:'form-label-login admin-label'%>
+            <input type="date" value="<%= @search_params[:created_at_date] %>" name="created_at_date" class="admin-index-search-time">
+            <%= f.date_select :created_at, discard_year: true, discard_month: true, discard_day: true %>
+          </div>
         </div>
-        <button type="submit" class="btn-admin search admin-search-btn"> 検索 </button><br>
-        <button type="submit" class="btn-admin admin-csv"> CSV出力 </button>
-        <% end %>
+        <div>
+        </div>
+        <div class="admin-operation-submit-btn">
+          <button type="submit" class="btn-admin search admin-search-btn"> 検索 </button><br>
+          <button type="submit" class="btn-admin admin-csv"> CSV出力 </button>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
@@ -40,11 +45,6 @@
         <%= sort_asc('created_at', @search_params, true) %>
         <%= sort_desc('created_at', @search_params, true) %>
       </th>
-      <th>
-        更新日時
-        <%= sort_asc('updated_at', @search_params, true) %>
-        <%= sort_desc('updated_at', @search_params, true) %>
-      </th>
       <th class="admin-facility-btn"></th>
     </thead>
     <% @facilities.each do |f| %>
@@ -52,9 +52,6 @@
       <td><%= link_to f.name, admin_facility_path(f), remote: true %></td>
       <td>
         <%= f.created_at.strftime("%Y/%-m/%-d %-H:%M") %>
-      </td>
-      <td>
-        <%= f.updated_at.strftime("%Y/%-m/%-d %-H:%M") %>
       </td>
       <td>
         <%= link_to edit_admin_facility_path(f), remote: true do %>

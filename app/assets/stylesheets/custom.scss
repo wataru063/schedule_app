@@ -1,7 +1,5 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-/* @import "font-awesome"; */
-
 
 /* mixins, variables, etc. */
 
@@ -19,6 +17,7 @@ html, body, .container {
 body {
   padding-top: 0px;
   background-color: #00ADA9;
+  font-family: Helvetica, '游ゴシック', 'Yu Gothic', YuGothic, HiraKakuProN-W3, 'メイリオ', Meiryo, sans-serif !important;
 }
 
 section {
