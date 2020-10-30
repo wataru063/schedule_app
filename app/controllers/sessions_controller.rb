@@ -2,8 +2,7 @@ class SessionsController < ApplicationController
   before_action :logged_in_user, only: [:destroy]
   before_action :logged_in_user_for_top, only: [:new, :create]
 
-  def new
-  end
+  def new; end
 
   def create
     @user = User.find_by(email: params[:session][:email].downcase)
@@ -11,10 +10,10 @@ class SessionsController < ApplicationController
       flash[:success] = 'ログインに成功しました。'
       log_in @user
       remember @user
-      redirect_back_or calendar_index_url
+      request.referer.present? ? redirect_to(request.referer) : redirect_to(@user)
     else
       flash.now[:danger] = 'ログインに失敗しました。'
-      render 'new'
+      render :new
     end
   end
 

@@ -27,10 +27,9 @@ require 'csv'
   end
 
   def set_order_times
-    if params[:order].present?
-      reset_time(params[:order], :arrive)
-      set_time(params[:order], :arrive)
-    end
+    operate_params = params[:order].present? ? params[:order] : params
+    reset_time(operate_params, :arrive)
+    set_time(operate_params, :arrive)
   end
 
   def set_orders

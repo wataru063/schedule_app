@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :logged_in_user
-  before_action :set_order_times, only: [:create, :update]
+  before_action :set_order_times, only: [:create, :update, :search]
   before_action :set_order,  only: [:show, :edit, :update, :destroy]
   before_action :set_orders, only: [:index, :search]
   before_action :set_order_select, only: [:new, :edit, :create, :update]

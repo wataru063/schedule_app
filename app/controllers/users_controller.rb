@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash[:success] = '登録しました。'
-      redirect_to calendar_index_url
+      request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
     else
       render :new
     end
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   def update
     if @user.update_attributes(user_params)
       flash[:success] = "登録情報を変更いたしました。"
-      redirect_to @user
+      request.referer.present? ? redirect_to(request.referer) : redirect_to(@user)
     else
       set_params_user_show
       render :show

@@ -1,8 +1,9 @@
 class ConstructionsController < ApplicationController
   before_action :logged_in_user
+  before_action :set_construction_times, only: [:create, :update, :search]
   before_action :set_construction, only: [:show, :edit, :update, :destroy]
-  before_action :set_constructions, only: [:index, :search, :create, :edit, :update, :destroy]
-  before_action :set_construction_select, only: [:new, :create, :edit, :update]
+  before_action :set_constructions, only: [:index, :search]
+  before_action :set_construction_select, only: [:new, :edit, :update]
   before_action :belong_to_construction_department, only: [:new, :create]
   before_action :user_in_charge, only: [:edit, :update, :destroy]
 
@@ -19,26 +20,17 @@ class ConstructionsController < ApplicationController
 
   def show
     @comment = Comment.new
-    url = request.referer
-    respond_to do |format|
-      format.html { url.present? ? redirect_to(url) : redirect_to(constructions_url) }
-      format.js
-    end
+    constructions_respond_to_html_js
   end
 
   def new
     @construction = Construction.new
-    url = request.referer
-    respond_to do |format|
-      format.html { url.present? ? redirect_to(url) : redirect_to(constructions_url) }
-      format.js
-    end
+    constructions_respond_to_html_js
   end
 
   def create
     @construction = Construction.new(construction_params)
-    @start_at_date = get_date(@construction, "start")
-    @end_at_date = get_date(@construction, "end")
+    set_construction_select
     context = current_user.admin? ? :admin : ""
     if @construction.save(context: context)
       flash[:success] = "#{@construction.name} を登録しました。"
@@ -53,7 +45,7 @@ class ConstructionsController < ApplicationController
   def update
     if @construction.update_attributes(construction_params)
       flash[:success] = "登録情報を変更いたしました。"
-      redirect_to constructions_url
+      redirect_to calendar_index_url
     else
       render :edit
     end
@@ -94,5 +86,13 @@ class ConstructionsController < ApplicationController
     return if Construction.find(params[:id]).user.id == current_user.id
     flash[:danger] = "アクセス権限がありません"
     request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
+  end
+
+  def constructions_respond_to_html_js
+    url = request.referer
+    respond_to do |format|
+      format.html { url.present? ? redirect_to(url) : redirect_to(constructions_url) }
+      format.js
+    end
   end
 end

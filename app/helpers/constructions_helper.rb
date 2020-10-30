@@ -26,12 +26,15 @@ require 'csv'
     end
   end
 
-  def set_constructions
+  def set_construction_times
     operate_params = params[:construction].present? ? params[:construction] : params
     reset_time(operate_params, :start)
     reset_time(operate_params, :end)
     set_time(operate_params, :start)
     set_time(operate_params, :end)
+  end
+
+  def set_constructions
     @status = Status.all
     @facility_id = Construction.order('facility_id ASC').select(:facility_id).distinct
     @oil_id = Construction.order('oil_id ASC').select(:oil_id).distinct

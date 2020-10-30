@@ -58,14 +58,12 @@ class Admin::FacilitiesController < ApplicationController
       @facility.update_attributes!(facility_params)
       params[:facility][:oil_id].each { |idx, o| @facility.relate_to_oils.create!(oil_id: o.to_i) }
       @success = true
-      @all_oils = Oil.where.not(id: @facility.oils.ids)
-      @oil_selects = @all_oils.pluck(:id, :name).to_h.to_json
+      set_facility_select
     end
   rescue ActiveRecord::RecordInvalid
     @success = false
     @count = Facility.search(search_params).count
-    @all_oils = Oil.where.not(id: @facility.oils.ids)
-    @oil_selects = @all_oils.pluck(:id, :name).to_h.to_json
+    set_facility_select
     admin_respond_to_html_js
   end
 
