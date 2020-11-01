@@ -2,7 +2,6 @@ FactoryBot.define do
   factory :test_order, :class => "Order" do
     arrive_at = Time.zone.local(3000, 1, 1, 12, 0, 0)
     arrive_at_date = Date.new(arrive_at.year, arrive_at.month, arrive_at.day)
-    id             { rand(100000..999999) }
     name           { "test_order" }
     quantity       { "100" }
     unit           { "kL" }

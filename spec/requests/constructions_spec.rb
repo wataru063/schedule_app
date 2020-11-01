@@ -127,7 +127,7 @@ RSpec.describe "Constructions", type: :request do
         it { is_expected.to render_template :index }
         it 'show constructions index page' do
           subject
-          expect(response.body).to include('工事一覧')
+          expect(response.body).to include(construction.name)
         end
       end
     end
@@ -184,7 +184,7 @@ RSpec.describe "Constructions", type: :request do
 
         context 'with valid params' do
           it { is_expected.to eq(302) }
-          it { is_expected.to redirect_to constructions_url }
+          it { is_expected.to redirect_to calendar_index_url }
           it 'is expected to change the user name' do
             expect { subject }.to change { Construction.find(construction.id).name }.
               from(construction.name).to(construction_params[:construction][:name])

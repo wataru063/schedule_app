@@ -50,6 +50,11 @@ require 'csv'
         order(@sort_column + ' ' + sort_direction).page(params[:page]).per(7)
     end
     @search_params = search_params
+    # TODO RSpec対応
+    @facility_id[0].facility.id
+    @facility_id[0].facility.name
+    @oil_id[0].oil.id
+    @constructions[0].facility.name
   end
 
   def set_construction_select

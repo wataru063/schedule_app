@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/', to: 'users#index', as: 'users'
     get '/users/search', to: 'users#search', as: 'users_search'
+
     resources :users, except: :index
+
     get '/orders/search', to: 'orders#search', as: 'orders_search'
     resources :orders
     get '/constructions/search', to: 'constructions#search', as: 'constructions_search'

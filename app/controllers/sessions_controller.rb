@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       flash[:success] = 'ログインに成功しました。'
       log_in @user
       remember @user
-      request.referer.present? ? redirect_to(request.referer) : redirect_to(@user)
+      redirect_to calendar_index_path
     else
       flash.now[:danger] = 'ログインに失敗しました。'
       render :new

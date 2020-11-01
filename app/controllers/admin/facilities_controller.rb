@@ -15,7 +15,7 @@ class Admin::FacilitiesController < ApplicationController
           csv = Facility.search(search_params).order(@sort_column + ' ' + sort_direction)
           send_data to_csv_facility(csv), filename: "#{Time.current.strftime('%Y%m%d')}荷役設備一覧.csv"
         else
-          redirect_to admin_top_url
+          redirect_to admin_users_url
         end
       end
     end
@@ -31,7 +31,7 @@ class Admin::FacilitiesController < ApplicationController
     @facility = Facility.new(facility_params)
     ActiveRecord::Base.transaction do
       @facility.save!
-      params[:facility][:oil_id].each { |p| @facility.relate_to_oils.create!(oil_id: p.to_i) }
+      params[:facility][:oil_id].each { |idx, o| @facility.relate_to_oils.create!(oil_id: o.to_i) }
       @success = true
     end
   rescue ActiveRecord::RecordInvalid

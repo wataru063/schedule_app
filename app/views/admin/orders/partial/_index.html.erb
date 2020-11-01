@@ -18,14 +18,12 @@
             <%= f.label :facility_id, '対象設備', class:'form-label-login admin-label'%>
             <select name="facility_id" class="admin-index-search">
               <option value=""></option>
-              <% @facility_id.each do |c| %>
-              <% if c.facility.id == @search_params[:facility_id].to_i %>
-              <option value="<%= c.facility.id %>" selected>
-                <% else %>
-              <option value="<%= c.facility.id %>">
-                <% end %>
-                <%= c.facility.name %>
-              </option>
+              <% @facility_id.each do |o| %>
+              <% if o.facility.id == @search_params[:facility_id].to_i %>
+              <option value="<%= o.facility.id %>" selected><%= o.facility.name %></option>
+              <% else %>
+              <option value="<%= o.facility.id %>"><%= o.facility.name %></option>
+              <% end %>
               <% end %>
             </select>
           </div>
@@ -35,11 +33,11 @@
               <option value=""></option>
               <% @oil_id.each do |c| %>
               <% if c.oil.id == @search_params[:oil_id].to_i %>
-              <option value="<%= c.oil.id %>" selected>
-                <% else %>
-              <option value="<%= c.oil.id %>">
-                <% end %>
-                <%= c.oil.name %>
+              <option value="<%= c.oil.id %>" selected><%= c.oil.name %></option>
+              <% else %>
+              <option value="<%= c.oil.id %>"><%= c.oil.name %></option>
+              <% end %>
+              <%= c.oil.name %>
               </option>
               <% end %>
             </select>
@@ -51,8 +49,8 @@
         <div class="admin-operation-submit-btn">
           <button type="submit" class="btn-admin search admin-search-btn"> 検索 </button><br>
           <button type="submit" class="btn-admin admin-csv"> CSV出力 </button>
-          <% end %>
         </div>
+        <% end %>
       </div>
     </div>
   </div>
@@ -101,7 +99,7 @@
     <tr>
       <td><%= link_to o.name, admin_order_path(o), remote: true %></td>
       <td><%= o.company_name %></td>
-      <td><%= @shipment.find(o.shipment_id).name %></td>
+      <td><%= o.shipment.name %></td>
       <td><%= o.facility.name%></td>
       <td><%= o.oil.name %></td>
       <td>

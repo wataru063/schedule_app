@@ -17,7 +17,7 @@ class Admin::OrdersController < ApplicationController
           csv = Order.search(search_params).order(@sort_column + ' ' + sort_direction)
           send_data to_csv_order(csv), filename: "#{Time.current.strftime('%Y%m%d')}オーダー一覧.csv"
         else
-          redirect_to admin_top_url
+          redirect_to admin_users_url
         end
       end
       format.js

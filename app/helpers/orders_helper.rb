@@ -47,6 +47,11 @@ require 'csv'
         page(params[:page]).per(7)
     end
     @search_params = search_params
+    # TODO RSpec対応
+    @facility_id[0].facility.id
+    @facility_id[0].facility.name
+    @oil_id[0].oil.id
+    @orders[0].facility.name
   end
 
   def set_order_select

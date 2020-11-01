@@ -48,7 +48,7 @@ class OrdersController < ApplicationController
     @arrive_at_date = get_date(@order, "arrive")
     if @order.update_attributes(order_params)
       flash[:success] = "登録情報を変更いたしました。"
-      redirect_to calendar_index_url
+      request.referer.present? ? redirect_to(request.referer) : redirect_to(orders_url)
     else
       render :edit
     end
@@ -82,7 +82,7 @@ class OrdersController < ApplicationController
     return if current_user.admin?
     return if current_user.category_id == 6
     flash[:danger] = "アクセス権限がありません"
-    request.referer.present? ? redirect_to(request.referer) : redirect_to(orders_url)
+    request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
   end
 
   def user_in_charge

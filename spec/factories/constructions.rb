@@ -20,7 +20,6 @@ FactoryBot.define do
   end
 
   factory :construction do
-    sequence(:id) { rand(10000..99999) }
     sequence(:name) { |n| "TEST_CONSTRUCTION_NAME#{n}" }
     sequence(:notice) { |n| "TEST_NOTICE#{n}" }
     sequence(:status_id) { "1" }
