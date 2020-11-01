@@ -1,17 +1,13 @@
-console.log($(".current").data('value'))
 if($(".current").data('value') == 'orders')
 {
-  console.log($(".current").data('value'));
-  $('#info-table-partial').html("<%= escape_javascript(render 'orders') %>")
+  $('#info-table-partial').html("<%= escape_javascript(render 'orders', admin: '') %>")
 }
-else if ($(".current").data('value') == 'orders_construction')
+else if ($(".current").data('value') == 'comments')
 {
-  console.log($(".current").data('value'));
-  $('#info-table-partial').html("<%= escape_javascript(render 'orders') %>")
+  $('#info-table-partial').html("<%= escape_javascript(render 'comments', admin: '') %>")
 }
 else if ($(".current").data('value') == 'constructions')
 {
-  console.log($(".current").data('value'));
-  $('#info-table-partial').html("<%= escape_javascript(render 'orders') %>")
+  $('#info-table-partial').html("<%= escape_javascript(render 'constructions', admin: '') %>")
 }
 

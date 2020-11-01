@@ -1,0 +1,38 @@
+<% if @comments.blank? %>
+<div class="nodata-wrapper">
+  <div class="nodata">登録情報なし</div>
+</div>
+<% else %>
+<table class="table table-hover" style="width: 90%;">
+  <thead>
+    <th>工事名</th>
+    <th>コメント内容</th>
+  </thead>
+  <tbody>
+    <% @comments.each_with_index do |comment, idx| %>
+    <tr>
+      <% if idx == 0 || @comments[idx-1].construction.id != comment.construction.id  %>
+      <td>
+        <% if admin.blank? %>
+        <%= link_to comment.construction.name, construction_path(comment.construction), remote: true %>
+        <% else %>
+        <%= comment.construction.name %>
+        <% end %>
+      </td>
+      <% else %>
+      <td style="border-top: none;">
+      </td>
+      <% end %>
+      <td>
+        <% if admin.blank? %>
+        <%= comment.content.truncate(25) %>
+        <% else %>
+        <%= comment.content.truncate(20) %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @comments, remote: true %>
+<% end %>

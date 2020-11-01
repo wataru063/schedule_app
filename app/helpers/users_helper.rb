@@ -23,17 +23,7 @@ require 'csv'
     @status = Status.all
     @shipment = Shipment.all
     @orders = @user.orders.order(arrive_at: :asc).page(params[:page]).per(5)
-    if @user.category_id == 6
-      oil_ids = []
-      @user.orders.order('oil_id ASC').select(:oil_id).each do |order|
-        oil_ids << order.oil.id
-      end
-      if oil_ids.present?
-      oil_ids.uniq!
-      @orders_constructions = Construction.where(oil_id: oil_ids).order(start_at: :asc).
-        page(params[:page]).per(5)
-      end
-    end
     @constructions = @user.constructions.order(start_at: :asc).page(params[:page]).per(5)
+    @comments = @user.comments.order(construction_id: :asc).page(params[:page]).per(5)
   end
 end

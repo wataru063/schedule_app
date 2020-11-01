@@ -51,10 +51,12 @@ require 'csv'
     end
     @search_params = search_params
     # TODO RSpec対応
-    @facility_id[0].facility.id
-    @facility_id[0].facility.name
-    @oil_id[0].oil.id
-    @constructions[0].facility.name
+    if @facility_id[0].facility.present? && @oil_id[0].oil.present? && @constructions[0].facility.present?
+      @facility_id[0].facility.id
+      @facility_id[0].facility.name
+      @oil_id[0].oil.id
+      @constructions[0].facility.name
+    end
   end
 
   def set_construction_select
