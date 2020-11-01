@@ -1,0 +1,21 @@
+<div class="modal fade" id="orderEditModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog" id="order-modal-dialog">
+    <div class="modal-content" id="order-modal-content">
+      <% if @order.present? %>
+      <div class="modal-header" id="order-modal-header">
+        <div class="modal-title order-modal-title" id="myModalLabel">
+          オーダー編集
+        </div>
+        <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;">
+          <i class="fa fa-2x fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="order-modal-form-content">
+          <%= render "orders/form", url: "/admin/orders/#{@order.id}", remote: true, edit: true %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

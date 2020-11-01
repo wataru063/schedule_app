@@ -9,45 +9,42 @@ module ApplicationHelper
   end
 
   def set_time(params, period)
-    if params["#{period}_at_date"].present?
-      count = 1
-      period_date = params["#{period}_at_date"].split("-")
-      period_date.each do |pd|
-        params["#{period}_at(#{count}i)"] = pd
-        count += 1
-      end
+    return if params["#{period}_at_date"].blank?
+    count = 1
+    period_date = params["#{period}_at_date"].split("-")
+    period_date.each do |pd|
+      params["#{period}_at(#{count}i)"] = pd
+      count += 1
     end
   end
 
-  def reset_time(period)
-    if params["#{period}_at_date"].blank?
-      3.times do |n|
-        n += 1
-        params["#{period}_at(#{n}i)"] = ""
-      end
+  def reset_time(params, period)
+    return if params["#{period}_at_date"].present?
+    3.times do |n|
+      n += 1
+      params["#{period}_at(#{n}i)"] = ""
     end
   end
 
   def get_date(variable, period)
-    if variable["#{period}_at"].present?
-      year = variable["#{period}_at"].strftime("%Y")
-      month = variable["#{period}_at"].strftime("%m")
-      day = variable["#{period}_at"].strftime("%d")
-      "#{year}-#{month}-#{day}"
-    end
+    return if variable["#{period}_at"].blank?
+    year = variable["#{period}_at"].strftime("%Y")
+    month = variable["#{period}_at"].strftime("%m")
+    day = variable["#{period}_at"].strftime("%d")
+    "#{year}-#{month}-#{day}"
   end
 
   # sort
-  def sort_asc(column_to_be_sorted, search_params = nil)
+  def sort_asc(column_to_be_sorted, search_params = nil, remote = false)
     opts = { :column => column_to_be_sorted, :direction => "asc" }
-    opts.merge!(search_params) if search_params.present?
-    link_to "▲", opts
+    # opts.merge!(search_params) if search_params.present?
+    link_to "▲", opts, remote: remote
   end
 
-  def sort_desc(column_to_be_sorted, search_params = nil)
+  def sort_desc(column_to_be_sorted, search_params = nil, remote = false)
     opts = { :column => column_to_be_sorted, :direction => "desc" }
-    opts.merge!(search_params) if search_params.present?
-    link_to "▼", opts
+    # opts.merge!(search_params) if search_params.present?
+    link_to "▼", opts, remote: remote
   end
 
   def sort_direction

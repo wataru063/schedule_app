@@ -15,7 +15,8 @@ class Construction < ApplicationRecord
   validates :start_at_date, presence: true
   validates :end_at_date,   presence: true
   # custom validation
-  validate  :start_at_not_before_two_months_later, on: :create
+  validate  :start_at_not_before_two_months_later,
+            on: :create, unless: -> { validation_context == :admin }
   validate  :end_date_not_before_start_at_date
   # custom validation definition
   def start_at_not_before_two_months_later
@@ -30,8 +31,9 @@ class Construction < ApplicationRecord
     end
   end
 
-  # custom validation definition
+  # search
   def self.search(params)
+    name = "%#{params[:name]}%"
     status_id = params[:status_id]
     facility_id = params[:facility_id]
     oil_id = params[:oil_id]
@@ -46,6 +48,7 @@ class Construction < ApplicationRecord
                         params["end_at(3i)"].to_i)
     end
     @construction = Construction.all
+    @construction = @construction.where("name LIKE ?", name) if name.present?
     @construction = @construction.where(status_id: status_id) if status_id.present?
     @construction = @construction.where(facility_id: facility_id) if facility_id.present?
     @construction = @construction.where(oil_id: oil_id) if oil_id.present?

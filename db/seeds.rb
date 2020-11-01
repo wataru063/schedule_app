@@ -23,12 +23,24 @@ facilities.each do |facility|
 end
 
 # users
-User.create!(name:  "マスター",
-             email: "master@master.com",
-             password:              "master",
-             password_confirmation: "master",
+User.create!(name:  "admin_user",
+             email: "admin@admin.com",
+             password:  "adminuser",
+             password_confirmation: "adminuser",
+             admin: true,
              category_id: 6)
-19.times do |n|
+User.create!(name:  "工事担当ゲストユーザー",
+             email: "construction@guestuser.com",
+             password:              "construction",
+             password_confirmation: "construction",
+             category_id: 1)
+User.create!(name:  "需給担当ゲストユーザー",
+             email: "supply-demand@guestuser.com",
+             password:              "SupplyDemand",
+             password_confirmation: "SupplyDemand",
+             category_id: 6)
+
+67.times do |n|
   name  = Faker::Name.name
   email = Faker::Internet.email
   password = "test0#{n+1}"
@@ -39,11 +51,7 @@ User.create!(name:  "マスター",
                password_confirmation: password,
                category_id:           category)
 end
-User.create!(name:  "ゲストユーザー",
-             email: "guestuser@example.com",
-             password:              "guestuser",
-             password_confirmation: "guestuser",
-             category_id: 6)
+
 
 
 # construction

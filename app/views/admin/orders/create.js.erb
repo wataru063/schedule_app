@@ -1,0 +1,11 @@
+if (<%== @success%>) {
+var order = "<%== @order.name %>"
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+$('#orderNewModal').modal('hide');
+$('.admin-info').html("<%= escape_javascript(render 'admin/orders/partial/index') %>");
+toastr.success(`${order}を登録しました。`)
+} else {
+$('#error-form').html("<%= escape_javascript(render 'shared/error_messages', object: @order) %>");
+}
+

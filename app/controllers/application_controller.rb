@@ -5,35 +5,33 @@ class ApplicationController < ActionController::Base
   include ConstructionsHelper
   include OrdersHelper
   include EventsHelper
+  include UsersHelper
+  include FacilitiesHelper
+  include Admin::UsersHelper
 
   def logged_in_user
-    unless logged_in?
-      store_location
-      flash[:danger] = "ログインしてください"
-      redirect_to login_url
-    end
+    return if logged_in?
+    store_location
+    flash[:danger] = "ログインしてください"
+    redirect_to login_url
+  end
+
+  def admin_user
+    return if current_user.admin?
+    flash[:danger] = "アクセス権限がありません"
+    request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
   end
 
   def logged_in_user_for_top
-    if logged_in?
-      flash[:danger] = "ログインしています"
-      if url = request.referer
-        redirect_to url
-      else
-        redirect_to calendar_index_url
-      end
-    end
+    return unless logged_in?
+    flash[:danger] = "ログインしています"
+    request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
   end
 
   def correct_user
     @user = User.find(params[:id])
-    unless current_user?(@user)
-      flash[:danger] = "権限がありません"
-      if url = request.referer
-        redirect_to url
-      else
-        redirect_to @user
-      end
-    end
+    return if current_user?(@user)
+    flash[:danger] = "権限がありません"
+    request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
   end
 end

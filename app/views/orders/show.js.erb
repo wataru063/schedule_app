@@ -1,2 +1,2 @@
-$('.order_modal').html("<%= escape_javascript(render 'orders/show') %>");
+$('.order_modal').html("<%= escape_javascript(render 'orders/show', admin:'') %>");
 $('#orderShowModal').modal('show');

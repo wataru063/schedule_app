@@ -1,3 +1,2 @@
-$('.order_modal').html("<%= escape_javascript(render 'orders/new') %>")
+$('.order_modal').html("<%= escape_javascript(render 'orders/new', url:'/orders') %>")
 $('#orderNewModal').modal('show');
-

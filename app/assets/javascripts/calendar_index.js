@@ -95,8 +95,9 @@ $(function () {
               dataType: "script"
             });
           },
-          dayClick: function (date, jsEvent, view) {
+          dayClick: function (date) {
             var category_id = $('#cal_user_category').val();
+            var admin = $('#cal_user_admin').val();
             var date = date.format();
             if (category_id == 6) {
               var name = 'orders';
@@ -106,7 +107,7 @@ $(function () {
               }
             } else if (category_id < 6) {
               var name = 'constructions';
-              if (date <= moment(today).add(2, 'months').format('YYYY-MM-DD')) {
+              if (!admin && date <= moment(today).add(2, 'months').format('YYYY-MM-DD')) {
                 alert('工事は2ヶ月後以降から登録可能です \n緊急の場合はadmin権限を持つユーザーに登録を依頼してください')
                 return
               }

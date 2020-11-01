@@ -1,0 +1,20 @@
+<div class="container">
+  <h2 class="title">管理画面</h2>
+
+  <div class="admin-wrapper">
+    <div class="admin-menu-wrapper">
+      <ul class="admin-menu" style="flex-direction:column;">
+        <li> <%= link_to "ユーザー", admin_users_path, remote: true, class:"admin-active" %> </li>
+        <li> <%= link_to "オーダー", admin_orders_path, remote: true %> </li>
+        <li> <%= link_to "工事", admin_constructions_path, remote: true %> </li>
+        <li> <%= link_to "荷役設備", admin_facilities_path, remote: true %> </li>
+        <div class="blank-space"></div>
+      </ul>
+    </div>
+    <div class=" admin-info-wrapper">
+      <div class="admin-info">
+        <%= render 'admin/users/partial/index' %>
+      </div>
+    </div>
+  </div>
+</div>

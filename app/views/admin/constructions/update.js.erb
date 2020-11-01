@@ -1,0 +1,12 @@
+var id = <%= @construction.id %>
+
+if (<%== @success%>) {
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+$('#constructionShowModal').modal('hide');
+$('.admin-info').html("<%= escape_javascript(render 'admin/constructions/partial/index') %>")
+toastr.success("登録情報を変更いたしました。")
+} else {
+$('.construction-modal-form-content').html('<%= escape_javascript(render "constructions/form", remote: "true", url: "/admin/constructions/#{@construction.id}",edit: true ) %>')
+}
+

@@ -1,0 +1,9 @@
+if (<%== @success%>) {
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+$('#orderShowModal').modal('hide');
+$('.admin-info').html("<%= escape_javascript(render 'admin/orders/partial/index') %>")
+toastr.success("登録情報を変更いたしました。")
+} else {
+$('.order-modal-form-content').html('<%= escape_javascript(render "orders/form", url: "/admin/orders/#{@order.id}", remote: true, edit: true ) %>')
+}

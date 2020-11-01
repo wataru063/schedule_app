@@ -1,0 +1,79 @@
+.admin-facility-btn {
+  width: 14%;
+}
+.admin-facility-new-content {
+  width: 75%;
+  margin: 0 auto;
+}
+.admin-facility-info-wrapper {
+  width: 85%;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+.admin-facility-info {
+  line-height: 40px;
+  vertical-align: middle;
+  display: inline-block;
+  list-style: none;
+  li{
+    float: left;
+    font-size: 1.2em;
+    padding-left: 15px;
+  }
+}
+
+#facility-panel-heading {
+  padding: 10px 0;
+  padding-bottom: 30px;
+}
+
+#facility-modal-header {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 60px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+#registered-oils-wrapper {
+  padding: 20px 0;
+  p{
+    margin-bottom: 0 !important;
+    font-size: 1.2em;
+  }
+}
+#registered-oils-container{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  .oils {
+    text-align: center;
+    width:50%;
+    margin-bottom: 15px;
+  }
+  span {
+    display: block;
+    width:70%;
+    font-size: 16px;
+    padding-bottom: 2px;
+    border-bottom: 0.1px solid #e1e1e1;
+  }
+}
+.add-oils-wrapper {
+  display: flex;
+  justify-content: space-between;
+  .facility-form {
+    width: 85%;
+  }
+  #oil-add-btn {
+    font-size: 1.3em;
+    font-weight: bold;
+    width: 10%;
+  }
+  .oil-remove-btn {
+    font-size: 1.3em;
+    font-weight: bold;
+    width: 10%;
+  }
+}
+

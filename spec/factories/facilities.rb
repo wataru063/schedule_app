@@ -5,7 +5,10 @@ FactoryBot.define do
   end
 
   factory :facility do
-    sequence(:id) { rand(10000..99999) }
     sequence(:name) { |n| "FACILITY_NAME#{n}" }
+
+    trait :invalid do
+      sequence(:name) { nil }
+    end
   end
 end

@@ -1,0 +1,13 @@
+if (<%== @success%>) {
+var count = <%== @count %>
+var facility = "<%== @facility.name %>"
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+$('#facilityNewModal').modal('hide');
+$('.admin-info').html("<%= escape_javascript(render 'admin/facilities/partial/index') %>");
+$('.admin-count').text(`全${count}件`);
+toastr.success(`${facility}を登録しました。`)
+} else {
+$('.admin-facility-new-content').html("<%= escape_javascript(render 'admin/facilities/partial/form', url: '/admin/facilities', remote: true, edit: '', action: 'new', id: nil ) %>");
+}
+

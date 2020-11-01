@@ -39,17 +39,26 @@ textarea{
   height: 100px;
 }
 
-#construction_status{
+#construction_date {
   height: 43px;
   border: 2.4px #00ADA9 solid;
   border-radius: 4px;
   padding-left: 15px;
   color: rgb(87, 87, 87);
 }
+@media all and (max-width: 1300px) {
+.construction-edit-content #construction_date {
+  width: 350px;
+}
+.construction-modal-form-content #construction_date {
+  width: 285px;
+}
+}
 
 /* index */
 .constructions-container{
   margin: 0 auto;
+  width: 90%;
 }
 
 .index-search{
@@ -63,6 +72,10 @@ textarea{
 }
 
 @media all and (max-width: 1125px) {
+.constructions-container{
+  margin: 0 auto;
+  width: 101%;
+}
 .index-search-time{
   display: inline-block;
   width: 118px !important;
@@ -223,11 +236,6 @@ textarea{
   width: 90%;
 }
 
-.construction-modal-title{
-  font-weight: bold;
-  font-size: 1.7em;
-}
-
 .constructions-show-container{
   margin: 0 auto;
 }
@@ -309,7 +317,7 @@ textarea{
   width: 20%;
 }
 .btn-construction-edit{
-  font-size: 0.6em;
+  font-size: 0.8em;
   display: inline-block;
   font-weight: normal;
   height: 35px;
@@ -344,7 +352,7 @@ textarea{
   cursor: pointer;
   transition: bottom 0.2s;
 }
-.active {
+.active-long {
   background: none;
   bottom: -30px;
 }
@@ -359,32 +367,48 @@ textarea{
   width: 1200px;
 }
 }
-#new-construction-form{
+#construction-form{
   display: block;
   margin: 0 auto;
 }
 
-#construction-new-left, #construction-new-right{
+#construction-form-left, #construction-form-right{
   width: 100%;
 }
 
-#new_construction{
+.construction-modal-form-content{
   margin: 0 auto;
   width: 90%;
+  padding-bottom: 50px;
+}
+
+#c-btn{
+  margin: 20px auto;
+}
+
+.construction-edit-content {
+  width: 70%;
+  margin: 0 auto;
 }
 
 @media (min-width: 1300px){
-#construction-new-left, #construction-new-right{
+#construction-form-left, #construction-form-right{
   width: 48%;
 }
-#new-construction-form{
+#construction-form{
   display: flex;
   justify-content: space-between;
 }
-#c-new-btn{
+#c-btn{
   display: block !important;
   margin: 60px auto;
   width: 60%;
+}
+.construction-edit-content {
+  width: 60%;
+}
+.construction-modal-form-content {
+  padding-bottom: 0;
 }
 }
 

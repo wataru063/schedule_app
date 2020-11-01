@@ -11,7 +11,7 @@
         </button>
       </div>
       <div class="modal-body edit-order-form">
-        <% if @order.user.id == current_user.id %>
+        <% if (@order.user.id == current_user.id || current_user.admin?) && admin.blank? %>
         <div class="order-edit-btn">
           <%= link_to "編集", edit_order_path(@order), class:"btn-order-edit edt-btn" %>
           <%= link_to "削除", order_path(@order), method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-order-edit dlt-btn" %>

@@ -1,1 +1,2 @@
-$('#error-form').html("<%= escape_javascript(render 'shared/error_messages', object: @construction) %>");
+$('.construction-modal-form-content').html("<%= escape_javascript(render 'constructions/form', url: '/constructions', remote: true, edit: nil) %>");
+$('#c-btn').attr('disabled', false);

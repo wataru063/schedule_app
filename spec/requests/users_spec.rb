@@ -7,9 +7,9 @@ RSpec.describe "Users", js: true, type: :request do
     subject { get login_path }
 
     context "as a guest" do
-      it { is_expected.to eq(200) }
       it 'show signup page' do
         subject
+        is_expected.to eq(200)
         expect(response.body).to include('新規登録')
       end
     end
@@ -56,9 +56,9 @@ RSpec.describe "Users", js: true, type: :request do
     context "as an authenticated user" do
       before { sign_in_as user }
 
-      it { is_expected.to eq(200) }
       it 'render template including the user infomation ' do
-        get user_path(user)
+        subject
+        is_expected.to eq(200)
         expect(response.body).to include(user.name)
         expect(response.body).to include(user.email)
         expect(response.body).to include(user.category.name)
@@ -86,15 +86,15 @@ RSpec.describe "Users", js: true, type: :request do
 
       before { sign_in_as other_user }
 
-      it { is_expected.to redirect_to user_url(user) }
+      it { is_expected.to redirect_to calendar_index_url }
     end
 
     context "as an authenticated user" do
       before { sign_in_as user }
 
-      it { is_expected.to eq(200) }
       it 'has .modal("show")' do
         subject
+        is_expected.to eq(200)
         expect(response.body).to include("$('#editModal').modal('show');")
       end
     end
@@ -147,5 +147,4 @@ RSpec.describe "Users", js: true, type: :request do
       it { expect { subject }.to change(User, :count).by(-1) }
     end
   end
-  # TODO   describe "GET #index" do
 end

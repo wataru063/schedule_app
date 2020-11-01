@@ -1,0 +1,11 @@
+if (<%== @success%>) {
+var user = "<%== @user.name %>"
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+$('#userNewModal').modal('hide');
+$('.admin-info').html("<%= escape_javascript(render 'admin/users/partial/index') %>");
+toastr.success(`${user}を登録しました。`)
+} else {
+$('.admin-user-new-content').html("<%= escape_javascript(render 'admin/users/partial/form', u_pass: 'u-pass', edit: '', url: '/admin/users' ) %>");
+}
+

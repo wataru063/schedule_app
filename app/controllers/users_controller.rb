@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update, :destroy]
   before_action :logged_in_user_for_top, only: [:new, :create]
   before_action :forbid_guest_user, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def new
     @user = User.new
@@ -13,33 +14,28 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash[:success] = '登録しました。'
-      redirect_to calendar_index_url
+      request.referer.present? ? redirect_to(request.referer) : redirect_to(calendar_index_url)
     else
       render :new
     end
   end
 
   def show
-    @user = User.find(params[:id])
-    set_params
+    set_params_user_show
     respond_to do |format|
       format.html
       format.js
     end
   end
 
-  def edit
-    @user = User.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "登録情報を変更いたしました。"
-      redirect_to @user
+      request.referer.present? ? redirect_to(request.referer) : redirect_to(@user)
     else
-      set_params
-      flash[:danger] = "登録情報変更に失敗しました。"
+      set_params_user_show
       render :show
     end
   end
@@ -53,36 +49,17 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
-      params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation, :category_id)
+    def set_user
+      @user = User.find(params[:id])
     end
 
-    def set_params
-      @status = Status.all
-      @shipment = Shipment.all
-      oil_ids = []
-      @orders = @user.orders.order(arrive_at: :asc).paginate(page: params[:page], per_page: 6)
-      if @user.category_id == 6
-        @user.orders.each do |order|
-          oil_ids << order.oil.id
-        end
-        oil_ids.uniq!.sort! { |a, b| a.to_i <=> b.to_i }
-        @orders_constructions = Construction.where(oil_id: oil_ids).
-          order(start_at: :asc).paginate(page: params[:page], per_page: 6)
-      end
-      @constructions = @user.constructions.order(start_at: :asc).
-        paginate(page: params[:page], per_page: 6)
+    def user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :category_id)
     end
 
     def forbid_guest_user
-      if @user.email == "guestuser@example.com"
-        flash[:notice] = "テストユーザーのため編集できません"
-        if url = request.referer
-          redirect_to url
-        else
-          redirect_to @user
-        end
-      end
+      return unless @user.email == "guestuser@example.com"
+      flash[:notice] = "テストユーザーのため編集できません"
+      request.referer.present? ? redirect_to(request.referer) : redirect_to(@user)
     end
 end

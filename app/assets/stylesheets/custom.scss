@@ -1,7 +1,5 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-/* @import "font-awesome"; */
-
 
 /* mixins, variables, etc. */
 
@@ -19,6 +17,7 @@ html, body, .container {
 body {
   padding-top: 0px;
   background-color: #00ADA9;
+  font-family: Helvetica, '游ゴシック', 'Yu Gothic', YuGothic, HiraKakuProN-W3, 'メイリオ', Meiryo, sans-serif !important;
 }
 
 section {
@@ -349,39 +348,6 @@ input {
   font-weight: bold;
 }
 
-/* pagination */
-.pagination{
-  float: right;
-  margin: 5px;
-}
-
-.pagination .active a {
-  border-radius: 40px;
-}
-
-.pagination li a:hover {
-  color: #fff;
-  background-color: #00ADA9;
-}
-
-.pagination > .active > a,
-.pagination > .active > a:hover,
-.pagination > .active > a:focus{
-  color: #fff;
-  background-color: #00ADA9;
-  border-color: #00ADA9;
-}
-
-.pagination > li > a{
-  color: #000000;
-}
-
-.pagination > .disabled > a,
-.pagination > .disabled > a:hover,
-.pagination > .disabled > a:focus{
-  color: #dddddd;
-}
-
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th {
   line-height: 20px;
   text-align: center;
@@ -430,4 +396,37 @@ button {
   &.active:focus, &.active:hover, &.active.focus{
     background: #868400;
 }
+}
+
+/* pagination */
+.pagination>li>a {
+  border: none;
+  color: #00ADA9;
+}
+
+.pagination>.active>a {
+  background: #00ADA9 !important;
+  border: none;
+  border-radius: 20px !important;
+  &:hover {
+  color: #ffffff !important;
+  }
+}
+
+.pagination>li>a:hover {
+  border-radius: 20px !important;
+  color: #000000 !important;
+}
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+  color: #cacaca !important;
+}
+
+/* modal */
+.modal-title {
+  font-weight: bold;
+  font-size: 1.7em;
+}
+
+.fa-trash, .fa-edit {
+  color: #00ADA9;
 }

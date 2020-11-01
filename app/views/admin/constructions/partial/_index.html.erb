@@ -1,0 +1,133 @@
+<div class="admin_operation-wrapper">
+  <div class="admin_operation">
+    <%= button_to '＋ 新規登録', new_admin_construction_path, method: :get, remote: true, class:'btn-admin search'%>
+    <div class="admin-search-wrapper">
+      <div class="admin-search-title"> <i class="fas fa-search"></i> 検索フォーム</div>
+      <div class="admin-search-form">
+        <%= form_with url: admin_constructions_search_path, method: :get, local: true, id:"admin-operation-form" do |f| %>
+        <div class="admin-operation-form-container">
+          <div style="margin:0;">
+            <%= f.label :name, '工事名', class:'form-label-login admin-label'%>
+            <%= f.text_field :name, value: @search_params[:name], class: 'admin-index-search'%>
+          </div>
+          <div>
+            <%= f.label :facility_id, '制約設備', class:'form-label-login admin-label'%>
+            <select name="facility_id" class="admin-index-search">
+              <option value=""></option>
+              <% @facility_id.each do |c| %>
+              <% if c.facility_id.present? %>
+              <% if c.facility.id == @search_params[:facility_id].to_i %>
+              <option value="<%= c.facility.id %>" selected>
+                <% else %>
+              <option value="<%= c.facility.id %>">
+                <% end %>
+                <%= c.facility.name %>
+              </option>
+              <% end %>
+              <% end %>
+            </select>
+
+            <%= f.label :oil_id, '制約油種', class:'form-label-login admin-label'%>
+            <select name="oil_id" class="admin-index-search">
+              <option value=""></option>
+              <% @oil_id.each do |c| %>
+              <% if c.oil.id == @search_params[:oil_id].to_i %>
+              <option value="<%= c.oil.id %>" selected>
+                <% else %>
+              <option value="<%= c.oil.id %>">
+                <% end %>
+                <%= c.oil.name %>
+              </option>
+              <% end %>
+            </select>
+          </div>
+          <div>
+            <%= f.label :start_at, '開始日時 (:from)', class:'form-label-login admin-label'%><br>
+            <input type="date" value="<%= @search_params[:start_at_date] %>" name="start_at_date" class="admin-index-search-time">
+            <%= f.date_select :start_at, discard_year: true, discard_month: true, discard_day: true %>
+
+            <%= f.label :end_at, '終了日時 (:by)', class:'form-label-login admin-label'%><br>
+            <input type="date" value="<%= @search_params[:end_at_date] %>" name="end_at_date" class="admin-index-search-time">
+            <%= f.date_select :end_at, discard_year: true, discard_month: true, discard_day: true %>
+          </div>
+        </div>
+        <div class="admin-operation-submit-btn">
+          <button type="submit" class="btn-admin search admin-search-btn"> 検索 </button><br>
+          <button type="submit" class="btn-admin admin-csv"> CSV出力 </button>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="admin-show-table">
+  <% if @all_constructions.count == @count %>
+  <div class="admin-count"><%= "全#{@all_constructions.count}件" %></div>
+  <% else %>
+  <div class="admin-count"><%= "#{@count}件 / 全#{@all_constructions.count}件中" %></div>
+  <% end %>
+  <table class="table table-hover">
+    <thead>
+      <th class="admin-construction-name">
+        工事名
+        <%= sort_asc('name', @search_params, true) %>
+        <%= sort_desc('name', @search_params, true) %>
+      </th>
+      <th class="admin-construction-facility_id">
+        制約設備
+        <%= sort_asc('facility_id', @search_params, true) %>
+        <%= sort_desc('facility_id', @search_params, true) %>
+      </th>
+      <th class="admin-construction-oil_id">
+        制約油種
+        <%= sort_asc('oil_id', @search_params, true) %>
+        <%= sort_desc('oil_id', @search_params, true) %>
+      </th>
+      <th class="admin-construction-start_at">
+        開始日時
+        <%= sort_asc('start_at', @search_params, true) %>
+        <%= sort_desc('start_at', @search_params, true) %>
+      </th>
+      <th class="admin-construction-end_at">
+        終了日時
+        <%= sort_asc('end_at', @search_params, true) %>
+        <%= sort_desc('end_at', @search_params, true) %>
+      </th>
+      <th class="admin-construction-btn"></th>
+    </thead>
+    <% @constructions.each do |c| %>
+    <tr>
+      <td><%= link_to c.name, admin_construction_path(c), remote: true %></td>
+      <td style="width:17%">
+        <% if c.facility_id.present? %>
+        <%= c.facility.name%>
+        <% else %>
+        ―
+        <% end %>
+      </td>
+      <td><%= c.oil.name %></td>
+      <td>
+        <%= c.start_at.strftime("%Y/%-m/%-d") %><br>
+        <%= c.start_at.strftime("%-H:%M") %>
+      </td>
+      <td>
+        <%= c.end_at.strftime("%Y/%-m/%-d") %><br>
+        <%= c.end_at.strftime("%-H:%M") %>
+      </td>
+      <td>
+        <%= link_to edit_admin_construction_path(c), remote: true do %>
+        <i class="fa fa-edit"></i>
+        <% end %>
+        <%= link_to admin_construction_path(c),
+          data: { confirm: "本当に削除しますか?", method: :delete, remote: true } do %>
+        <i class="fa fa-trash" aria-hidden="true"></i>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+
+  <!-- TODO destroy後に機能しない -->
+  <%= paginate @constructions, url: '/admin/constructions', remote: true %>
+</div>
+<div class="construction_modal"></div>

@@ -1,0 +1,3 @@
+var construction = "<%== @construction.name %>"
+$('.admin-info').html("<%= escape_javascript(render 'admin/constructions/partial/index') %>")
+toastr.success(`${construction}を削除しました。`)

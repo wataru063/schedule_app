@@ -1,0 +1,34 @@
+<%= form_for @user, url: url, remote: true do |f| %>
+<%= render "users/form", form_class: "form-label-login", f: f %>
+<% if edit.present? %>
+<section>
+  <div class="panel-group" id="accordion">
+    <div class="panel-heading" id="user-panel-heading">
+      <h4 class="panel-title accordion-toggle">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          パスワードを変更する
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+      <%= f.label :password, 'パスワード', class:'form-label-login'%>
+      <%= f.password_field :password, class: 'form-control' %>
+      <%= f.label :password_confirmation, 'パスワード（確認用）', class:'form-label-login'%>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+    </div>
+  </div>
+</section>
+<div class="enter-btn">
+  <input type="submit" value="編集" class="btn btn-loggedIn" id="u-btn">
+</div>
+<% else %>
+<%= f.label :password, 'パスワード', class:'form-label-login', id: "#{u_pass}-label"%>
+<%= f.password_field :password, class: 'form-control', id: u_pass %>
+<%= f.label :password_confirmation, 'パスワード（確認用）', class:'form-label-login',
+id: "#{u_pass}-c-label"%>
+<%= f.password_field :password_confirmation, class: 'form-control', id:"#{u_pass}-c" %>
+<div class="enter-btn">
+  <input type="submit" value="登録" class="btn btn-loggedIn" id="u-btn" disabled>
+</div>
+<% end %>
+<% end %>

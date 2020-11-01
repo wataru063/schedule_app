@@ -1,0 +1,10 @@
+if (<%== @success%>) {
+var construction = "<%== @construction.name %>"
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+$('#constructionNewModal').modal('hide');
+$('.admin-info').html("<%= escape_javascript(render 'admin/constructions/partial/index') %>");
+toastr.success(`${construction}を登録しました。`)
+} else {
+$('#error-form').html("<%= escape_javascript(render 'shared/error_messages', object: @construction) %>");
+}

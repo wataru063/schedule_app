@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   let!(:facility) { create(:facility) }
-  let(:order) { build(:order, facility_id: facility.id) }
+  let!(:user) { create(:user) }
+  let(:order) { build(:order, user_id: user.id, facility_id: facility.id) }
 
   it 'has a valid factory' do
     expect(order).to be_valid
@@ -113,19 +114,22 @@ RSpec.describe Order, type: :model do
     end
 
     context 'after tomorrow' do
-      let(:order) { build(:order, arrive_at: Time.current.tomorrow.beginning_of_day) }
+      let(:order) do
+        build(:order, user_id: user.id, arrive_at: Time.current.tomorrow.beginning_of_day,
+                      facility_id: facility.id)
+      end
 
       it { expect(order).to be_valid }
     end
 
-    context 'overlap with other orders' do
-      let(:other_order) { build(:order, facility_id: order.facility_id, arrive_at: order.arrive_at) }
+    context 'overlap with other order' do
+      let(:other) { build(:order, facility_id: order.facility_id, arrive_at: order.arrive_at) }
 
       it 'is invalid' do
         order.save
-        other_order.valid?
-        expect(other_order.errors[:arrive_at]).to include(
-          "：#{other_order.facility.name}のこの時間には他のオーダーが入っています"
+        other.valid?
+        expect(other.errors[:arrive_at]).to include(
+          "：#{other.facility.name}のこの時間には他のオーダーが入っています"
         )
       end
     end

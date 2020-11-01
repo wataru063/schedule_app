@@ -23,7 +23,7 @@ module EventsHelper
       events << event
     end
 
-    if current_user.category_id == 6
+    if current_user.category_id == 6 || current_user.admin?
       @orders.each do |o|
         n += 1
         event = {}

@@ -3,18 +3,11 @@ $(function () {
   window.addEventListener('popstate', function () {
     window.location.reload();
   });
-
   document.addEventListener("turbolinks:load", function () {
-    var slideLine = $("#slide-line")
-    var aTag = $(".related-info a")
-    if ($(".current").length) {
-      slideLine.css({
-        "width": $(".current").width() + 20,
-        "left": $(".current").offset().left - 10,
-        "top": $(".current").offset().top + 30
-      });
-    }
-    $(window).resize(function () {
+    var parentsTag = '.related-info-wrapper, .admin-info'
+    var aTag = ".related-info a"
+    $('.admin-info').on('shown.bs.modal', '#userShowModal', function () {
+      var slideLine = $("#slide-line")
       if ($(".current").length) {
         slideLine.css({
           "width": $(".current").width() + 20,
@@ -22,35 +15,61 @@ $(function () {
           "top": $(".current").offset().top + 30
         });
       }
-    });
-    aTag.click(function () {
-      if ($(this).hasClass("current")) { } else {
-        $(".current").removeClass("current");
-        $(this).addClass("current");
-      }
-    });
-    aTag.hover(
-      function () {
-        slideLine.css({
-          "width": $(this).width() + 20,
-          "left": $(this).offset().left - 10,
-          "top": $(this).offset().top + 30
-        });
-      },
-      function () {
-        if ($(".current")) {
+      $(window).resize(function () {
+        if ($(".current").length) {
           slideLine.css({
             "width": $(".current").width() + 20,
             "left": $(".current").offset().left - 10,
             "top": $(".current").offset().top + 30
           });
+        }
+      });
+    });
+    if ($(".current").length) {
+      $("#slide-line").css({
+        "width": $(".current").width() + 20,
+        "left": $(".current").offset().left - 10,
+        "top": $(".current").offset().top + 30
+      });
+    }
+    $(window).resize(function () {
+      if ($(".current").length) {
+        $("#slide-line").css({
+          "width": $(".current").width() + 20,
+          "left": $(".current").offset().left - 10,
+          "top": $(".current").offset().top + 30
+        });
+      }
+    });
+    $(parentsTag).on('click', aTag, function () {
+      if ($(this).hasClass("current")) { } else {
+        $(".current").removeClass("current");
+        $(this).addClass("current");
+      }
+    });
+    $(parentsTag).on({
+      "mouseenter": function () {
+        $("#slide-line").css({
+          "width": $(this).width() + 20,
+          "left": $(this).offset().left - 10,
+          "top": $(this).offset().top + 30
+        });
+      },
+      "mouseleave": function () {
+        if ($(".current")) {
+          $("#slide-line").css({
+            "width": $(".current").width() + 20,
+            "left": $(".current").offset().left - 10,
+            "top": $(".current").offset().top + 30
+          });
         } else {
-          slideLine.width(0);
+          $("#slide-line").width(0);
         }
       }
-    );
+    }, aTag);
+
     var enableSelectors = '#u-name, #u-email, #u-pass, #u-pass-c'
-    $('.user_form').on('keyup', enableSelectors, function () {
+    $('.user_form, .admin-info').on('keyup', enableSelectors, function () {
       var idName = '#' + $(this).attr('id');
       var label = $(idName + '-label').text().replace("※入力してください", "").replace("※255文字以内で入力してください", "").replace("※50文字以内で入力してください", "").replace("※6文字以上で入力してください", "").replace("※パスワードと異なります", "");
       if (!$(this).val().trim()) {

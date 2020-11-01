@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Orders", type: :request do
-  let!(:facility) { create(:facility) }
   let(:user) { create(:user, category_id: category_id) }
   let(:category_id) { 6 }
   let!(:order) { create(:order, user_id: user.id) }
@@ -14,7 +13,7 @@ RSpec.describe "Orders", type: :request do
     end
 
     context "as a logged_in user" do
-      before { sign_in_as(user) }
+      before { sign_in_as user }
 
       context "who is not in charge" do
         let(:category_id) { 1 }
