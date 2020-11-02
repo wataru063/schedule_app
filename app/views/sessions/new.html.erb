@@ -4,7 +4,7 @@
   <div class="before-login-container">
     <div class="row user_form">
       <h3 class='form-title center'>ログイン</h3>
-      <div class="col-sm-6 col-sm-offset-3">
+      <div class="login-form-container">
         <%= form_for(:session, url: login_path) do |f| %>
         <%= f.label :メールアドレス, class:'form-label', id:'u-email-label' %>
         <%= f.email_field :email, class: 'form-control', id:'u-email' %>
@@ -12,8 +12,18 @@
         <%= f.password_field :password, class: 'form-control', id:'u-pass' %>
         <div class="enter-btn">
           <input type="submit" value="ログイン" class="btn btn-lg btn-primary" id="u-btn" disabled><br>
-          <%= link_to 'ゲストログイン', guest_login_path, method: :post, class:"btn btn-lg btn-primary guest" %>
         </div>
+      </div>
+      <div class="guest-login-btn-container">
+        <a class="btn btn-lg btn-primary guest" data-method="post" href="<%= guest_login_path(email: "construction@guestuser.com") %>">
+          <p>ゲストログイン</p><span>as 工事管理部署</span>
+        </a>
+        <a class="btn btn-lg btn-primary guest" data-method="post" href="<%= guest_login_path(email: "supply-demand@guestuser.com") %>">
+          <p>ゲストログイン</p><span>as 需給管理部署</span>
+        </a>
+        <a class="btn btn-lg btn-primary guest" data-method="post" href="<%= guest_login_path(email: "admin@admin.com") %>">
+          <p>ゲストログイン</p><span>as 管理ユーザー</span>
+        </a>
         <% end %>
         <p class='form-message center'>登録がお済みでない方は <%= link_to "こちら", signup_path %></p>
       </div>

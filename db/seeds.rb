@@ -24,7 +24,7 @@ ActiveRecord::Base.transaction do
   end
 
   # users
-  User.create!(name:  "admin_user",
+  User.create!(name:  "管理ユーザー",
                email: "admin@admin.com",
                password:  "adminuser",
                password_confirmation: "adminuser",

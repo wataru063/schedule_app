@@ -2,5 +2,13 @@
   <h1>出荷と工事のスケジュールを<br>一括管理しよう</h1>
 
   <%= link_to "さっそく始める", login_path, class: "btn btn-lg btn-primary" %><br>
-  <%= link_to 'ゲストログイン', guest_login_path, method: :post, class:"btn btn-lg btn-primary guest" %>
+  <a class="btn btn-lg btn-primary guest" data-method="post" href="<%= guest_login_path(email: "construction@guestuser.com") %>">
+    <p>ゲストログイン</p><span>as 工事管理部署</span>
+  </a>
+  <a class="btn btn-lg btn-primary guest" data-method="post" href="<%= guest_login_path(email: "supply-demand@guestuser.com") %>">
+    <p>ゲストログイン</p><span>as 需給管理部署</span>
+  </a>
+  <a class="btn btn-lg btn-primary guest" data-method="post" href="<%= guest_login_path(email: "admin@admin.com") %>">
+    <p>ゲストログイン</p><span>as 管理ユーザー</span>
+  </a>
 </div>
