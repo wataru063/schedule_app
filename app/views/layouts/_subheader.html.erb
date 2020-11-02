@@ -2,8 +2,12 @@
   <ul class="menu-group">
     <li class="menu"><%= link_to "ホーム", calendar_index_path %></li>
     <li class="menu"><%= link_to "日程詳細", calendar_show_path %></li>
+    <% if current_user.admin? || current_user.category_id == 6 %>
     <li class="menu"><%= link_to "オーダー一覧", orders_path %></li>
+    <% end %>
     <li class="menu"><%= link_to "工事一覧", constructions_path %></li>
-    <li class="menu"><%= link_to "荷役設備登録", facility_path %></li>
+    <% if current_user.admin? %>
+    <li class="menu"><%= link_to "データ管理", admin_users_path %></li>
+    <% end %>
   </ul>
 </div>
