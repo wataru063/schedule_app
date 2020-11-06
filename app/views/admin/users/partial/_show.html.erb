@@ -32,7 +32,7 @@
           data: { value: :orders, method: :get, remote: true }, class:"current" %>
               </div>
               <div class="col-sm-6">
-                <%= link_to "投稿コメント (#{@user.orders.count})", admin_user_path(@user), data: { value: :comments, method: :get, remote: true } %>
+                <%= link_to "投稿コメント (#{@user.comments.count})", admin_user_path(@user), data: { value: :comments, method: :get, remote: true } %>
               </div>
             </div>
           </div>
@@ -40,10 +40,10 @@
           <div class="related-info-container">
             <div class="related-info row">
               <div class="col-sm-6">
-                <%= link_to "担当工事 (#{@constructions.count})", admin_user_path(@user), data: { value: :constructions, method: :get, remote: true} , class:"current" %>
+                <%= link_to "担当工事 (#{@user.constructions.count})", admin_user_path(@user), data: { value: :constructions, method: :get, remote: true} , class:"current" %>
               </div>
               <div class="col-sm-6">
-                <%= link_to "投稿コメント (#{@user.orders.count})", admin_user_path(@user), data: { value: :comments, method: :get, remote: true } %>
+                <%= link_to "投稿コメント (#{@user.comments.count})", admin_user_path(@user), data: { value: :comments, method: :get, remote: true } %>
               </div>
             </div>
           </div>

@@ -387,15 +387,24 @@ button {
 
 .guest{
   background-color: #ADAB00;
+  padding: 0 !important;
   &:active,
   &.active{
-    background: #868400;
+    background-color: #868400 !important;
   }
   &:hover, &:focus,
   &:active:focus, &:active:hover, &:active.focus,
   &.active:focus, &.active:hover, &.active.focus{
-    background: #868400;
+    background-color: #868400 !important;
 }
+  span {
+    font-weight: normal;
+    font-size: 0.6em;
+  }
+  p {
+    font-weight: bold;
+    margin-bottom: -15px;
+  }
 }
 
 /* pagination */

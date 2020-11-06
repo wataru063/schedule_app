@@ -14,7 +14,7 @@
       <li>メールアドレス：<%= @user.email %></li><br>
       <li>所属部署：<%= @user.category.name %></li>
     </ul>
-    <% if (current_user.admin? || @user == current_user) && (@user.email != "construction@guestuser.com" &&@user.email != "supply-demand@guestuser.com") %>
+    <% if (current_user.admin? || @user == current_user) && (@user.email != "construction@guestuser.com" && @user.email != "supply-demand@guestuser.com" && !@user.admin?) %>
     <div class="btn-list">
       <%= link_to "編集", edit_user_path(@user),data: { method: :get, remote: true }, class:"btn-user-edit edt-btn" %>
       <%= link_to "削除", @user, method: :delete, data: { confirm: "本当に削除しますか?" }, class:"btn-user-edit dlt-btn" %>
@@ -25,15 +25,11 @@
     <% if @user.category_id == 6 %>
     <div class="related-info-container">
       <div class="related-info row">
-        <div class="col-sm-4">
-          <%= link_to "担当荷役 (#{@user.orders.count})", user_path(@user),
-          data: { value: :orders, method: :get, remote: true }, class:"current" %>
+        <div class="col-sm-6">
+          <%= link_to "担当荷役 (#{@user.orders.count})", user_path(@user), data: { value: :orders, method: :get, remote: true }, class:"current" %>
         </div>
-        <div class="col-sm-4">
-          <%= link_to "ブックマークした工事 (#{@orders_constructions.count})", user_path(@user), data: { value: :orders_construction, method: :get, remote: true } %>
-        </div>
-        <div class="col-sm-4">
-          <%= link_to "投稿コメント (#{@user.orders.count})", user_path(@user), data: { value: :comments, method: :get, remote: true } %>
+        <div class="col-sm-6">
+          <%= link_to "投稿コメント (#{@user.comments.count})", user_path(@user), data: { value: :comments, method: :get, remote: true } %>
         </div>
         <span id="slide-line"></span>
       </div>
@@ -45,7 +41,7 @@
           <%= link_to "担当工事 (#{@constructions.count})", user_path(@user), data: { value: :constructions, method: :get, remote: true} , class:"current" %>
         </div>
         <div class="col-sm-6">
-          <%= link_to "投稿コメント (#{@user.orders.count})", user_path(@user), data: { value: :comments, method: :get, remote: true } %>
+          <%= link_to "投稿コメント (#{@user.comments.count})", user_path(@user), data: { value: :comments, method: :get, remote: true } %>
         </div>
         <span id="slide-line"></span>
       </div>

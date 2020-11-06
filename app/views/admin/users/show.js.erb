@@ -1,18 +1,14 @@
-console.log($(".current").data('value'))
 if(!!$(".modal-open").length && $(".current").data('value') == 'orders')
 {
-  console.log($(".current").data('value'));
   $('#info-table-partial').html("<%= escape_javascript(render 'users/orders', admin: 'true') %>")
 }
-else if (!!$(".modal-open").length && $(".current").data('value') == 'orders_construction')
+else if (!!$(".modal-open").length && $(".current").data('value') == 'comments')
 {
-  console.log($(".current").data('value'));
-  $('#info-table-partial').html("<%= escape_javascript(render 'users/orders', admin: 'true') %>")
+  $('#info-table-partial').html("<%= escape_javascript(render 'users/comments', admin: 'true') %>")
 }
 else if (!!$(".modal-open").length && $(".current").data('value') == 'constructions')
 {
-  console.log($(".current").data('value'));
-  $('#info-table-partial').html("<%= escape_javascript(render 'users/orders', admin: 'true') %>")
+  $('#info-table-partial').html("<%= escape_javascript(render 'users/constructions', admin: 'true') %>")
 } else {
   $('.user_modal').html("<%= escape_javascript(render 'admin/users/partial/show') %>")
   $('#userShowModal').modal('show');
