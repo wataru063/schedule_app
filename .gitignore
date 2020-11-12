@@ -25,7 +25,9 @@
 ## Ignore optional file
 #erd.dot
 #erd.png
-/vendor/*
+/vendor
 /erd.dot
 /erd.png
 /erd.pdf
+/test
+/lib
