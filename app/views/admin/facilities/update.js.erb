@@ -1,5 +1,5 @@
-if (<%== @success%>) {
-var facility = "<%== @facility.name %>"
+if (<%= @success%>) {
+var facility = "<%= @facility.name %>"
 $('.admin-facility-new-content').html('<%= escape_javascript(render "/admin/facilities/partial/form", url: "/admin/facilities/#{@facility.id}", remote: true, edit: true, action:"edit", id: "#{@facility.id}" ) %>');
 toastr.success("登録情報を編集しました。")
 } else {

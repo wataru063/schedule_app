@@ -1,5 +1,5 @@
-if (<%== @success%>) {
-var order = "<%== @order.name %>"
+if (<%= @success%>) {
+var order = "<%= @order.name %>"
 $('body').removeClass('modal-open');
 $('.modal-backdrop').remove();
 $('#orderNewModal').modal('hide');

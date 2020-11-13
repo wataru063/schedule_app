@@ -1,6 +1,6 @@
 $(".oil-option").remove();
 var oils = {};
-oils = $.parseJSON('<%== @oil_selects %>');
+oils = $.parseJSON('<%= @oil_selects %>');
 $.each(oils, function(index, value){
   $('#oil-select').append('<option value=' + index + ' class="oil-option">' + value + '</option>');
 });

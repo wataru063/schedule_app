@@ -1,6 +1,6 @@
-if (<%== @success%>) {
-var count = <%== @count %>
-var facility = "<%== @facility.name %>"
+if (<%= @success%>) {
+var count = <%= @count %>
+var facility = "<%= @facility.name %>"
 $('body').removeClass('modal-open');
 $('.modal-backdrop').remove();
 $('#facilityNewModal').modal('hide');

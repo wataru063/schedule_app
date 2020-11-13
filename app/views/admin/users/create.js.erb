@@ -1,5 +1,5 @@
-if (<%== @success%>) {
-var user = "<%== @user.name %>"
+if (<%= @success%>) {
+var user = "<%= @user.name %>"
 $('body').removeClass('modal-open');
 $('.modal-backdrop').remove();
 $('#userNewModal').modal('hide');

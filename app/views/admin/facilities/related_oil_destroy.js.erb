@@ -1,2 +1,2 @@
-var facility = "<%== @facility.name %>"
+var facility = "<%= @facility.name %>"
 $('.admin-facility-new-content').html('<%= escape_javascript(render "/admin/facilities/partial/form", url: "/admin/facilities/#{@facility.id}", remote: true, edit: true, action:"edit", id: "#{@facility.id}" ) %>');

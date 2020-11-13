@@ -1,6 +1,6 @@
 var id = <%= @construction.id %>
 
-if (<%== @success%>) {
+if (<%= @success%>) {
 $('body').removeClass('modal-open');
 $('.modal-backdrop').remove();
 $('#constructionShowModal').modal('hide');

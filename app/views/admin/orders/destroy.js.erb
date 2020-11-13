@@ -1,3 +1,3 @@
-var order = "<%== @order.name %>"
+var order = "<%= @order.name %>"
 $('.admin-info').html("<%= escape_javascript(render 'admin/orders/partial/index') %>")
 toastr.success(`${order}を削除しました。`)
